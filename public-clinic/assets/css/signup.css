@@ -1,0 +1,30 @@
+/* CSS for Login and Signup */
+body {
+    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+  }
+  
+  .clinic-logo {
+    width: 20%;
+    margin-bottom: 20px;
+  }
+  
+  .signup-box {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .footer-links {
+    text-align: center;
+  }
+  
+  .footer-links a {
+    text-decoration: none;
+    color: #0073b1;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }

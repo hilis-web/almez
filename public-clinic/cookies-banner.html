@@ -1,0 +1,63 @@
+<div
+  id="cookieConsentBanner"
+  class="cookie-banner"
+  style="
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a89b90;
+    color: #fff;
+    padding: 0px 20px;
+    border-radius: 0px;
+  "
+>
+  <!-- نص البانر -->
+  <div class="col-md-8">
+    <span data-i18n="cookie_policy_text">
+      This website uses cookies to ensure you get the best experience on our
+      website.
+    </span>
+
+    <a
+      href="#"
+      style="color: #1b3b36; text-decoration: underline"
+      data-bs-toggle="modal"
+      data-bs-target="#cookiesModal"
+      data-i18n="learn_more"
+      >Learn more</a
+    >
+  </div>
+
+  <!-- الأزرار -->
+  <div class="col-md-4" style="display: flex; gap: 10px">
+    <button
+      id="declineCookies"
+      style="
+        background: none;
+        border: 1px solid #ffffff;
+        color: #fff;
+        cursor: pointer;
+        padding: 7px 15px;
+        border-radius: 4px;
+        margin: 10px;
+      "
+    >
+      Decline
+    </button>
+
+    <button
+      id="acceptCookies"
+      style="
+        background-color: #9fd3af;
+        border: none;
+        color: #1b3b36;
+        padding: 7px 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 10px;
+      "
+    >
+      Accept Cookies
+    </button>
+  </div>
+</div>

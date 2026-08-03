@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subcategory Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Custom CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet" />
+
+    <link rel="icon" href="assets/images/almez-logo.png" type="image/png" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.6.0/css/flag-icon.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+      body {
+        background: #f7f9fb !important;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+      }
+      body::before {
+        background-image: none !important;
+      }
+      .article-card {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        height: 100%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+      .preguntas h5 {
+        color: #000000;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .left-column {
+        border-right: 5px solid #1b3b36;
+      }
+
+      .main-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #1f2937;
+      }
+
+      .section-title {
+        color: #bb6923;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .feature-box {
+        background: #9fd3af57;
+        border-left: 5px solid #1b3b36;
+        padding: 25px;
+        border-radius: 10px;
+      }
+
+      .container .article-image {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 25px;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+
+      .check-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .check-list li {
+        margin-bottom: 12px;
+        font-size: 1.05rem;
+      }
+      p {
+        font-size: 18px;
+      }
+      @media (max-width: 992px) {
+        .left-column {
+          border-right: none;
+          border-bottom: 5px solid #1b3b36;
+        }
+      }
+    </style>
+  </head>
+
+  <body style="background: #f7f9fb !important">
+    <!-- <div class="consultationFormShared"></div> -->
+    <div class="cookiesShared"></div>
+    <div class="headerShared"></div>
+    <div class="navbarShared" style="position: sticky !important"></div>
+
+    <header
+      id="subCategoryHeader"
+      class="top-header text-white py-2 bg-primary"
+      style="
+        position: sticky;
+        top: 156px !important;
+        background: #9fd3af57 !important;
+        color: #1b3b36 !important;
+        z-index: 1;
+      "
+    >
+      <div class="container d-flex justify-content-between align-items-center">
+        <div>
+          <div style="font-weight: 700" class="d-flex align-items-center">
+            <h3 id="headerTitle" style="font-weight: 700">
+              Patologías y Síntomas
+            </h3>
+            <br />
+          </div>
+          <div class="d-flex align-items-center">
+            <h5 id="headerDescription">Patologías y Síntomas</h5>
+            <br />
+          </div>
+          <!-- <div class="d-flex align-items-center">
+                    <span >Los síntomas y patologías más comues de la columna vertebral</span>
+                </div> -->
+        </div>
+      </div>
+    </header>
+    <!-- <button
+      class="btn btn-success btn-lg"
+      data-bs-toggle="modal"
+      data-bs-target="#medicalReportModal"
+    >
+      ¿Necesita solicitar un informe médico-pericial?
+    </button> -->
+    <div class="container mb-5" id="contentContainer"></div>
+    <div class="modal fade" id="medicalReportModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="">
+          <div class="modal-body">
+            <div class="consultationFormShared"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footerShared"></div>
+
+    <!-- App Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/libs/i18next/i18next.min.js"></script>
+    <script src="assets/libs/i18next/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="assets/libs/i18next/i18nextHttpBackend.min.js"></script>
+    <script src="assets/js/config.js"></script>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/cookies.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sectionId = urlParams.get("sectionId");
+        const categoryId = urlParams.get("categoryId");
+        // const subcategoryId = urlParams.get('subcategoryId');
+
+        if (sectionId && categoryId) {
+          loadSubcategoryDetails(sectionId, categoryId);
+        } else {
+          console.error("Missing parameters in URL");
+        }
+
+        let headerTitle =
+          localStorage.getItem("sectionTitle") ||
+          data.title[lang] ||
+          data.title["es"];
+        let headerDescription =
+          localStorage.getItem("sectionDescription") ||
+          data.description[lang] ||
+          data.description["es"];
+
+        document.getElementById("headerTitle").innerHTML = headerTitle;
+        document.getElementById("headerDescription").innerHTML =
+          headerDescription;
+      });
+
+      function loadSubcategoryDetails(sectionId, categoryId) {
+        const lang = localStorage.getItem("selectedLang") || "es";
+
+        $.ajax({
+          url: `${API_BASE_URL}/newsection/section/${sectionId}/category/${categoryId}`,
+          method: "GET",
+          success: function (data) {
+            console.log("....data", data);
+            let subCategoryTitle = data.title[lang] || data.title["es"];
+            let htmlContent = data.content[lang] || data.content["es"];
+
+            // let headerTitle= data.title[lang] || data.title['es'];
+
+            //   console.log("@@@@@header title", headerTitle);
+
+            // document.getElementById("headerTitle").innerHTML = headerTitle;
+
+            document.getElementById("contentContainer").innerHTML = htmlContent;
+            document.getElementById("headerDescription").innerHTML =
+              subCategoryTitle;
+          },
+          error: function (err) {
+            console.error("Error fetching category details:", err);
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

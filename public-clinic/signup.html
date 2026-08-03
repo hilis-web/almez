@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="assets/css/signup.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.6.0/css/flag-icon.min.css"
+    />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  </head>
+
+  <body>
+    <div
+      class="container d-flex flex-column align-items-center justify-content-center min-vh-100"
+    >
+      <div
+        class="signup-box p-4 shadow bg-white"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <div class="container d-flex justify-content-end py-2 px-0">
+          <div class="dropdown">
+            <button
+              class="btn btn-light dropdown-toggle px-0"
+              type="button"
+              id="languageSwitcher"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-flag-fill me-2"></i>
+              <span id="selectedLang" data-i18n="currentLang">Español</span>
+            </button>
+            <ul class="dropdown-menu" style="z-index: 10000">
+              <li>
+                <a class="dropdown-item change-lang" href="#" data-lang="es"
+                  ><i class="bi bi-flag-fill me-2"></i> Español</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item change-lang" href="#" data-lang="en"
+                  ><i class="bi bi-flag-fill me-2"></i> English</a
+                >
+              </li>
+              <!-- <li><a class="dropdown-item change-lang" href="#" data-lang="ar"><i
+                                    class="bi bi-flag-fill me-2"></i>
+                                العربية</a></li>
+                        <li><a class="dropdown-item change-lang" href="#" data-lang="it"><i
+                                    class="bi bi-flag-fill me-2"></i>
+                                Italian</a></li>
+                        <li><a class="dropdown-item change-lang" href="#" data-lang="fr"><i
+                                    class="bi bi-flag-fill me-2"></i>
+                                Frensh</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <img
+          src="./assets/images/almez-logo.png"
+          alt="Clinic Logo"
+          class="clinic-logo"
+        />
+        <h2 class="text-center">Make the most of your health</h2>
+        <p class="text-center">Create an account to book appointments</p>
+
+        <form id="signupForm" style="width: 100%">
+          <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter your full name"
+              required
+              id="fullName"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+              id="email"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Enter a password"
+              required
+              id="password"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="checkbox"
+              id="stay-logged-in"
+              class="form-check-input"
+            />
+            <label for="stay-logged-in" class="form-check-label"
+              >Keep me logged in</label
+            >
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            Agree & Join
+          </button>
+        </form>
+
+        <hr />
+        <button id="google-login" class="btn btn-outline-dark w-100 mb-2">
+          <i class="bi bi-google"></i> Continue with Google
+        </button>
+        <button id="microsoft-login" class="btn btn-outline-dark w-100">
+          <i class="bi bi-microsoft"></i> Continue with Microsoft
+        </button>
+
+        <p class="text-center mt-3">
+          Already have an account? <a href="login.html">Sign in</a>
+        </p>
+      </div>
+
+      <div class="footer-links mt-4">
+        <a href="index.html">Home</a> | <a href="#">Privacy Policy</a> |
+        <a href="#">Terms</a>
+      </div>
+    </div>
+
+    <!-- Files -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/i18next/i18next.min.js"></script>
+    <script src="assets/libs/i18next/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="assets/libs/i18next/i18nextHttpBackend.min.js"></script>
+    <script src="assets/js/config.js"></script>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/signup.js"></script>
+  </body>
+</html>

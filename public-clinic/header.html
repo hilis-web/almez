@@ -1,0 +1,77 @@
+<!-- Language Dropdown -->
+
+<!-- Thin Top Header -->
+<header id="header1" class="top-header text-white py-2 bg-primary">
+  <div class="container d-flex justify-content-between align-items-center">
+    <!-- Left Section -->
+    <div>
+      <div class="d-flex align-items-center mb-1">
+        <i class="bi bi-envelope-fill me-2"></i>
+
+        <a href="mailto:clinicaespaldasana@outlook.com" class="footer-link">
+          almez@almezclinic.com
+        </a>
+      </div>
+      <div class="d-flex align-items-center mb-1">
+        <i class="bi bi-telephone-fill me-2"></i>
+
+        <a href="tel:+346045432" class="footer-link"> +34 604 5432 </a>
+      </div>
+      <!--<div class="d-flex align-items-center mb-1">
+                     <i class="bi bi-telephone me-2"></i>
+                    <span class="clinic-mobile">+34 123456789</span> 
+                </div>-->
+      <!--<div class="d-flex align-items-center">
+                     <i class="bi bi-whatsapp me-2"></i>
+                    <span class="clinic-whatsapp">+34 123456789</span> 
+                </div>-->
+    </div>
+
+    <div class="text-end">
+      <div
+        id="headerLanguage"
+        class="container d-flex justify-content-end py-2"
+      >
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle"
+            type="button"
+            id="languageSwitcher"
+            data-bs-toggle="dropdown"
+          >
+            <i class="bi bi-flag-fill me-2"></i>
+            <span id="selectedLang" data-i18n="currentLang">Español</span>
+          </button>
+          <ul class="dropdown-menu" style="z-index: 10000">
+            <li>
+              <a class="dropdown-item change-lang" href="#" data-lang="es"
+                ><i class="bi bi-flag-fill me-2"></i> Español</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item change-lang" href="#" data-lang="en"
+                ><i class="bi bi-flag-fill me-2"></i> English</a
+              >
+            </li>
+            <!-- <li><a class="dropdown-item change-lang" href="#" data-lang="ar"><i class="bi bi-flag-fill me-2"></i>
+                    العربية</a></li>
+            <li><a class="dropdown-item change-lang" href="#" data-lang="it"><i class="bi bi-flag-fill me-2"></i>
+                    Italian</a></li>
+            <li><a class="dropdown-item change-lang" href="#" data-lang="fr"><i class="bi bi-flag-fill me-2"></i>
+                    Frensh</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <!-- <div class="text-end">
+      <h5 class="mb-1 hospital-name">ALMEZ</h5>
+      <p class="mb-2" data-i18n="tagline">
+        We take care of your back, we improve your life
+      </p>
+      <button class="btn btn-primary btn-book-appointment" data-i18n="book_appointment">
+                    <i class="bi bi-calendar-date me-2"></i>Book an appointment</button>
+    </div> -->
+  </div>
+</header>

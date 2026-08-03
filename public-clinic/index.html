@@ -1,0 +1,1962 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="assets/images/almez-logo.png" type="image/png" />
+    <title>Clinic Website</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.6.0/css/flag-icon.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+      /* =====================================
+   PARTNERS SECTION
+===================================== */
+
+      /* =====================================
+   PARTNERS
+===================================== */
+
+      .partners-section {
+        padding: 45px 0;
+        background: #a89b902b;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .partners-slider {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .partners-track {
+        display: flex;
+        align-items: center;
+
+        width: max-content;
+
+        animation: scrollPartners 35s linear infinite;
+      }
+
+      .partners-slider:hover .partners-track {
+        animation-play-state: paused;
+      }
+
+      .partner-logo {
+        width: 220px;
+        height: 110px;
+
+        margin: 0 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #fff;
+
+        border-radius: 18px;
+
+        transition: 0.35s;
+      }
+
+      .partner-logo img {
+        max-width: 160px;
+        max-height: 65px;
+
+        width: auto;
+        height: auto;
+
+        object-fit: contain;
+
+        opacity: 0.65;
+        filter: grayscale(100%);
+
+        transition: 0.35s;
+      }
+
+      .partner-logo:hover {
+        transform: translateY(-6px);
+
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .partner-logo:hover img {
+        opacity: 1;
+        filter: none;
+      }
+
+      @keyframes scrollPartners {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .partner-logo {
+          width: 170px;
+          height: 90px;
+          margin: 0 12px;
+        }
+
+        .partner-logo img {
+          max-width: 120px;
+          max-height: 50px;
+        }
+      }
+      .partners-slider::before,
+      .partners-slider::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 120px;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .partners-slider::before {
+        left: 0;
+        background: linear-gradient(to right, #a89b902b, #a89b9000);
+      }
+
+      .partners-slider::after {
+        right: 0;
+        background: linear-gradient(to right, #a89b9000, #a89b902b);
+      }
+
+      /* =====================================
+      FREE CONSULTATION CTA
+===================================== */
+
+      /* .consultation-cta {
+        padding: 110px 0;
+
+        background: linear-gradient(180deg, #f9faf9 0%, #ffffff 100%);
+      }
+
+
+
+      .consultation-box {
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 40px;
+
+        padding: 70px;
+
+        background: linear-gradient(
+          135deg,
+          rgba(73, 110, 90, 0.95),
+          rgba(38, 71, 58, 0.92)
+        );
+
+        backdrop-filter: blur(25px);
+
+        -webkit-backdrop-filter: blur(25px);
+
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.15);
+      }
+
+
+
+      .cta-tree {
+        position: absolute;
+
+        width: 340px;
+        height: 340px;
+
+        background: url("./assets/images/almez-decoration.svg") center center
+          no-repeat;
+
+        background-size: contain;
+
+        opacity: 0.05;
+
+        pointer-events: none;
+      }
+
+      .tree-left {
+        top: -80px;
+        left: -90px;
+      }
+
+      .tree-right {
+        bottom: -90px;
+        right: -70px;
+
+        transform: rotate(180deg);
+      }
+
+
+
+      .cta-subtitle {
+        color: #dfe8e2;
+
+        font-size: 0.85rem;
+
+        letter-spacing: 4px;
+
+        text-transform: uppercase;
+
+        display: block;
+
+        margin-bottom: 18px;
+      }
+
+      .cta-title {
+        color: white;
+
+        font-size: 3rem;
+
+        font-weight: 700;
+
+        line-height: 1.15;
+
+        margin-bottom: 25px;
+      }
+
+      .cta-title span {
+        color: #d7c8bc;
+      }
+
+      .cta-text {
+        color: rgba(255, 255, 255, 0.88);
+
+        font-size: 1.08rem;
+
+        line-height: 1.9;
+
+        max-width: 620px;
+      }
+
+
+      .cta-features {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 18px;
+
+        margin: 40px 0;
+      }
+
+      .feature {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        color: white;
+
+        font-weight: 500;
+      }
+
+      .feature i {
+        color: #b8e2c4;
+
+        font-size: 1.2rem;
+      }
+
+
+
+      .cta-button {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 14px;
+
+        padding: 18px 36px;
+
+        border-radius: 60px;
+
+        text-decoration: none;
+
+        font-weight: 600;
+
+        color: #496e5a;
+
+        background: white;
+
+        transition: 0.4s;
+
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+      }
+
+      .cta-button:hover {
+        background: #a89b90;
+
+        color: white;
+
+        transform: translateY(-4px);
+      }
+
+
+
+      .doctor-image {
+        position: relative;
+
+        border-radius: 30px;
+
+        overflow: hidden;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.18);
+
+        padding: 15px;
+      }
+
+      .doctor-image img {
+        border-radius: 22px;
+
+        width: 100%;
+
+        transition: 0.5s;
+      }
+
+      .doctor-image:hover img {
+        transform: scale(1.05);
+      }
+
+
+
+      .consultation-box::before {
+        content: "";
+
+        position: absolute;
+
+        width: 450px;
+        height: 450px;
+
+        background: radial-gradient(rgba(255, 255, 255, 0.18), transparent 70%);
+
+        top: -180px;
+        right: -120px;
+      }
+
+
+
+      @media (max-width: 992px) {
+        .consultation-box {
+          padding: 45px;
+
+          text-align: center;
+        }
+
+        .cta-features {
+          grid-template-columns: 1fr;
+        }
+
+        .doctor-image {
+          margin-top: 40px;
+        }
+
+        .cta-title {
+          font-size: 2.3rem;
+        }
+      } */
+
+      /*==========================
+    CTA CONSULTATION
+===========================*/
+
+      .cta-consultation {
+        padding: 70px 0;
+      }
+
+      .cta-card {
+        background: linear-gradient(135deg, #496e5a, #5d826d);
+
+        border-radius: 24px;
+
+        padding: 45px 50px;
+
+        position: relative;
+
+        overflow: hidden;
+
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+      }
+
+      .cta-card::before {
+        content: "";
+
+        position: absolute;
+
+        right: -70px;
+        top: -70px;
+
+        width: 220px;
+        height: 220px;
+
+        background: url("./assets/images/almez-decoration.svg") center/contain
+          no-repeat;
+
+        opacity: 0.06;
+      }
+
+      .cta-label {
+        font-size: 0.8rem;
+
+        color: #d8e5dd;
+
+        letter-spacing: 3px;
+
+        text-transform: uppercase;
+
+        display: block;
+
+        margin-bottom: 10px;
+      }
+
+      .cta-card h2 {
+        color: #fff;
+
+        font-size: 2rem;
+
+        margin-bottom: 15px;
+      }
+
+      .cta-card h2 span {
+        color: #efe3d7;
+      }
+
+      .cta-card p {
+        color: rgba(255, 255, 255, 0.9);
+
+        margin-bottom: 25px;
+
+        max-width: 600px;
+      }
+
+      .cta-info {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 25px;
+
+        color: #fff;
+
+        font-size: 0.95rem;
+      }
+
+      .cta-info i {
+        color: #cde4d5;
+
+        margin-right: 6px;
+      }
+
+      .cta-btn {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        background: #fff;
+
+        color: #496e5a;
+
+        padding: 15px 30px;
+
+        border-radius: 50px;
+
+        text-decoration: none;
+
+        font-weight: 600;
+
+        transition: 0.3s;
+      }
+
+      .cta-btn:hover {
+        background: #a89b90;
+
+        color: #fff;
+
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 991px) {
+        .cta-card {
+          text-align: center;
+
+          padding: 35px 30px;
+        }
+
+        .cta-btn {
+          margin-top: 30px;
+        }
+
+        .cta-info {
+          justify-content: center;
+        }
+      }
+
+      /* =======================================
+   CONSULTATION SECTION
+======================================= */
+
+      .consultation-section {
+        position: relative;
+        padding: 110px 0;
+
+        /* background: linear-gradient(
+          135deg,
+          rgba(204, 232, 255, 0.35),
+          rgba(255, 255, 255, 0.95)
+        ); */
+
+        background: #9fd3af1f;
+
+        overflow: hidden;
+      }
+
+      /* =======================================
+   TREE DECORATIONS
+======================================= */
+
+      .tree-decoration {
+        position: absolute;
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.08;
+        pointer-events: none;
+      }
+
+      .tree-left {
+        width: 420px;
+        height: 420px;
+
+        left: -120px;
+        top: 80px;
+
+        background-image: url("../images/tree-pattern.svg");
+      }
+
+      .tree-right {
+        width: 350px;
+        height: 350px;
+
+        right: -80px;
+        bottom: 20px;
+
+        background-image: url("../images/tree-pattern.svg");
+
+        transform: rotate(180deg);
+      }
+
+      /* =======================================
+   HEADER
+======================================= */
+
+      .consultation-header {
+        max-width: 850px;
+        margin: 0 auto 60px;
+      }
+
+      .section-subtitle {
+        display: inline-block;
+
+        font-size: 13px;
+        font-weight: 700;
+
+        letter-spacing: 3px;
+
+        color: #496e5a;
+
+        margin-bottom: 18px;
+      }
+
+      .section-title {
+        font-size: clamp(36px, 4vw, 52px);
+
+        font-weight: 700;
+
+        color: #1b3b36;
+
+        line-height: 1.15;
+
+        margin-bottom: 20px;
+      }
+
+      .section-title span {
+        color: #496e5a;
+      }
+
+      .section-description {
+        font-size: 18px;
+
+        color: #667085;
+
+        line-height: 1.8;
+
+        max-width: 700px;
+
+        margin: auto;
+      }
+
+      /* =======================================
+   FORM CARD
+======================================= */
+
+      .consultation-card {
+        position: relative;
+
+        background: white;
+
+        border-radius: 32px;
+
+        padding: 55px;
+
+        box-shadow: 0 25px 70px rgba(0, 40, 72, 0.12);
+
+        border: 1px solid rgba(0, 40, 72, 0.05);
+      }
+
+      /* =======================================
+   LABELS
+======================================= */
+
+      .form-label {
+        font-size: 15px;
+
+        font-weight: 600;
+
+        color: #1b3b36;
+
+        margin-bottom: 10px;
+      }
+
+      /* =======================================
+   INPUTS
+======================================= */
+
+      .form-control,
+      .form-select {
+        height: 58px;
+
+        border-radius: 16px;
+
+        border: 1px solid #d9e2ec;
+
+        padding: 0 20px;
+
+        font-size: 15px;
+
+        color: #1b3b36;
+
+        background: #fff;
+
+        transition: all 0.3s ease;
+      }
+
+      textarea.form-control {
+        height: auto;
+
+        padding-top: 18px;
+
+        resize: none;
+      }
+
+      .form-control::placeholder {
+        color: #98a2b3;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: #496e5a;
+
+        box-shadow: 0 0 0 4px rgba(73, 110, 90, 0.12);
+      }
+
+      /* =======================================
+   PRIVACY NOTE
+======================================= */
+
+      .consultation-note {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-top: 35px;
+
+        padding: 18px 22px;
+
+        border-radius: 18px;
+
+        background: #f7faf8;
+
+        color: #667085;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+      }
+
+      .consultation-note i {
+        font-size: 22px;
+
+        color: #496e5a;
+      }
+
+      /* =======================================
+   BUTTON
+======================================= */
+
+      .consultation-btn {
+        margin-top: 35px;
+
+        width: 100%;
+
+        height: 60px;
+
+        border: none;
+
+        border-radius: 18px;
+
+        background: #1b3b36;
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: 600;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        transition: 0.3s ease;
+      }
+
+      .consultation-btn:hover {
+        background: #496e5a;
+
+        transform: translateY(-3px);
+
+        box-shadow: 0 15px 30px rgba(73, 110, 90, 0.25);
+      }
+
+      .consultation-btn i {
+        font-size: 20px;
+      }
+
+      /* =======================================
+   RESPONSIVE
+======================================= */
+
+      @media (max-width: 992px) {
+        .consultation-card {
+          padding: 40px 30px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .consultation-section {
+          padding: 70px 0;
+        }
+
+        .consultation-card {
+          padding: 28px 20px;
+
+          border-radius: 24px;
+        }
+
+        .section-description {
+          font-size: 16px;
+        }
+
+        .consultation-note {
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="headerShared"></div>
+    <div class="navbarShared" style="position: sticky !important"></div>
+    <div class="cookiesShared"></div>
+    <div class="consultationFormShared"></div>
+
+    <!-- Hero Section -->
+    <section id="sectionHero" class="hero-slider">
+      <!-- Appointment Form Section -->
+      <!-- <div class="appointment-form">
+
+            <form id="appointmentForm">
+                <h4 class="text-center mb-4" data-i18n="appointment_schedule">Schedule Your Appointment Now</h2>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="patientName" class="form-label" data-i18n="patient_name">Patient's Name</label>
+                            <input type="text" id="patientName" name="patient_name" class="form-control"
+                                placeholder="Enter patient's name" required>
+                        </div>
+
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="phoneNumber" class="form-label" data-i18n="phone_number">Phone Number</label>
+                            <input type="text" id="phoneNumber" name="phone_number" class="form-control"
+                                placeholder="Enter phone number" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label" data-i18n="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control"
+                                placeholder="example@example.com" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+                            <label for="appointmentDate" class="form-label" data-i18n="appointment_date">Appointment
+                                Date</label>
+                            <input type="date" id="appointmentDate" name="appointment_date" class="form-control"
+                                required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="appointmentTime" class="form-label" data-i18n="appointment_time">Appointment
+                                Time</label>
+                            <select id="appointmentTime" name="appointment_time" class="form-select" required disabled>
+                                <option value="" data-i18n="select_time">Select time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="appointmentReason" class="form-label" data-i18n="appointment_reason">Reason for
+                                Appointment</label>
+                            <textarea type="text" id="appointmentReason" name="appointment_reason" class="form-control"
+                                placeholder="Enter reason for appointment" required></textarea>
+                        </div>
+                    </div>
+
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="form-check">
+                                <input type="checkbox" id="agreeToTerms" name="agree_to_terms" class="form-check-input"
+                                    required>
+                                <label for="agreeToTerms" class="form-check-label">
+                                    I agree to the
+                                    <a href="#" class="text-primary text-decoration-underline" data-bs-toggle="modal"
+                                        data-bs-target="#termsModal" data-i18n="terms">terms</a>
+                                    and
+                                    <a href="#" class="text-primary text-decoration-underline" data-bs-toggle="modal"
+                                        data-bs-target="#conditionsModal" data-i18n="conditions">conditions</a>.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary w-100" data-i18n="book_appointment">Book
+                        Appointment</button>
+            </form>
+
+
+        </div> -->
+
+      <!-- Booking Result Modal -->
+      <div
+        class="modal fade"
+        id="bookingModal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-center">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">Title</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="modalIcon" class="mb-3" style="font-size: 60px"></div>
+              <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for Terms -->
+      <div
+        class="modal fade"
+        id="termsModal"
+        tabindex="-1"
+        aria-labelledby="termsModalLabel"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog"
+          width="100%"
+          style="max-width: 1000px !important"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- ضع هنا نص الشروط -->
+              Here are the terms of service...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for Conditions -->
+      <div
+        class="modal fade"
+        id="conditionsModal"
+        tabindex="-1"
+        aria-labelledby="conditionsModalLabel"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog"
+          width="100%"
+          style="max-width: 1000px !important"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="conditionsModalLabel">Conditions</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- ضع هنا نص الشروط -->
+              Here are the conditions...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div
+            class="carousel-item active"
+            style="
+              background-image: url(&quot;https://res.cloudinary.com/dheh8ee3r/image/upload/v1738760173/golf_kt4o3t.jpg&quot;);
+              background-size: cover;
+              background-position: center;
+              height: 75vh;
+            "
+          >
+            <div class="carousel-caption text-start text-white">
+              <h1
+                data-i18n="carousel_welcome"
+                class="section-title"
+                style="color: #fff !important"
+              >
+                Welcome to Our Clinic
+              </h1>
+              <p data-i18n="carousel_description">
+                We offer high-quality medical care in all specialties.
+              </p>
+              <a href="#" class="btn btn-secondary" data-i18n="read_more"
+                >Read More</a
+              >
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div
+            class="carousel-item"
+            style="
+              background-image: url(&quot;../assets/images/tennis.jpg&quot;);
+              background-size: cover;
+              background-position: center;
+              height: 75vh;
+            "
+          >
+            <div class="carousel-caption text-start text-white">
+              <h1
+                data-i18n="carousel_best_medical_care"
+                class="section-title"
+                style="color: #fff !important"
+              >
+                The Best Medical Care
+              </h1>
+              <p data-i18n="carousel_team_assistance">
+                Our team of doctors is ready to assist you.
+              </p>
+              <a href="#" class="btn btn-secondary" data-i18n="read_more"
+                >Read More</a
+              >
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div
+            class="carousel-item"
+            style="
+              background-image: url(&quot;../assets/images/yoga.jpg&quot;);
+              background-size: cover;
+              background-position: center;
+              height: 75vh;
+            "
+          >
+            <div class="carousel-caption text-start text-white">
+              <h1
+                data-i18n="carousel_comprehensive_sections"
+                class="section-title"
+                style="color: #fff !important"
+              >
+                Comprehensive Medical Sections
+              </h1>
+              <p data-i18n="carousel_high_quality_healthcare">
+                High-quality healthcare in a comfortable and safe environment.
+              </p>
+              <a href="#" class="btn btn-secondary" data-i18n="read_more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="sectionAbout" class="clinic-info py-5">
+      <div class="container">
+        <div class="row">
+          <!-- Text -->
+          <div class="col-md-6">
+            <h2 class="section-title" data-i18n="about_clinic">
+              About Our Clinic
+            </h2>
+            <!-- <p class="cinic-about">
+                        Dr. Aaron is a spine surgeon specializing in traumatology and orthopedic surgery, with extensive
+                        experience, based in Extremadura. He has received training at prestigious centers of excellence
+                        in
+                        spine surgery in Spain, the United Kingdom, and the United States.
+                    </p>
+                    <p>
+                        He specializes in the entire spectrum of spine problems, including sciatica, back pain
+                        (lumbago), neck
+                        pain, childhood and adult deformities (scoliosis), trauma, infections, and tumor surgery.
+                    </p> -->
+
+            <p
+              class="section-description"
+              data-i18n="about_clinic_desc_1"
+              style="background-color: rgba(255, 0, 0, 0); margin-bottom: 10px"
+            >
+              El Dr. Aaron es un cirujano de columna vertebral especializado en
+              cirugía ortopédica y neurocirugía, con una amplia trayectoria
+              profesional y establecido en Extremadura. Su formación se llevó a
+              cabo en reconocidos centros de excelencia en cirugía de columna en
+              España, el Reino Unido y los Estados Unidos, consolidando su
+              experiencia en ambas disciplinas. Es Doctor en Medicina y Cirugía
+              por la Universidad de Santiago de Compostela y cuenta con una
+              extensa trayectoria en investigación y publicaciones académicas.
+            </p>
+            <br />
+          </div>
+          <!-- Slider -->
+          <div class="col-md-6">
+            <div
+              id="clinicCarousel"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="assets/images/clinic1.jpg" alt="Clinic Image 1" />
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/images/clinic2.png" alt="Clinic Image 2" />
+                </div>
+                <div class="carousel-item">
+                  <img src="assets/images/clinic3.jpg" alt="Clinic Image 3" />
+                </div>
+              </div>
+              <!-- Control buttons -->
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#clinicCarousel"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#clinicCarousel"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+     SERVICES SECTION - ALMEZ
+============================ -->
+    <section class="services-section py-5">
+      <img
+        src="./assets/images/almez-decoration.svg"
+        class="tree-left"
+        alt=""
+      />
+
+      ...
+
+      <img
+        src="./assets/images/almez-decoration.svg"
+        class="tree-right"
+        alt=""
+      />
+
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-9 text-center">
+            <span class="section-subtitle"> NUESTRO ENFOQUE INTEGRAL </span>
+
+            <h2 class="section-title">
+              Cuidado experto para
+              <span>cada necesidad</span>
+            </h2>
+
+            <p class="section-description">
+              Combinamos experiencia, tecnología avanzada y un equipo
+              multidisciplinar para ofrecerte el mejor tratamiento y
+              acompañamiento.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- <div class="col-lg-3 col-md-6">
+            <div class="service-card">
+              <div class="card-image">
+                <img src="images/pathologias.jpg" class="img-fluid" alt="" />
+              </div>
+
+              <div class="card-body-custom">
+                <h3>Patologías</h3>
+
+                <div class="title-line"></div>
+
+                <p>
+                  Diagnóstico preciso y tratamiento de las patologías de columna
+                  más frecuentes.
+                </p>
+
+                <a href="#" class="read-more">
+                  Ver más
+
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-lg-3 col-md-6">
+            <div class="service-card">
+              <div class="card-image">
+                <img src="images/equipo.jpg" class="img-fluid" alt="" />
+              </div>
+
+              <div class="card-body-custom">
+                <h3>Tratamientos</h3>
+
+                <div class="title-line"></div>
+
+                <p>
+                  Especialistas en cirugía ortopédica y columna comprometidos
+                  con tu bienestar.
+                </p>
+
+                <a href="#" class="read-more">
+                  Ver más
+
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-lg-3 col-md-6">
+            <div class="service-card">
+              <div class="card-image icon-background">
+                <div class="center-icon">
+                  <i class="bi bi-heart-pulse"></i>
+                </div>
+              </div>
+
+              <div class="card-body-custom">
+                <h3>Peritaje Médico-Legal</h3>
+
+                <div class="title-line"></div>
+
+                <p>
+                  Soluciones integrales que abarcan desde el diagnóstico hasta
+                  la rehabilitación completa.
+                </p>
+
+                <a href="#" class="read-more">
+                  Ver más
+
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-lg-3 col-md-6">
+            <div class="service-card">
+              <div class="card-image icon-background">
+                <div class="center-icon">
+                  <i class="bi bi-pc-display-horizontal"></i>
+                </div>
+              </div>
+
+              <div class="card-body-custom">
+                <h3>Información y Consejos</h3>
+
+                <div class="title-line"></div>
+
+                <p>
+                  Tecnología avanzada para diagnósticos más precisos y
+                  tratamientos menos invasivos.
+                </p>
+
+                <a href="#" class="read-more">
+                  Ver más
+
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div> -->
+
+          <div
+            id="sectionsSection"
+            class="row row-cols-1 row-cols-md-3 g-4"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section id="sectionSections" class="sections-info py-5">
+      <div class="container">
+        <div id="sectionsSection" class="row row-cols-1 row-cols-md-3 g-4">
+        </div>
+      </div>
+    </section> -->
+
+    <!-- =======================================
+        PARTNERS SECTION
+======================================== -->
+
+    <!-- =======================================
+        PARTNERS SECTION
+======================================= -->
+
+    <section class="partners-section">
+      <!-- <div class="container">
+        <div class="text-center mb-5">
+          <span class="section-subtitle"> COLABORAN CON NOSOTROS </span>
+
+          <h2 class="section-title">Nuestros <span>Colaboradores</span></h2>
+
+          <p class="section-description">
+            Colaboramos con hospitales, centros especializados y sociedades
+            científicas para ofrecer una atención médica de excelencia.
+          </p>
+        </div>
+      </div> -->
+
+      <div class="partners-slider">
+        <div class="partners-track">
+          <!-- Row 1 -->
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="CETIR" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <!-- Duplicate the same logos -->
+          <!-- Required for seamless infinite scrolling -->
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+
+          <div class="partner-logo">
+            <img src="./assets/images/default-img.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- =======================================
+      CONSULTATION SECTION
+======================================== -->
+
+    <section class="consultation-section" id="consultation-section">
+      <!-- Decorative Background -->
+      <div class="tree-decoration tree-left"></div>
+      <div class="tree-decoration tree-right"></div>
+
+      <div class="container">
+        <!-- Heading -->
+
+        <div class="consultation-header text-center">
+          <span class="section-subtitle"> CONSULTA ESPECIALIZADA </span>
+
+          <h2 class="section-title">
+            Solicita tu
+            <span>consulta</span>
+          </h2>
+
+          <p class="section-description">
+            Completa el siguiente formulario y nuestro equipo revisará tu
+            solicitud para ponerse en contacto contigo lo antes posible.
+          </p>
+        </div>
+
+        <!-- Form Card -->
+
+        <div class="consultation-card">
+          <div id="form-body">
+            <form id="consultationForm">
+              <!-- ========================= -->
+              <!-- ROW 1 -->
+              <!-- ========================= -->
+
+              <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                  <label
+                    for="consultationfullName"
+                    class="form-label"
+                    data-i18n="full_name_label"
+                  >
+                    Nombre completo
+                  </label>
+
+                  <input
+                    type="text"
+                    id="consultationfullName"
+                    name="fullName"
+                    class="form-control"
+                    placeholder="Introduce tu nombre"
+                    required
+                  />
+                </div>
+
+                <div class="col-lg-4">
+                  <label
+                    for="consultationemail"
+                    class="form-label"
+                    data-i18n="email_label"
+                  >
+                    Correo electrónico
+                  </label>
+
+                  <input
+                    type="email"
+                    id="consultationemail"
+                    name="email"
+                    class="form-control"
+                    placeholder="ejemplo@correo.com"
+                    required
+                  />
+                </div>
+
+                <div class="col-lg-4">
+                  <label
+                    for="consultationphone"
+                    class="form-label"
+                    data-i18n="phone_label"
+                  >
+                    Número de teléfono
+                  </label>
+
+                  <input
+                    type="text"
+                    id="consultationphone"
+                    name="phone"
+                    class="form-control"
+                    placeholder="+34 600 000 000"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- ========================= -->
+              <!-- ROW 2 -->
+              <!-- ========================= -->
+
+              <div class="row g-4">
+                <div class="col-lg-6">
+                  <label
+                    for="consultationType"
+                    class="form-label"
+                    data-i18n="consultation_type_label"
+                  >
+                    Tipo de consulta
+                  </label>
+
+                  <select
+                    id="consultationType"
+                    name="consultationType"
+                    class="form-select"
+                    required
+                  >
+                    <option
+                      value=""
+                      selected
+                      disabled
+                      data-i18n="consultation_type_placeholder"
+                    >
+                      Selecciona el tipo de consulta
+                    </option>
+
+                    <option value="new_patient">Primera consulta</option>
+
+                    <option value="second_opinion">
+                      Segunda opinión médica
+                    </option>
+
+                    <option value="follow_up">Consulta de seguimiento</option>
+
+                    <option value="online">Consulta online</option>
+
+                    <option value="post_surgery">
+                      Consulta postoperatoria
+                    </option>
+
+                    <option value="other">Otra</option>
+                  </select>
+                </div>
+
+                <div class="col-lg-6">
+                  <label
+                    for="consultationadditionalInfo"
+                    class="form-label"
+                    data-i18n="additional_info_label"
+                  >
+                    Información adicional
+                  </label>
+
+                  <textarea
+                    id="consultationadditionalInfo"
+                    name="additionalInfo"
+                    rows="5"
+                    class="form-control"
+                    placeholder="Describe brevemente tu caso..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- ========================= -->
+              <!-- Privacy -->
+              <!-- ========================= -->
+
+              <div class="consultation-note">
+                <i class="bi bi-shield-lock"></i>
+
+                <span>
+                  Tus datos serán tratados de forma confidencial y únicamente
+                  para contactar contigo.
+                </span>
+              </div>
+
+              <!-- ========================= -->
+              <!-- Button -->
+              <!-- ========================= -->
+
+              <button
+                type="submit"
+                class="consultation-btn"
+                data-i18n="submit_request"
+              >
+                <i class="bi bi-calendar-check"></i>
+
+                Solicitar consulta
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================
+        FREE CONSULTATION CTA
+======================================= -->
+
+    <!-- <section class="consultation-cta">
+      <div class="container">
+        <div class="consultation-box">
+
+          <div class="cta-tree tree-left"></div>
+          <div class="cta-tree tree-right"></div>
+
+          <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+              <span class="cta-subtitle"> CONSULTA GRATUITA </span>
+
+              <h2 class="cta-title">
+                Reserva una
+                <span>consulta gratuita</span>
+                de 15 minutos
+              </h2>
+
+              <p class="cta-text">
+                Habla directamente con un especialista en cirugía de columna y
+                traumatología. Analizaremos tu caso, resolveremos tus dudas y te
+                orientaremos sobre el tratamiento más adecuado.
+              </p>
+
+              <div class="cta-features">
+                <div class="feature">
+                  <i class="bi bi-check-circle-fill"></i>
+
+                  Sin compromiso
+                </div>
+
+                <div class="feature">
+                  <i class="bi bi-check-circle-fill"></i>
+
+                  Valoración personalizada
+                </div>
+
+                <div class="feature">
+                  <i class="bi bi-check-circle-fill"></i>
+
+                  Especialista en columna
+                </div>
+
+                <div class="feature">
+                  <i class="bi bi-check-circle-fill"></i>
+
+                  Respuesta en menos de 24 horas
+                </div>
+              </div>
+
+              <a href="#consultation-section" class="cta-button">
+                Solicitar consulta
+
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+
+
+            <div class="col-lg-5">
+              <div class="doctor-image">
+                <img
+                  src="./assets/images/doctor-consultation.png"
+                  class="img-fluid"
+                  alt="Consulta gratuita"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="cta-consultation">
+      <div class="container">
+        <div class="cta-card">
+          <div class="row align-items-center">
+            <div class="col-lg-8">
+              <span class="cta-label"> CONSULTA GRATUITA </span>
+
+              <h2>
+                Reserva una consulta de
+                <span>15 minutos</span>
+              </h2>
+
+              <p>
+                Habla con un especialista en cirugía de columna y recibe una
+                primera orientación personalizada.
+              </p>
+
+              <div class="cta-info">
+                <span
+                  ><i class="bi bi-check-circle-fill"></i> Sin compromiso</span
+                >
+
+                <span><i class="bi bi-clock"></i> 15 minutos</span>
+
+                <span><i class="bi bi-chat-dots"></i> Respuesta &lt;24h</span>
+              </div>
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+              <a href="#consultation-section" class="cta-btn">
+                Solicitar consulta
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================
+        CONSULTATION SECTION
+======================================== -->
+
+    <section class="consultation-section" id="consultation-section">
+      <div class="container">
+        <div class="consultation-wrapper">
+          <div class="row g-0">
+            <!-- =======================================
+                        LEFT SIDE
+                ======================================== -->
+
+            <div class="col-lg-5">
+              <div class="consultation-promo">
+                <span class="promo-subtitle"> CONSULTA GRATUITA </span>
+
+                <h2 class="promo-title">
+                  Reserva una consulta de
+                  <span>15 minutos</span>
+                </h2>
+
+                <p class="promo-description">
+                  Habla directamente con un especialista en cirugía de columna y
+                  traumatología. Resolveremos tus dudas y te orientaremos sobre
+                  el tratamiento más adecuado para ti.
+                </p>
+
+                <div class="promo-features">
+                  <div class="promo-feature">
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    Sin compromiso
+                  </div>
+
+                  <div class="promo-feature">
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    Valoración personalizada
+                  </div>
+
+                  <div class="promo-feature">
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    Especialista en columna
+                  </div>
+
+                  <div class="promo-feature">
+                    <i class="bi bi-check-circle-fill"></i>
+
+                    Respuesta en menos de 24 horas
+                  </div>
+                </div>
+
+                <div class="promo-image">
+                  <img
+                    src="./assets/images/doctor-consultation.png"
+                    class="img-fluid"
+                    alt="Consulta gratuita"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- =======================================
+                        RIGHT SIDE
+                ======================================== -->
+
+            <div class="col-lg-7">
+              <div class="consultation-form-card">
+                <div class="consultation-header">
+                  <span class="section-subtitle"> SOLICITA TU CONSULTA </span>
+
+                  <h3 class="section-title">Completa el formulario</h3>
+
+                  <p class="section-description">
+                    Nuestro equipo revisará tu solicitud y se pondrá en contacto
+                    contigo lo antes posible.
+                  </p>
+                </div>
+
+                <form id="consultationForm">
+                  <!-- ROW 1 -->
+
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <label class="form-label"> Nombre completo </label>
+
+                      <input
+                        type="text"
+                        id="consultationfullName"
+                        name="fullName"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label"> Correo electrónico </label>
+
+                      <input
+                        type="email"
+                        id="consultationemail"
+                        name="email"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <!-- ROW 2 -->
+
+                  <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                      <label class="form-label"> Número de teléfono </label>
+
+                      <input
+                        type="text"
+                        id="consultationphone"
+                        name="phone"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label"> Tipo de consulta </label>
+
+                      <select
+                        id="consultationType"
+                        name="consultationType"
+                        class="form-select"
+                        required
+                      >
+                        <option selected disabled value="">
+                          Selecciona...
+                        </option>
+
+                        <option value="new_patient">Primera consulta</option>
+
+                        <option value="second_opinion">Segunda opinión</option>
+
+                        <option value="follow_up">Seguimiento</option>
+
+                        <option value="online">Consulta online</option>
+
+                        <option value="post_surgery">Postoperatoria</option>
+
+                        <option value="other">Otra</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- MESSAGE -->
+
+                  <div class="mb-4">
+                    <label class="form-label"> Información adicional </label>
+
+                    <textarea
+                      id="consultationadditionalInfo"
+                      name="additionalInfo"
+                      rows="5"
+                      class="form-control"
+                      placeholder="Describe brevemente tu caso..."
+                    ></textarea>
+                  </div>
+
+                  <!-- NOTE -->
+
+                  <div class="consultation-note">
+                    <i class="bi bi-shield-lock"></i>
+
+                    Tus datos serán tratados de forma confidencial.
+                  </div>
+
+                  <!-- BUTTON -->
+
+                  <button type="submit" class="consultation-btn">
+                    <i class="bi bi-calendar-check"></i>
+
+                    Solicitar consulta
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <div class="footerShared"></div>
+
+    <!-- Files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/i18next/i18next.min.js"></script>
+    <script src="assets/libs/i18next/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="assets/libs/i18next/i18nextHttpBackend.min.js"></script>
+
+    <script src="assets/js/config.js"></script>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/cookies.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        var localSelectedNavItem = localStorage.getItem("selectedNavItem");
+
+        $(".navbar-nav li").removeClass("active");
+
+        $("#" + localSelectedNavItem).addClass("active");
+        $("#" + localSelectedNavItem).css("background", "#43a044");
+      });
+
+      var cookiesLocal = false;
+      if (localStorage.getItem("cookiesAccepted") == true) {
+        $("#cookieConsentBanner").css("display", "none !important");
+      }
+    </script>
+  </body>
+</html>

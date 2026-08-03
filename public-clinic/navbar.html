@@ -1,0 +1,101 @@
+<!-- Thin Header -->
+<header
+  id="header2"
+  class="thin-header another-header bg-light text-dark sticky-top"
+  style="
+    position: sticky !important;
+    top: 0 !important;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white !important;
+  "
+>
+  <div class="container d-flex align-items-center justify-content-between">
+    <!-- Left Section: Logo and Clinic Name -->
+    <a href="index.html" class="text-decoration-none text-dark">
+      <div class="d-flex align-items-center">
+        <img
+          src="assets/images/almez-logo.png"
+          alt="Clinic Logo"
+          height="50%"
+          class="me-3 clinic-logo"
+        />
+        <div>
+          <h5
+            class="fw-bold d-block full-name-and-titles"
+            style="
+              font-family: &quot;Cormorant Garamond&quot;, serif;
+              letter-spacing: 16px;
+              font-size: 40px;
+            "
+          >
+            ALMEZ
+          </h5>
+
+          <h6 class="specialty">CLÍNICA DE CIRUGÍA ORTOPÉDICA Y COLUMNA</h6>
+        </div>
+      </div>
+    </a>
+
+    <!-- Right Section: Additional Info -->
+    <div class="text-end">
+      <!-- <p class="mb-1 fw-bold job-title" data-i18n="consultant_title">
+        Consultant Spine Surgeon
+      </p> -->
+      <h6 class="fw-bold d-block full-name-and-titles" data-i18n="dr_name">
+        Dr Aaron Hilis MB ChB BSc, MA, FRCS, PhD
+      </h6>
+      <p class="mb-1 additional-degree" data-i18n="degree">
+        Master degree in sport medicine
+      </p>
+      <!-- <p class="mb-0 academic-position" data-i18n="role">Associate professor</p> -->
+    </div>
+  </div>
+</header>
+
+<!-- Menu Bar -->
+<nav
+  id="headerNav"
+  class="menu-bar navbar navbar-expand-lg bg-primary text-white py-0 sticky-top"
+  style="position: sticky !important; top: 100px !important; z-index: 1020"
+>
+  <div class="container" style="height: 80px">
+    <div class="d-flex" style="font-size: 1vw">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav sectionsList" id="" style="height: 80px">
+          <!-- سيتم ملء هذا القسم ديناميكياً باستخدام الجافا سكريبت -->
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="ms-auto" id="userNav">
+        <span id="userName" class="navbar-text me-3"></span>
+        <a href="user-dashboard" class="btn btn-outline-light me-2" id="dashboardLink" style="display: none;"
+            data-i18n="dashboard">Dashboard</a>
+        <button class="btn btn-outline-light me-2" id="logoutBtn" style="display: none;"
+            data-i18n="logout">Logout</button>
+        <a href="login.html" class="btn btn-outline-light me-2" id="loginLink" data-i18n="login">Login</a>
+        <a href="signup.html" class="btn btn-light" id="signupLink" data-i18n="signup">Sign Up</a>
+    </div> -->
+  </div>
+</nav>
+
+<script>
+  $(document).ready(function () {
+    var localSelectedNavItem = localStorage.getItem("selectedNavItem");
+
+    $(".navbar-nav li").removeClass("active");
+
+    $("#" + localSelectedNavItem).addClass("active");
+    $("#" + localSelectedNavItem).css("background", "#9fd3af57");
+  });
+</script>

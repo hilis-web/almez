@@ -1,0 +1,184 @@
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .card-text.text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+}
+
+.popup button {
+    margin: 10px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+#updateStatusBtn {
+    background-color: #28a745;
+    color: white;
+}
+
+#closePopup {
+    background-color: #dc3545;
+    color: white;
+}
+
+#sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #343a40;
+  padding-top: 20px;
+  transition: all 0.3s;
+}
+
+#sidebar ul {
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar ul li {
+  list-style: none;
+}
+
+#sidebar ul li a {
+  display: block;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+#sidebar ul li a:hover {
+  background: #495057;
+}
+
+#page-content {
+  margin-left: 250px;
+  transition: margin-left 0.3s;
+  width: 100%;
+}
+
+#sidebar.closed {
+  width: 0;
+  overflow: hidden;
+}
+
+#page-content.expanded {
+  margin-left: 0;
+}
+
+#sidebarToggle {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1.5rem;
+}
+
+#sidebarClose {
+  border: none;
+  background: none;
+  color: white;
+}
+
+#userInfo {
+  font-size: 1rem;
+}
+thead {
+  background: rgb(196 216 219) !important;
+}
+
+table.table.table-bordered {
+  border: none !important;
+  border-color: #f0f8ff00 !important;
+}
+
+.add-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: auto; 
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000; 
+  width: 100px !important;
+  border-radius: 300px !important;
+}
+
+.breadcrumb a {
+  
+  color: #007bff !important;
+  text-decoration: none !important;
+  background-color: transparent !important;
+  cursor: pointer !important;
+}
+
+table.table-bordered th,
+table.table-bordered td {
+  border: .5PX solid #b6b6b6;
+}
+
+/* شكل الروابط بشكل عام */
+.sidebar-link {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 0px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* عند تمرير الماوس */
+.sidebar-link:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+/* التبويب النشط */
+.sidebar-link.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  border-radius: 0px !important;
+}
