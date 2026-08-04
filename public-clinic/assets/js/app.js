@@ -1,5 +1,3 @@
-// localStorage.setItem("selectedNavItem", "index");
-
 $(document).ready(function () {
   const urlParams = new URLSearchParams(window.location.search);
   const sectionId = urlParams.get("sectionId");
@@ -20,23 +18,8 @@ $(document).ready(function () {
 
   fetchSections();
 
-  // $('#google-login').click(function () {
-  //   $.ajax({
-  //     url: '/api/auth/google',
-  //     method: 'GET',
-  //     success: function (response) {
-  //       // معالجة الاستجابة هنا، مثل التوجيه إلى صفحة البروفايل أو تحديث واجهة المستخدم
-  //       window.location.href = '/profile';
-  //     },
-  //     error: function (error) {
-  //       console.error('Error logging in with Google', error);
-  //     }
-  //   });
-  // });
-
   $("#google-login").click(function () {
     window.location.href = API_BASE_URL;
-    // window.location.href = 'http://192.168.1.33:3000/api/auth/google';
   });
 
   $("#microsoft-login").click(function () {
@@ -53,84 +36,15 @@ $(document).ready(function () {
     });
   });
 
-  // دالة للبحث عن الأقسام وعرضها في الـ Navbar
-  //  function loadSections() {
-  //   $.get(`${API_BASE_URL}/newsection/nav/section`, function (sections) {
-  //       // تحديث navbar بالبيانات المأخوذة من الـ backend
-  //       if (sections && Array.isArray(sections)) {
-  //           const navList = $('#sectionsList');
-
-  //           sections.forEach(section => {
-  //               const sectionTitle = section.title.es; // العنوان بالـ إسباني
-  //               const categories = section.categories;
-
-  //               // إضافة قسم جديد
-  //               const sectionItem = `
-  //                   <li class="nav-item dropdown">
-  //                       <a class="nav-link text-white dropdown-toggle" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-  //                           ${sectionTitle}
-  //                       </a>
-  //                       <ul class="dropdown-menu submenu" aria-labelledby="navbarDropdown">
-  //                           ${categories.map(cat => `
-  //                               <li><a class="dropdown-item category-link" href="#" data-section-id="${section.sectionId}" data-category-id="${cat.categoryId}">${cat.title.es}</a></li>
-  //                           `).join('')}
-  //                       </ul>
-  //                   </li>
-  //               `;
-  //               navList.append(sectionItem);
-  //           });
-
-  //           // عندما ينقر المستخدم على فئة، انتقل إلى صفحة الفئة
-  //           $('.category-link').click(function (e) {
-  //               e.preventDefault();
-  //               const sectionId = $(this).data('section-id');
-  //               const categoryId = $(this).data('category-id');
-
-  //               window.location.href = `subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}`;
-  //           });
-  //       }
-  //   }).fail(function () {
-  //       console.error("Error loading sections.");
-  //   });
-  // }
-
-  // loadSections();
-  // localStorage.setItem("selectedNavItem", selectedNavItem);
-
   function loadSectionsStatic() {
     $.get(`${API_BASE_URL}/newsection/navstatic/section`, function (sections) {
-      // تحديث navbar بالبيانات المأخوذة من الـ backend
       if (sections && Array.isArray(sections)) {
         const navList = $(".sectionsList");
 
         sections.forEach((section) => {
-          const sectionTitle = section.title; // العنوان بالـ إسباني أو بالعربي
+          const sectionTitle = section.title;
           const categories = section.categories;
-          //const i18nData = section.i18next;
-          // إضافة قسم جديد
-          // const sectionItem = `
-          //         <li class="nav-item dropdown" style="margin-bottom:0px !important" id="${section.page}">
-          //             <a class="section-link nav-link text-white menu-link" href="#" data-page-title="${section.title}" data-page-description="${section.description}" data-page-name="${section.page}" data-section-id="${section.sectionId}" role="button" id="${section.sectionId}" aria-expanded="false" data-i18n="${section.i18next}">
-          //                 ${sectionTitle}
-          //             </a>
-          //             ${
-          //               categories.length > 0
-          //                 ?
-          //                  `
-          //                 <ul class="submenu">
-          //                     ${categories
-          //                       .map(
-          //                         (cat) => `
-          //                         <li><a href="#" class="category-link" data-page-title="${section.title}" data-page-description="${section.description}" data-page-name="${section.page}" data-section-id="${section.sectionId}" data-category-id="${cat.categoryId}">${cat.title.es}</a></li>
-          //                     `,
-          //                       )
-          //                       .join("")}
-          //                 </ul>
-          //             `
-          //                 : ""
-          //             }
-          //         </li>
-          //     `;
+
           const sectionItem = `
 <li class="nav-item mega-dropdown" id="${section.page}" style="align-content:center">
 
@@ -239,8 +153,6 @@ $(document).ready(function () {
           setTimeout(function () {
             window.location.href = `subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}`;
           }, 20);
-
-          // window.location.href = `${pageName}.html?sectionId=${sectionId}&categoryId=${categoryId}`;
         });
         $(".section-link").click(function (e) {
           e.preventDefault();
@@ -265,10 +177,6 @@ $(document).ready(function () {
               window.location.href = `${pageName}.html?sectionId=${sectionId}`;
             }, 20);
           }
-
-          //window.location.href = `subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}`;
-
-          // window.location.href = `categories.html?sectionId=${sectionId}`;
         });
       }
     }).fail(function () {
@@ -284,7 +192,6 @@ $(document).ready(function () {
   $("#headerDescription").text(headerDescription);
 });
 
-// جعل الدالة متاحة عالميًا
 window.loadCategories = function (sectionId) {
   const lang = localStorage.getItem("selectedLang") || "es";
 
@@ -713,18 +620,6 @@ function loadSubcategoryDetails(sectionId, categoryId) {
     method: "GET",
     success: function (data) {
       let htmlContent = data.content[lang] || data.content["es"];
-
-      // let headerTitle = data.title[lang] || data.title['es'];
-
-      // let headerTitle = localStorage.getItem("sectionTitle") || data.title[lang] || data.title['es'];
-      // let headerDescription = localStorage.getItem("sectionDescription") || data.description[lang] || data.description['es'];
-
-      // document.getElementById("headerTitle").innerHTML = headerTitle;
-      // document.getElementById("headerDescription").innerHTML = headerDescription;
-
-      // document.getElementById("headerTitle").innerHTML = data.title;
-
-      // document.getElementById("contentContainer").innerHTML = htmlContent;
     },
     error: function (err) {
       console.error("Error fetching category details:", err);
@@ -753,22 +648,10 @@ function renderSections(sections) {
     const title = section.title?.[lang] || section.title?.es || "";
     const description =
       section.description?.[lang] || section.description?.es || "";
-    // const description = section.description[lang] || section.description['es'];
     const imageUrl =
       section.imageUrl || "../assets/images/almez-decoration.svg";
     console.log("img", imageUrl);
     $("#sectionsSection").append(
-      // (`
-      //         <div class="col-lg-3">
-      //             <div class="card" data-section-id="${section.sectionId}">
-      //                 <img src="${imageUrl}" class="card-img-top" alt="${title}">
-      //                 <div class="card-img-overlay d-flex justify-content-center align-items-center">
-      //                     <h5 class="card-title text-white">${title}</h5>
-      //                 </div>
-      //             </div>
-      //         </div>
-      //     `);
-
       `
 
          <div class="col-lg-3 col-md-6 ">
@@ -802,62 +685,10 @@ function renderSections(sections) {
   });
 }
 
-// document.addEventListener("DOMContentLoaded", function () {
-
-//   // Check if user data exists in localStorage
-//   const userName = localStorage.getItem('userName');
-
-//   if (userName) {
-//     // Display user name and dashboard link
-
-//     let welcomeText = i18next.t('user_welcome');
-//     if (welcomeText === 'user_welcome') {
-//       document.getElementById('userName').textContent = `${welcomeText}, ${userName}`;
-
-//     } else {
-//       document.getElementById('userName').textContent = `Welcome, ${userName}`;
-
-//     }
-
-//     document.getElementById('dashboardLink').style.display = 'inline-block';
-//     document.getElementById('logoutBtn').style.display = 'inline-block';
-
-//     // Hide login and signup buttons
-//     document.getElementById('loginLink').style.display = 'none';
-//     document.getElementById('signupLink').style.display = 'none';
-//   }
-
-//   // Handle logout
-//   const logoutBtn = document.getElementById('logoutBtn');
-//   if (logoutBtn) {
-//     logoutBtn.addEventListener('click', function () {
-//       // Clear user data from localStorage
-//       localStorage.removeItem('userName');
-//       localStorage.removeItem('userEmail');
-//       localStorage.removeItem('token');
-
-//       // Redirect to homepage or login page
-//       window.location.href = 'index';
-//     });
-//   }
-// });
-
 function runApp() {
-  // document.addEventListener("DOMContentLoaded", function () {
-
-  // Check if user data exists in localStorage
   const userName = localStorage.getItem("userName");
 
   if (userName) {
-    // Display user name and dashboard link
-
-    // let welcomeText = i18next.t('user_welcome');
-    // if (welcomeText === 'user_welcome') {
-    //   document.getElementById('userName').textContent = `${welcomeText}, ${userName}`;
-    // } else {
-    //   document.getElementById('userName').textContent = `Welcome, ${userName}`;
-    // }
-
     document.getElementById("dashboardLink").style.display = "inline-block";
     document.getElementById("logoutBtn").style.display = "inline-block";
 

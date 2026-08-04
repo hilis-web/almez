@@ -116,7 +116,6 @@
   </head>
 
   <body style="background: #f7f9fb !important">
-    <!-- <div class="consultationFormShared"></div> -->
     <div class="cookiesShared"></div>
     <div class="headerShared"></div>
     <div class="navbarShared" style="position: sticky !important"></div>
@@ -144,19 +143,10 @@
             <h5 id="headerDescription">Patologías y Síntomas</h5>
             <br />
           </div>
-          <!-- <div class="d-flex align-items-center">
-                    <span >Los síntomas y patologías más comues de la columna vertebral</span>
-                </div> -->
         </div>
       </div>
     </header>
-    <!-- <button
-      class="btn btn-success btn-lg"
-      data-bs-toggle="modal"
-      data-bs-target="#medicalReportModal"
-    >
-      ¿Necesita solicitar un informe médico-pericial?
-    </button> -->
+
     <div class="container mb-5" id="contentContainer"></div>
     <div class="modal fade" id="medicalReportModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
@@ -188,7 +178,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const sectionId = urlParams.get("sectionId");
         const categoryId = urlParams.get("categoryId");
-        // const subcategoryId = urlParams.get('subcategoryId');
 
         if (sectionId && categoryId) {
           loadSubcategoryDetails(sectionId, categoryId);
@@ -220,12 +209,6 @@
             console.log("....data", data);
             let subCategoryTitle = data.title[lang] || data.title["es"];
             let htmlContent = data.content[lang] || data.content["es"];
-
-            // let headerTitle= data.title[lang] || data.title['es'];
-
-            //   console.log("@@@@@header title", headerTitle);
-
-            // document.getElementById("headerTitle").innerHTML = headerTitle;
 
             document.getElementById("contentContainer").innerHTML = htmlContent;
             document.getElementById("headerDescription").innerHTML =
