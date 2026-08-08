@@ -767,7 +767,8 @@ function renderSections(sections) {
   sections.forEach((section) => {
     console.log("HOME sectionnnnn", section);
 
-    const title = section.title;
+    const title = section.title?.[lang] || section.title?.es || "";
+    console.log("langggggg", [lang]);
     console.log("HOME CARD", title);
     const description =
       section.description?.[lang] || section.description?.es || "";
