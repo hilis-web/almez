@@ -76,6 +76,7 @@ $(document).ready(function () {
         </p>
 
         <a
+         data-i18n="see_all"
             href="#"
             class="section-link view-all-link"
             data-page-title="${section.title}"
@@ -84,7 +85,7 @@ $(document).ready(function () {
             data-section-id="${section.sectionId}"
         >
 
-            Ver todos
+            Ver todo
 
         </a>
 
@@ -347,10 +348,11 @@ window.loadCategories = function (sectionId) {
                 ${categoryDescription ? `<p>${categoryDescription}</p>` : ""}
 
                 <a
+                 data-i18n="see_all"
                   href="subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}"
                   class="category-mega-view-all"
                 >
-                  Ver todos
+                  Ver todo
                   <i class="bi bi-arrow-right"></i>
                 </a>
 
@@ -792,7 +794,7 @@ function renderSections(sections) {
 
               
 
-                <a href="#" class="read-more">
+                <a data-i18n="see_all" href="#" class="read-more">
                   Ver todo
 
                   <i class="bi bi-arrow-right"></i>
