@@ -2510,7 +2510,7 @@ img.card-img-top {
   width: 100%;
   display: flex;
   align-items: stretch;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 10px;
   flex-wrap: wrap;
 }
@@ -2976,7 +2976,7 @@ img.card-img-top {
   }
 
   .category-mega-panel {
-    position: relative;
+    position: static;
 
     top: 0;
 
