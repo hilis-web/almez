@@ -129,35 +129,75 @@ router.get("/navstatic/section", async (req, res) => {
 // Fetch all sections
 router.get("/sections", async (req, res) => {
   try {
-    //const { lang } = req.query; // Get the language from query parameters
-    const { lang } = "en"; // Get the language from query parameters
+    // const { lang } = req.query;
+    const lang = "en";
 
-    const sections = await SectionNew.find(); // Fetch all sections from the database
+    const sections = await SectionNew.find();
 
-    if (sections.length === 0)
-      return res.status(404).json({ message: "No sections found" });
+    if (sections.length === 0) {
+      return res.status(404).json({
+        message: "No sections found",
+      });
+    }
 
-    // If no language is specified, send all data as is
-    if (!lang) return res.json(sections);
+    // Return raw data if no language is specified
+    if (!lang) {
+      return res.json(sections);
+    }
 
-    // Prepare data according to the specified language
-    const localizedSectionsNew = sections.map((section) => ({
+    const localizedSections = sections.map((section) => ({
       sectionId: section.sectionId,
-      title: section.title[lang] || section.title["en"],
-      description: section.description[lang] || section.title["en"],
+      title: section.title?.[lang] || section.title?.en || section.title?.es,
+      description:
+        section.description?.[lang] ||
+        section.description?.en ||
+        section.description?.es,
       imageUrl: section.imageUrl,
+      status: section.status,
+
       categories: section.categories.map((category) => ({
         categoryId: category.categoryId,
-        title: category.title[lang] || category.title["en"],
-        description: category.description[lang] || category.description["en"],
+        title:
+          category.title?.[lang] || category.title?.en || category.title?.es,
+        description:
+          category.description?.[lang] ||
+          category.description?.en ||
+          category.description?.es,
         imageUrl: category.imageUrl,
-        content: category.content[lang] || category.content["en"],
+        status: category.status,
+
+        items: category.items.map((item) => ({
+          itemId: item.itemId,
+          title: item.title?.[lang] || item.title?.en || item.title?.es,
+          description:
+            item.description?.[lang] ||
+            item.description?.en ||
+            item.description?.es,
+          content: item.content?.[lang] || item.content?.en || item.content?.es,
+          imageUrl: item.imageUrl,
+          toolTip: item.toolTip
+            ? {
+                title:
+                  item.toolTip.title?.[lang] ||
+                  item.toolTip.title?.en ||
+                  item.toolTip.title?.es,
+                description:
+                  item.toolTip.description?.[lang] ||
+                  item.toolTip.description?.en ||
+                  item.toolTip.description?.es,
+                imageUrl: item.toolTip.imageUrl,
+              }
+            : null,
+          status: item.status,
+        })),
       })),
     }));
 
-    res.json(localizedSectionsNew);
+    res.json(localizedSections);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      error: error.message,
+    });
   }
 });
 
@@ -165,96 +205,350 @@ router.get("/sections", async (req, res) => {
 router.get("/section/:id", async (req, res) => {
   try {
     const { lang } = req.query;
-    const section = await SectionNew.findOne({ sectionId: req.params.id });
 
-    if (!section) return res.status(404).json({ message: "Section not found" });
+    const section = await SectionNew.findOne({
+      sectionId: req.params.id,
+    });
 
-    if (!lang) return res.json(section);
+    if (!section) {
+      return res.status(404).json({
+        message: "Section not found",
+      });
+    }
 
-    const localizedSectionNew = {
+    // Return raw document if no language specified
+    if (!lang) {
+      return res.json(section);
+    }
+
+    const localizedSection = {
       sectionId: section.sectionId,
-      title: section.title[lang] || section.title["en"],
-      description: section.description[lang] || section.description["en"],
+
+      title: section.title?.[lang] || section.title?.en || section.title?.es,
+
+      description:
+        section.description?.[lang] ||
+        section.description?.en ||
+        section.description?.es,
+
       imageUrl: section.imageUrl,
+
+      status: section.status,
+
       categories: section.categories.map((category) => ({
         categoryId: category.categoryId,
-        title: category.title[lang] || category.title["en"],
-        description: category.description[lang] || category.description["en"],
+
+        title:
+          category.title?.[lang] || category.title?.en || category.title?.es,
+
+        description:
+          category.description?.[lang] ||
+          category.description?.en ||
+          category.description?.es,
+
         imageUrl: category.imageUrl,
-        content: category.content[lang] || sub.content["en"],
+
+        status: category.status,
+
+        items: category.items.map((item) => ({
+          itemId: item.itemId,
+
+          title: item.title?.[lang] || item.title?.en || item.title?.es,
+
+          description:
+            item.description?.[lang] ||
+            item.description?.en ||
+            item.description?.es,
+
+          content: item.content?.[lang] || item.content?.en || item.content?.es,
+
+          imageUrl: item.imageUrl,
+
+          toolTip: item.toolTip
+            ? {
+                title:
+                  item.toolTip.title?.[lang] ||
+                  item.toolTip.title?.en ||
+                  item.toolTip.title?.es,
+
+                description:
+                  item.toolTip.description?.[lang] ||
+                  item.toolTip.description?.en ||
+                  item.toolTip.description?.es,
+
+                imageUrl: item.toolTip.imageUrl,
+              }
+            : null,
+
+          status: item.status,
+        })),
       })),
     };
 
-    res.json(localizedSectionNew);
+    res.json(localizedSection);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      error: error.message,
+    });
   }
 });
 
 // Fetch categories for a specific section
 router.get("/section/:sectionId/categories", async (req, res) => {
   try {
+    const { lang } = req.query;
+
     const section = await SectionNew.findOne({
       sectionId: req.params.sectionId,
     });
-    if (!section) return res.status(404).json({ error: "Section not found" });
-    res.json(section.categories);
+
+    if (!section) {
+      return res.status(404).json({
+        error: "Section not found",
+      });
+    }
+
+    // Return raw data if no language is specified
+    if (!lang) {
+      return res.json(section.categories);
+    }
+
+    const localizedCategories = section.categories.map((category) => ({
+      categoryId: category.categoryId,
+
+      title: category.title?.[lang] || category.title?.en || category.title?.es,
+
+      description:
+        category.description?.[lang] ||
+        category.description?.en ||
+        category.description?.es,
+
+      imageUrl: category.imageUrl,
+
+      status: category.status,
+
+      items: category.items.map((item) => ({
+        itemId: item.itemId,
+
+        title: item.title?.[lang] || item.title?.en || item.title?.es,
+
+        description:
+          item.description?.[lang] ||
+          item.description?.en ||
+          item.description?.es,
+
+        content: item.content?.[lang] || item.content?.en || item.content?.es,
+
+        imageUrl: item.imageUrl,
+
+        toolTip: item.toolTip
+          ? {
+              title:
+                item.toolTip.title?.[lang] ||
+                item.toolTip.title?.en ||
+                item.toolTip.title?.es,
+
+              description:
+                item.toolTip.description?.[lang] ||
+                item.toolTip.description?.en ||
+                item.toolTip.description?.es,
+
+              imageUrl: item.toolTip.imageUrl,
+            }
+          : null,
+
+        status: item.status,
+      })),
+    }));
+
+    res.json(localizedCategories);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while fetching categories" });
+    res.status(500).json({
+      error: "An error occurred while fetching categories",
+    });
   }
 });
 
+// Fetch a specific category from a section
 router.get("/section/:sectionId/category/:categoryId", async (req, res) => {
   try {
     const { sectionId, categoryId } = req.params;
+    const { lang } = req.query;
 
-    const section = await SectionNew.findOne({ sectionId: sectionId });
+    const section = await SectionNew.findOne({ sectionId });
 
-    if (!section) return res.status(404).json({ error: "Section not found" });
+    if (!section) {
+      return res.status(404).json({
+        error: "Section not found",
+      });
+    }
 
     const category = section.categories.find(
-      (cat) => cat.categoryId.toString() === req.params.categoryId,
+      (cat) => cat.categoryId.toString() === categoryId,
     );
 
-    if (!category) return res.status(404).json({ error: "Category not found" });
+    if (!category) {
+      return res.status(404).json({
+        error: "Category not found",
+      });
+    }
 
-    // Return subcategories
-    res.json(category);
+    // Return raw category if no language specified
+    if (!lang) {
+      return res.json(category);
+    }
+
+    const localizedCategory = {
+      categoryId: category.categoryId,
+
+      title: category.title?.[lang] || category.title?.en || category.title?.es,
+
+      description:
+        category.description?.[lang] ||
+        category.description?.en ||
+        category.description?.es,
+
+      imageUrl: category.imageUrl,
+
+      status: category.status,
+
+      items: category.items.map((item) => ({
+        itemId: item.itemId,
+
+        title: item.title?.[lang] || item.title?.en || item.title?.es,
+
+        description:
+          item.description?.[lang] ||
+          item.description?.en ||
+          item.description?.es,
+
+        content: item.content?.[lang] || item.content?.en || item.content?.es,
+
+        imageUrl: item.imageUrl,
+
+        toolTip: item.toolTip
+          ? {
+              title:
+                item.toolTip.title?.[lang] ||
+                item.toolTip.title?.en ||
+                item.toolTip.title?.es,
+
+              description:
+                item.toolTip.description?.[lang] ||
+                item.toolTip.description?.en ||
+                item.toolTip.description?.es,
+
+              imageUrl: item.toolTip.imageUrl,
+            }
+          : null,
+
+        status: item.status,
+      })),
+    };
+
+    res.json(localizedCategory);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while fetching categories" });
+    res.status(500).json({
+      error: "An error occurred while fetching the category",
+    });
   }
 });
 
-//
+// ======================================================
+// Get one item from a category
+// ======================================================
 
-// إضافة قسم جديد
+router.get(
+  "/section/:sectionId/category/:categoryId/item/:itemId",
+  async (req, res) => {
+    try {
+      const { sectionId, categoryId, itemId } = req.params;
+
+      const section = await SectionNew.findOne({
+        sectionId,
+        status: "Published",
+      });
+
+      if (!section) {
+        return res.status(404).json({
+          message: "Section not found",
+        });
+      }
+
+      const category = section.categories.find(
+        (cat) =>
+          cat.categoryId.toString() === categoryId &&
+          cat.status === "Published",
+      );
+
+      if (!category) {
+        return res.status(404).json({
+          message: "Category not found",
+        });
+      }
+
+      const item = category.items.find(
+        (item) =>
+          item.itemId.toString() === itemId && item.status === "Published",
+      );
+
+      if (!item) {
+        return res.status(404).json({
+          message: "Item not found",
+        });
+      }
+
+      res.json({
+        sectionId: section.sectionId,
+
+        categoryId: category.categoryId,
+
+        categoryTitle: category.title,
+
+        categoryDescription: category.description,
+
+        item: item,
+      });
+    } catch (error) {
+      console.error("Error fetching item:", error);
+
+      res.status(500).json({
+        message: "Error fetching item",
+        error: error.message,
+      });
+    }
+  },
+);
+
+//
+//////////////////////////////// DASHBOARD APIs ////////////////////////////////////////////////////////////
+// Add new section
 router.post("/addSection", verifyToken, async (req, res) => {
   try {
     const { title, description, imageUrl, categories, status } = req.body;
 
-    // التحقق من صحة البيانات الأساسية
+    // Validate required fields
     if (!title || !title.es || !Array.isArray(categories)) {
-      return res
-        .status(400)
-        .json({ message: "Missing required fields or invalid categories" });
+      return res.status(400).json({
+        message: "Missing required fields or invalid categories",
+      });
     }
 
-    // بناء الكائن الجديد للقسم
     const newSection = new SectionNew({
       title,
       description,
       imageUrl,
       status: status || "Published",
+
       categories: categories.map((category) => ({
         categoryId: new mongoose.Types.ObjectId(),
+
         title: category.title,
+
         description: category.description,
-        content: category.content || {},
+
         imageUrl: category.imageUrl || "",
+
         toolTip: category.toolTip
           ? {
               title: category.toolTip.title || {},
@@ -262,67 +556,155 @@ router.post("/addSection", verifyToken, async (req, res) => {
               imageUrl: category.toolTip.imageUrl || "",
             }
           : null,
+
         status: category.status || "Published",
+
+        items: (category.items || []).map((item) => ({
+          itemId: new mongoose.Types.ObjectId(),
+
+          title: item.title,
+
+          description: item.description,
+
+          content: item.content || {},
+
+          imageUrl: item.imageUrl || "",
+
+          toolTip: item.toolTip
+            ? {
+                title: item.toolTip.title || {},
+                description: item.toolTip.description || {},
+                imageUrl: item.toolTip.imageUrl || "",
+              }
+            : null,
+
+          status: item.status || "Published",
+        })),
       })),
     });
 
-    // حفظ القسم في قاعدة البيانات
     await newSection.save();
 
-    // إرجاع الاستجابة بنجاح
-    res
-      .status(201)
-      .json({ message: "Section added successfully", section: newSection });
+    res.status(201).json({
+      message: "Section added successfully",
+      section: newSection,
+    });
   } catch (err) {
     console.error("Error adding section:", err);
-    res
-      .status(500)
-      .json({ message: "Error adding section", error: err.message });
+
+    res.status(500).json({
+      message: "Error adding section",
+      error: err.message,
+    });
   }
 });
 
 router.get("/sections", verifyToken, async (req, res) => {
   try {
-    const { lang } = req.query; // Get the language from query parameters
-    const sections = await SectionNew.find(); // جلب جميع الأقسام من قاعدة البيانات
+    const { lang } = req.query;
 
-    if (sections.length === 0)
-      return res.status(404).json({ message: "No sections found" });
+    const sections = await SectionNew.find();
 
-    // إذا لم يتم تحديد اللغة في الاستعلام، أرجع البيانات كما هي
-    if (!lang) return res.json(sections);
+    if (sections.length === 0) {
+      return res.status(404).json({
+        message: "No sections found",
+      });
+    }
 
-    // تحضير البيانات بحسب اللغة المحددة
+    // Return raw documents if no language is specified
+    if (!lang) {
+      return res.json(sections);
+    }
+
     const localizedSections = sections.map((section) => ({
-      sectionId: section.sectionId.toString(), // تحويل ObjectId إلى سلسلة نصية
-      title: section.title[lang] || section.title["en"],
-      description: section.description[lang] || section.description["en"],
+      sectionId: section.sectionId.toString(),
+
+      title: section.title?.[lang] || section.title?.en || section.title?.es,
+
+      description:
+        section.description?.[lang] ||
+        section.description?.en ||
+        section.description?.es,
+
       imageUrl: section.imageUrl,
+
+      status: section.status,
+
       categories: section.categories.map((category) => ({
-        categoryId: category.categoryId.toString(), // تحويل ObjectId إلى سلسلة نصية
-        title: category.title[lang] || category.title["en"],
-        description: category.description[lang] || category.description["en"],
-        content: category.content[lang] || category.content["en"],
+        categoryId: category.categoryId.toString(),
+
+        title:
+          category.title?.[lang] || category.title?.en || category.title?.es,
+
+        description:
+          category.description?.[lang] ||
+          category.description?.en ||
+          category.description?.es,
+
         imageUrl: category.imageUrl,
+
+        status: category.status,
+
         toolTip: category.toolTip
           ? {
               title:
                 category.toolTip.title?.[lang] ||
-                category.toolTip.title?.["en"] ||
+                category.toolTip.title?.en ||
+                category.toolTip.title?.es ||
                 "",
+
               description:
                 category.toolTip.description?.[lang] ||
-                category.toolTip.description?.["en"] ||
+                category.toolTip.description?.en ||
+                category.toolTip.description?.es ||
                 "",
+
               imageUrl: category.toolTip.imageUrl || "",
             }
           : null,
+
+        items: category.items.map((item) => ({
+          itemId: item.itemId.toString(),
+
+          title: item.title?.[lang] || item.title?.en || item.title?.es,
+
+          description:
+            item.description?.[lang] ||
+            item.description?.en ||
+            item.description?.es,
+
+          content: item.content?.[lang] || item.content?.en || item.content?.es,
+
+          imageUrl: item.imageUrl,
+
+          status: item.status,
+
+          toolTip: item.toolTip
+            ? {
+                title:
+                  item.toolTip.title?.[lang] ||
+                  item.toolTip.title?.en ||
+                  item.toolTip.title?.es ||
+                  "",
+
+                description:
+                  item.toolTip.description?.[lang] ||
+                  item.toolTip.description?.en ||
+                  item.toolTip.description?.es ||
+                  "",
+
+                imageUrl: item.toolTip.imageUrl || "",
+              }
+            : null,
+        })),
       })),
     }));
 
     res.json(localizedSections);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      error: error.message,
+    });
   }
 });
 
@@ -330,94 +712,208 @@ router.get("/sections", verifyToken, async (req, res) => {
 router.get("/section/:id", verifyToken, async (req, res) => {
   try {
     const { lang } = req.query;
-    const section = await SectionNew.findOne({ sectionId: req.params.id }); // Use SectionNew model
 
-    if (!section) return res.status(404).json({ message: "Section not found" });
+    const section = await SectionNew.findOne({
+      sectionId: req.params.id,
+    });
 
-    // If no language is specified, send all data as is
-    if (!lang) return res.json(section);
+    if (!section) {
+      return res.status(404).json({
+        message: "Section not found",
+      });
+    }
 
-    // Prepare localized section data
+    // Return raw document if no language is specified
+    if (!lang) {
+      return res.json(section);
+    }
+
     const localizedSection = {
-      sectionId: section.sectionId,
-      title: section.title[lang] || section.title["en"], // Handle title localization
-      description: section.description[lang] || section.description["en"], // Handle title localization
+      sectionId: section.sectionId.toString(),
+
+      title: section.title?.[lang] || section.title?.en || section.title?.es,
+
+      description:
+        section.description?.[lang] ||
+        section.description?.en ||
+        section.description?.es,
+
       imageUrl: section.imageUrl,
+
+      status: section.status,
+
       categories: section.categories.map((category) => ({
-        categoryId: category.categoryId,
-        title: category.title[lang] || category.title["en"], // Handle category title localization
-        description: category.description[lang] || category.description["en"], // Handle category title localization
-        content: category.content[lang] || category.content["en"], // Handle category content localization
+        categoryId: category.categoryId.toString(),
+
+        title:
+          category.title?.[lang] || category.title?.en || category.title?.es,
+
+        description:
+          category.description?.[lang] ||
+          category.description?.en ||
+          category.description?.es,
+
         imageUrl: category.imageUrl,
+
+        status: category.status,
+
         toolTip: category.toolTip
           ? {
               title:
                 category.toolTip.title?.[lang] ||
-                category.toolTip.title?.["en"] ||
+                category.toolTip.title?.en ||
+                category.toolTip.title?.es ||
                 "",
+
               description:
                 category.toolTip.description?.[lang] ||
-                category.toolTip.description?.["en"] ||
+                category.toolTip.description?.en ||
+                category.toolTip.description?.es ||
                 "",
+
               imageUrl: category.toolTip.imageUrl || "",
             }
           : null,
+
+        items: category.items.map((item) => ({
+          itemId: item.itemId.toString(),
+
+          title: item.title?.[lang] || item.title?.en || item.title?.es,
+
+          description:
+            item.description?.[lang] ||
+            item.description?.en ||
+            item.description?.es,
+
+          content: item.content?.[lang] || item.content?.en || item.content?.es,
+
+          imageUrl: item.imageUrl,
+
+          status: item.status,
+
+          toolTip: item.toolTip
+            ? {
+                title:
+                  item.toolTip.title?.[lang] ||
+                  item.toolTip.title?.en ||
+                  item.toolTip.title?.es ||
+                  "",
+
+                description:
+                  item.toolTip.description?.[lang] ||
+                  item.toolTip.description?.en ||
+                  item.toolTip.description?.es ||
+                  "",
+
+                imageUrl: item.toolTip.imageUrl || "",
+              }
+            : null,
+        })),
       })),
     };
 
     res.json(localizedSection);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      error: error.message,
+    });
   }
 });
 
-// Update the status of the section or category
+// Update the status of a section, category, or item
 router.patch("/:type/:id/status", verifyToken, async (req, res) => {
   const { type, id } = req.params;
   const { status } = req.body;
 
   try {
     let updatedSection;
-    if (type === "section") {
-      updatedSection = await SectionNew.findOneAndUpdate(
-        { sectionId: id },
-        { status },
-        { new: true },
-      );
-    } else if (type === "category") {
-      updatedSection = await SectionNew.findOneAndUpdate(
-        { "categories.categoryId": id },
-        { $set: { "categories.$.status": status } },
-        { new: true },
-      );
-    } else {
-      return res.status(400).json({ error: "Invalid type" });
+
+    switch (type) {
+      case "section":
+        updatedSection = await SectionNew.findOneAndUpdate(
+          { sectionId: id },
+          { status },
+          { new: true },
+        );
+        break;
+
+      case "category":
+        updatedSection = await SectionNew.findOneAndUpdate(
+          { "categories.categoryId": id },
+          {
+            $set: {
+              "categories.$.status": status,
+            },
+          },
+          { new: true },
+        );
+        break;
+
+      case "item":
+        updatedSection = await SectionNew.findOneAndUpdate(
+          {
+            "categories.items.itemId": id,
+          },
+          {
+            $set: {
+              "categories.$[].items.$[item].status": status,
+            },
+          },
+          {
+            new: true,
+            arrayFilters: [
+              {
+                "item.itemId": id,
+              },
+            ],
+          },
+        );
+        break;
+
+      default:
+        return res.status(400).json({
+          error: "Invalid type",
+        });
+    }
+
+    if (!updatedSection) {
+      return res.status(404).json({
+        error: `${type} not found`,
+      });
     }
 
     res.json(updatedSection);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while updating the status" });
+    res.status(500).json({
+      error: "An error occurred while updating the status",
+    });
   }
 });
 
 // Delete a section
 router.delete("/section/:sectionId", verifyToken, async (req, res) => {
   try {
-    const section = await SectionNew.findOneAndDelete({
-      sectionId: req.params.sectionId,
-    }); // Use SectionNew model
+    const { sectionId } = req.params;
 
-    if (!section) {
-      return res.status(404).json({ message: "Section not found" });
+    const deletedSection = await SectionNew.findOneAndDelete({
+      sectionId,
+    });
+
+    if (!deletedSection) {
+      return res.status(404).json({
+        message: "Section not found",
+      });
     }
 
-    res.json({ message: "Section deleted successfully" });
+    res.status(200).json({
+      message: "Section deleted successfully",
+    });
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while deleting the section" });
+    console.error("Error deleting section:", err);
+
+    res.status(500).json({
+      error: "An error occurred while deleting the section",
+    });
   }
 });
 
@@ -433,23 +929,32 @@ router.delete(
         { sectionId },
         {
           $pull: {
-            categories: { categoryId: new mongoose.Types.ObjectId(categoryId) },
+            categories: {
+              categoryId: new mongoose.Types.ObjectId(categoryId),
+            },
           },
         },
-        { new: true },
+        {
+          new: true,
+        },
       );
 
       if (!section) {
-        return res
-          .status(404)
-          .json({ message: "Section not found or category does not exist" });
+        return res.status(404).json({
+          message: "Section not found",
+        });
       }
 
-      res.json({ message: "Category deleted successfully", section });
+      res.status(200).json({
+        message: "Category deleted successfully",
+        section,
+      });
     } catch (err) {
-      res
-        .status(500)
-        .json({ error: "An error occurred while deleting the category" });
+      console.error("Error deleting category:", err);
+
+      res.status(500).json({
+        error: "An error occurred while deleting the category",
+      });
     }
   },
 );
@@ -457,17 +962,23 @@ router.delete(
 // Fetch categories for a specific section
 router.get("/section/:sectionId/categories", verifyToken, async (req, res) => {
   try {
-    const section = await SectionNew.findOne({
-      sectionId: req.params.sectionId,
-    }); // Use SectionNew model
+    const { sectionId } = req.params;
 
-    if (!section) return res.status(404).json({ error: "Section not found" });
+    const section = await SectionNew.findOne({ sectionId });
 
-    res.json(section.categories); // Return the categories for the section
+    if (!section) {
+      return res.status(404).json({
+        error: "Section not found",
+      });
+    }
+
+    res.status(200).json(section.categories);
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while fetching categories" });
+    console.error("Error fetching categories:", err);
+
+    res.status(500).json({
+      error: "An error occurred while fetching categories",
+    });
   }
 });
 
@@ -477,18 +988,37 @@ router.put("/section/:sectionId", verifyToken, async (req, res) => {
     const { sectionId } = req.params;
     const updatedData = req.body;
 
-    // Update the section using sectionId
     const section = await SectionNew.findOneAndUpdate(
       { sectionId },
-      { $set: updatedData },
-      { new: true },
+      {
+        $set: {
+          title: updatedData.title,
+          description: updatedData.description,
+          imageUrl: updatedData.imageUrl,
+          categories: updatedData.categories,
+          status: updatedData.status,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
     );
 
-    if (!section) return res.status(404).json({ message: "Section not found" });
+    if (!section) {
+      return res.status(404).json({
+        message: "Section not found",
+      });
+    }
 
     res.json(section);
   } catch (error) {
-    res.status(500).json({ message: "Error updating section", error });
+    console.error("Error updating section:", error);
+
+    res.status(500).json({
+      message: "Error updating section",
+      error: error.message,
+    });
   }
 });
 
@@ -528,16 +1058,15 @@ router.put(
       const { sectionId, categoryId } = req.params;
       const updatedData = req.body;
 
-      // بناء كائن التحديث الديناميكي
       const updateFields = {
         "categories.$.title": updatedData.title,
         "categories.$.description": updatedData.description,
         "categories.$.imageUrl": updatedData.imageUrl,
-        "categories.$.content": updatedData.content,
         "categories.$.status": updatedData.status,
+        "categories.$.items": updatedData.items || [],
       };
 
-      // ✅ إذا كان في toolTip ضمن البيانات المرسلة، أضفه للتحديث
+      // Update tooltip if provided
       if (updatedData.toolTip) {
         updateFields["categories.$.toolTip"] = {
           title: updatedData.toolTip.title || {},
@@ -546,37 +1075,56 @@ router.put(
         };
       }
 
-      // تنفيذ التحديث
       const section = await SectionNew.findOneAndUpdate(
-        { sectionId, "categories.categoryId": categoryId },
-        { $set: updateFields },
-        { new: true },
+        {
+          sectionId,
+          "categories.categoryId": categoryId,
+        },
+        {
+          $set: updateFields,
+        },
+        {
+          new: true,
+          runValidators: true,
+        },
       );
 
       if (!section) {
-        return res.status(404).json({ message: "Category not found" });
+        return res.status(404).json({
+          message: "Category not found",
+        });
       }
 
-      res.json({ message: "Category updated successfully", section });
+      res.json({
+        message: "Category updated successfully",
+        section,
+      });
     } catch (error) {
       console.error("Error updating category:", error);
-      res
-        .status(500)
-        .json({ message: "Error updating category", error: error.message });
+
+      res.status(500).json({
+        message: "Error updating category",
+        error: error.message,
+      });
     }
   },
 );
-
 // ** جلب كل الأقسام **
+// Get all sections for forms
 router.get("/form/sections", verifyToken, async (req, res) => {
   try {
     const sections = await SectionNew.find();
-    res.json(sections);
+
+    res.status(200).json(sections);
   } catch (err) {
-    res.status(500).send(err.message);
+    console.error("Error fetching sections:", err);
+
+    res.status(500).json({
+      message: "Error fetching sections",
+      error: err.message,
+    });
   }
 });
-
 // ** جلب الفئات داخل قسم معين **
 router.get(
   "/form/sections/:sectionId/categories",
@@ -600,14 +1148,24 @@ router.get(
   },
 );
 
-// ** إضافة قسم جديد **
+// Add a new section
 router.post("/form/sections", verifyToken, async (req, res) => {
   try {
     const newSection = new SectionNew(req.body);
+
     await newSection.save();
-    res.status(201).json(newSection);
+
+    res.status(201).json({
+      message: "Section created successfully",
+      section: newSection,
+    });
   } catch (err) {
-    res.status(400).send(err.message);
+    console.error("Error creating section:", err);
+
+    res.status(400).json({
+      message: "Error creating section",
+      error: err.message,
+    });
   }
 });
 
@@ -617,21 +1175,79 @@ router.post(
   verifyToken,
   async (req, res) => {
     try {
-      const sectionId = req.params.sectionId;
+      const { sectionId } = req.params;
+
       if (!mongoose.Types.ObjectId.isValid(sectionId)) {
-        return res.status(400).send("Invalid section ID format");
+        return res.status(400).json({
+          message: "Invalid section ID format",
+        });
       }
 
-      const section = await SectionNew.findOne({
-        sectionId: req.params.sectionId,
-      });
-      if (!section) return res.status(404).send("Section not found");
+      const section = await SectionNew.findOne({ sectionId });
 
-      section.categories.push(req.body);
+      if (!section) {
+        return res.status(404).json({
+          message: "Section not found",
+        });
+      }
+
+      const newCategory = {
+        categoryId: new mongoose.Types.ObjectId(),
+
+        title: req.body.title,
+
+        description: req.body.description,
+
+        imageUrl: req.body.imageUrl || "",
+
+        toolTip: req.body.toolTip
+          ? {
+              title: req.body.toolTip.title || {},
+              description: req.body.toolTip.description || {},
+              imageUrl: req.body.toolTip.imageUrl || "",
+            }
+          : null,
+
+        status: req.body.status || "Published",
+
+        items: (req.body.items || []).map((item) => ({
+          itemId: new mongoose.Types.ObjectId(),
+
+          title: item.title,
+
+          description: item.description,
+
+          content: item.content || {},
+
+          imageUrl: item.imageUrl || "",
+
+          toolTip: item.toolTip
+            ? {
+                title: item.toolTip.title || {},
+                description: item.toolTip.description || {},
+                imageUrl: item.toolTip.imageUrl || "",
+              }
+            : null,
+
+          status: item.status || "Published",
+        })),
+      };
+
+      section.categories.push(newCategory);
+
       await section.save();
-      res.status(201).json(section);
+
+      res.status(201).json({
+        message: "Category added successfully",
+        section,
+      });
     } catch (err) {
-      res.status(500).send(err.message);
+      console.error("Error adding category:", err);
+
+      res.status(500).json({
+        message: "Error adding category",
+        error: err.message,
+      });
     }
   },
 );

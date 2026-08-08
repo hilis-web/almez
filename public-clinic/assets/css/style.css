@@ -1299,7 +1299,7 @@ img.card-img-top {
   border-bottom: 1px solid #d5d5d5;
 }
 
-.mega-right :hover {
+.mega-right .mega-items :hover {
   background-color: #9fd3af57;
 }
 
@@ -1350,6 +1350,1132 @@ img.card-img-top {
 
   padding: 45px 45;
 }
+.mega-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 50px;
+
+  width: 100%;
+
+  align-items: flex-start;
+}
+
+.mega-category-column {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.mega-category-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 15px;
+
+  font-weight: 700;
+
+  color: #1b3b36;
+
+  font-size: 18px;
+}
+
+.mega-category-icon {
+  width: 28px;
+
+  height: 28px;
+
+  object-fit: contain;
+}
+
+.mega-items {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.item-link {
+  color: #555;
+
+  text-decoration: none;
+
+  transition: 0.25s;
+}
+
+.item-link:hover {
+  color: var(--primary);
+
+  transform: translateX(6px);
+}
+
+.mega-empty {
+  color: #bbb;
+
+  font-size: 14px;
+}
+
+#categoryItemsContainer {
+  display: none;
+
+  margin-top: 25px;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  background: #fafafa;
+}
+
+.item-card {
+  height: 100%;
+
+  background: #fff;
+
+  border-radius: 18px;
+
+  padding: 22px;
+
+  border: 1px solid #ececec;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.item-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.item-card img {
+  width: 70px;
+
+  height: 70px;
+
+  object-fit: contain;
+
+  margin-bottom: 18px;
+}
+
+.item-body h5 {
+  font-size: 18px;
+
+  color: #1b3b36;
+
+  font-weight: 700;
+}
+
+.item-body p {
+  color: #666;
+
+  margin-bottom: 0;
+}
+
+.category-expand {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 8px;
+}
+
+.category-expand i {
+  transition: 0.3s;
+}
+
+/* =========================================================
+   CATEGORIES SECTION
+========================================================= */
+
+#categoriesSection {
+  width: 100%;
+  margin-top: 35px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* =========================================================
+   CATEGORY COLUMN
+========================================================= */
+
+.category-column {
+  flex: 0 0 auto;
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* =========================================================
+   CATEGORY CARD
+   Simple button-like category
+========================================================= */
+
+.category-card {
+  width: 325px;
+  min-height: 94px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 18px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e3e8e3;
+  border-radius: 16px;
+
+  box-shadow: 0 4px 18px rgba(27, 59, 54, 0.04);
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    background-color 0.25s ease;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+/* Hover */
+
+.category-card:hover {
+  border-color: #496e5a;
+
+  background: #fbfdfb;
+
+  box-shadow: 0 8px 25px rgba(27, 59, 54, 0.1);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   CATEGORY ICON
+========================================================= */
+
+.category-icon {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 16px;
+
+  border-radius: 13px;
+
+  background: #f1f5f0;
+
+  color: #496e5a;
+}
+
+/* If image is used */
+
+.category-icon img {
+  width: 30px;
+  height: 30px;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   CATEGORY CONTENT
+========================================================= */
+
+.category-content {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+/* Category title */
+
+.category-title {
+  margin: 0;
+
+  font-size: 18px;
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  color: #173d36;
+
+  display: block;
+}
+
+/* Optional description */
+
+.category-description {
+  margin-top: 4px;
+
+  font-size: 13px;
+  line-height: 1.4;
+
+  color: #758078;
+
+  display: block;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   CATEGORY ARROW
+========================================================= */
+
+.category-arrow {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 10px;
+
+  color: #496e5a;
+
+  border-radius: 50%;
+
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.category-card:hover .category-arrow {
+  background: #f1f5f0;
+
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   MEGA MENU
+   IMPORTANT:
+   This is NOT absolute/fixed.
+   It stays inside normal page flow.
+========================================================= */
+
+.category-mega {
+  width: 100%;
+
+  flex-basis: 100%;
+
+  position: relative !important;
+
+  margin-top: 8px;
+  margin-bottom: 30px;
+
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  border: 1px solid #e2e8e3;
+
+  box-shadow: 0 12px 40px rgba(27, 59, 54, 0.08);
+
+  overflow: hidden;
+
+  z-index: 1;
+
+  display: none;
+}
+
+/* JS adds this class */
+
+.category-mega.active {
+  display: block;
+}
+
+/* =========================================================
+   MEGA INNER
+========================================================= */
+
+.category-mega-inner {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: 280px minmax(0, 1fr);
+
+  min-height: 250px;
+}
+
+/* =========================================================
+   MEGA LEFT
+========================================================= */
+
+.category-mega-left {
+  padding: 38px 36px;
+
+  position: relative;
+
+  background: #f5f8f4;
+
+  border-right: 1px solid #e1e7e1;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;
+}
+
+/* Small category label */
+
+.category-mega-label {
+  margin-bottom: 12px;
+
+  font-size: 12px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+
+  color: #496e5a;
+}
+
+/* Category title */
+
+.category-mega-left h3 {
+  margin: 0 0 14px 0;
+
+  font-size: 28px;
+
+  line-height: 1.15;
+
+  font-weight: 700;
+
+  color: #173d36;
+}
+
+/* Category description */
+
+.category-mega-left p {
+  margin: 0 0 25px 0;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  color: #6f7972;
+
+  max-width: 210px;
+}
+
+/* See all link */
+
+.category-mega-all {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  width: fit-content;
+
+  margin-top: auto;
+
+  padding: 9px 0;
+
+  color: #496e5a;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: gap 0.2s ease;
+}
+
+.category-mega-all:hover {
+  color: #173d36;
+
+  gap: 12px;
+}
+
+/* =========================================================
+   MEGA RIGHT
+========================================================= */
+
+.category-mega-right {
+  padding: 34px 40px;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+
+  column-gap: 34px;
+
+  row-gap: 10px;
+
+  align-content: start;
+}
+
+/* =========================================================
+   ITEM
+========================================================= */
+
+.mega-item {
+  min-width: 0;
+
+  min-height: 72px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 9px 8px;
+
+  color: #173d36;
+
+  text-decoration: none;
+
+  border-radius: 12px;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mega-item:hover {
+  background: #f5f8f4;
+
+  transform: translateX(3px);
+
+  color: #173d36;
+}
+
+/* =========================================================
+   ITEM ICON
+========================================================= */
+
+.mega-icon {
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #f0f5ef;
+
+  overflow: hidden;
+}
+
+.mega-icon img {
+  width: 34px;
+  height: 34px;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   ITEM CONTENT
+========================================================= */
+
+.mega-item-content {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+/* Item title */
+
+.mega-item-title {
+  margin: 0;
+
+  font-size: 15px;
+
+  line-height: 1.3;
+
+  font-weight: 700;
+
+  color: #173d36;
+}
+
+/* Item description */
+
+.mega-item-description {
+  margin-top: 4px;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+
+  color: #7a847d;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   ITEM ARROW
+========================================================= */
+
+.mega-item-arrow {
+  margin-left: auto;
+
+  flex-shrink: 0;
+
+  color: #789078;
+
+  font-size: 14px;
+
+  opacity: 0;
+
+  transform: translateX(-4px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.mega-item:hover .mega-item-arrow {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+/* =========================================================
+   DIVIDER
+   This is important for the left section.
+========================================================= */
+
+.category-mega-left::after {
+  content: "";
+
+  position: absolute;
+
+  top: 34px;
+  bottom: 34px;
+
+  right: 0;
+
+  width: 1px;
+
+  background: #dce4dc;
+}
+
+/*
+   Do NOT allow the divider to touch the title.
+   The padding above keeps the title completely
+   separated from the divider.
+*/
+
+/* =========================================================
+   EMPTY ITEMS
+========================================================= */
+
+.category-mega-empty {
+  padding: 40px;
+
+  color: #7a847d;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   ACTIVE CATEGORY
+========================================================= */
+
+.category-card.active {
+  border-color: #496e5a;
+
+  background: #f8fbf7;
+
+  box-shadow: 0 7px 25px rgba(27, 59, 54, 0.09);
+}
+
+.category-card.active .category-arrow {
+  background: #496e5a;
+
+  color: #ffffff;
+
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.category-mega.active {
+  animation: megaMenuOpen 0.25s ease;
+}
+
+@keyframes megaMenuOpen {
+  from {
+    opacity: 0;
+
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   TOOLTIP
+   For ITEM cards
+========================================================= */
+
+.item-tooltip {
+  position: fixed;
+
+  z-index: 9999;
+
+  width: 300px;
+
+  max-width: calc(100vw - 30px);
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e7e1;
+
+  border-radius: 14px;
+
+  box-shadow: 0 15px 45px rgba(27, 59, 54, 0.16);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.item-tooltip.visible {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+.item-tooltip img {
+  width: 100%;
+
+  max-height: 170px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+
+  margin-bottom: 12px;
+}
+
+.item-tooltip h4 {
+  margin: 0 0 7px;
+
+  font-size: 17px;
+
+  color: #173d36;
+}
+
+.item-tooltip p {
+  margin: 0;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: #6f7972;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+  .category-mega-inner {
+    grid-template-columns: 230px minmax(0, 1fr);
+  }
+
+  .category-mega-right {
+    grid-template-columns: repeat(2, minmax(170px, 1fr));
+
+    padding: 28px;
+  }
+
+  .category-mega-left {
+    padding: 30px 28px;
+  }
+}
+
+/* Small tablet */
+
+@media (max-width: 768px) {
+  #categoriesSection {
+    gap: 10px;
+  }
+
+  .category-card {
+    width: 100%;
+
+    min-height: 82px;
+  }
+
+  .category-column {
+    width: 100% !important;
+
+    flex: 0 0 100%;
+  }
+
+  .category-mega-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .category-mega-left {
+    padding: 28px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #e1e7e1;
+  }
+
+  .category-mega-left::after {
+    display: none;
+  }
+
+  .category-mega-left p {
+    max-width: none;
+  }
+
+  .category-mega-all {
+    margin-top: 5px;
+  }
+
+  .category-mega-right {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    padding: 25px 22px;
+
+    gap: 8px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
+  #categoriesSection {
+    margin-top: 25px;
+  }
+
+  .category-card {
+    width: 100%;
+
+    padding: 15px;
+  }
+
+  .category-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .category-title {
+    font-size: 16px;
+  }
+
+  .category-mega {
+    border-radius: 18px;
+  }
+
+  .category-mega-left {
+    padding: 24px;
+  }
+
+  .category-mega-left h3 {
+    font-size: 24px;
+  }
+
+  .category-mega-right {
+    grid-template-columns: 1fr;
+
+    padding: 20px 15px;
+  }
+
+  .mega-item {
+    min-height: 65px;
+  }
+
+  .mega-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.category-mega.active {
+  animation: megaMenuOpen 0.25s ease;
+}
+
+@keyframes megaMenuOpen {
+  from {
+    opacity: 0;
+
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   TOOLTIP
+   For ITEM cards
+========================================================= */
+
+.item-tooltip {
+  position: fixed;
+
+  z-index: 9999;
+
+  width: 300px;
+
+  max-width: calc(100vw - 30px);
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e7e1;
+
+  border-radius: 14px;
+
+  box-shadow: 0 15px 45px rgba(27, 59, 54, 0.16);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.item-tooltip.visible {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+.item-tooltip img {
+  width: 100%;
+
+  max-height: 170px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+
+  margin-bottom: 12px;
+}
+
+.item-tooltip h4 {
+  margin: 0 0 7px;
+
+  font-size: 17px;
+
+  color: #173d36;
+}
+
+.item-tooltip p {
+  margin: 0;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  color: #6f7972;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+  .category-mega-inner {
+    grid-template-columns: 230px minmax(0, 1fr);
+  }
+
+  .category-mega-right {
+    grid-template-columns: repeat(2, minmax(170px, 1fr));
+
+    padding: 28px;
+  }
+
+  .category-mega-left {
+    padding: 30px 28px;
+  }
+}
+
+/* Small tablet */
+
+@media (max-width: 768px) {
+  #categoriesSection {
+    gap: 10px;
+  }
+
+  .category-card {
+    width: 100%;
+
+    min-height: 82px;
+  }
+
+  .category-column {
+    width: 100% !important;
+
+    flex: 0 0 100%;
+  }
+
+  .category-mega-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .category-mega-left {
+    padding: 28px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #e1e7e1;
+  }
+
+  .category-mega-left::after {
+    display: none;
+  }
+
+  .category-mega-left p {
+    max-width: none;
+  }
+
+  .category-mega-all {
+    margin-top: 5px;
+  }
+
+  .category-mega-right {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    padding: 25px 22px;
+
+    gap: 8px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 500px) {
+  #categoriesSection {
+    margin-top: 25px;
+  }
+
+  .category-card {
+    width: 100%;
+
+    padding: 15px;
+  }
+
+  .category-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .category-title {
+    font-size: 16px;
+  }
+
+  .category-mega {
+    border-radius: 18px;
+  }
+
+  .category-mega-left {
+    padding: 24px;
+  }
+
+  .category-mega-left h3 {
+    font-size: 24px;
+  }
+
+  .category-mega-right {
+    grid-template-columns: 1fr;
+
+    padding: 20px 15px;
+  }
+
+  .mega-item {
+    min-height: 65px;
+  }
+
+  .mega-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
 @media (max-width: 991px) {
   .section-title {
     font-size: 48px;
@@ -1367,5 +2493,501 @@ img.card-img-top {
 
   .section-description {
     font-size: 17px;
+  }
+}
+
+/* =========================================================
+   CATEGORY NAVIGATION
+========================================================= */
+
+.category-navigation {
+  width: 100%;
+  position: relative;
+  margin-top: 25px;
+}
+
+.category-navigation-list {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   CATEGORY ITEM
+========================================================= */
+
+.category-nav-item {
+  position: static;
+  flex: 1 1 180px;
+  max-width: 260px;
+}
+
+/* =========================================================
+   CATEGORY BUTTON
+========================================================= */
+
+.category-nav-link {
+  width: 100%;
+  min-height: 75px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e9e5;
+  border-radius: 12px;
+
+  color: #1b3b36;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* =========================================================
+   CATEGORY HOVER
+========================================================= */
+
+.category-nav-item:hover .category-nav-link,
+.category-nav-item.active .category-nav-link {
+  background: #f5f8f4;
+  border-color: #496e5a;
+
+  box-shadow: 0 8px 24px rgba(27, 59, 54, 0.08);
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   CATEGORY ICON
+========================================================= */
+
+.category-nav-icon {
+  width: 42px;
+  height: 42px;
+
+  min-width: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #f0f4ee;
+
+  overflow: hidden;
+}
+
+.category-nav-icon img {
+  width: 27px;
+  height: 27px;
+
+  object-fit: contain;
+}
+
+.category-nav-icon-placeholder {
+  color: #496e5a;
+  font-size: 18px;
+}
+
+/* =========================================================
+   CATEGORY TITLE
+========================================================= */
+
+.category-nav-title {
+  flex: 1;
+
+  text-align: left;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #1b3b36;
+}
+
+/* =========================================================
+   CATEGORY ARROW
+========================================================= */
+
+.category-nav-arrow {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #496e5a;
+
+  transition: transform 0.25s ease;
+}
+
+.category-nav-item:hover .category-nav-arrow {
+  transform: translateY(3px);
+}
+
+/* =========================================================
+   MEGA PANEL
+========================================================= */
+
+.category-mega-panel {
+  position: absolute;
+
+  top: calc(100% + 15px);
+
+  left: 0;
+
+  width: 100%;
+
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-8px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+}
+
+/* =========================================================
+   SHOW MEGA PANEL
+========================================================= */
+
+.category-mega-panel.visible,
+.category-nav-item:hover .category-mega-panel {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+
+/* =========================================================
+   MEGA INNER
+========================================================= */
+
+.category-mega-inner {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 280px)
+    1fr;
+
+  gap: 40px;
+
+  padding: 35px 40px;
+
+  background: #ffffff;
+
+  border: 1px solid #e3e8e3;
+
+  border-radius: 18px;
+
+  box-shadow: 0 20px 50px rgba(27, 59, 54, 0.13);
+}
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.category-mega-left {
+  padding-right: 30px;
+
+  border-right: 1px solid #e8ece8;
+}
+
+.category-mega-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+
+  color: #496e5a;
+}
+
+.category-mega-left h3 {
+  margin: 0 0 12px;
+
+  font-size: 25px;
+
+  font-weight: 700;
+
+  color: #1b3b36;
+}
+
+.category-mega-left p {
+  margin: 0 0 22px;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  color: #68736d;
+}
+
+/* =========================================================
+   VIEW ALL
+========================================================= */
+
+.category-mega-view-all {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #1b3b36;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: gap 0.2s ease;
+}
+
+.category-mega-view-all:hover {
+  color: #496e5a;
+
+  gap: 12px;
+}
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.category-mega-right {
+  min-width: 0;
+}
+
+/* =========================================================
+   ITEMS GRID
+========================================================= */
+
+.category-items-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+
+  gap: 8px 25px;
+}
+
+/* =========================================================
+   ITEM
+========================================================= */
+
+.category-mega-item {
+  min-height: 62px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  color: #1b3b36;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.category-mega-item:hover {
+  background: #f5f8f4;
+
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   ITEM ICON
+========================================================= */
+
+.category-mega-item-icon {
+  width: 40px;
+  height: 40px;
+
+  min-width: 40px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: #f0f4ee;
+
+  overflow: hidden;
+}
+
+.category-mega-item-icon img {
+  width: 25px;
+  height: 25px;
+
+  object-fit: contain;
+}
+
+.category-mega-item-icon i {
+  font-size: 16px;
+
+  color: #496e5a;
+}
+
+/* =========================================================
+   ITEM CONTENT
+========================================================= */
+
+.category-mega-item-content {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.category-mega-item-content strong {
+  font-size: 14px;
+
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: #1b3b36;
+}
+
+.category-mega-item-content small {
+  display: block;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 11px;
+
+  color: #7b8580;
+}
+
+/* =========================================================
+   ITEM ARROW
+========================================================= */
+
+.category-mega-item-arrow {
+  opacity: 0;
+
+  color: #496e5a;
+
+  transform: translateX(-5px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.category-mega-item:hover .category-mega-item-arrow {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.category-mega-empty {
+  padding: 20px;
+
+  font-size: 14px;
+
+  color: #7b8580;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 992px) {
+  .category-mega-inner {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+  }
+
+  .category-mega-left {
+    padding-right: 0;
+
+    padding-bottom: 20px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #e8ece8;
+  }
+
+  .category-items-grid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .category-navigation-list {
+    flex-direction: column;
+  }
+
+  .category-nav-item {
+    max-width: none;
+  }
+
+  .category-mega-panel {
+    position: relative;
+
+    top: 0;
+
+    margin-top: 10px;
+  }
+
+  .category-mega-inner {
+    padding: 25px 20px;
+  }
+
+  .category-items-grid {
+    grid-template-columns: 1fr;
   }
 }

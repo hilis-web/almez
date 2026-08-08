@@ -134,25 +134,25 @@
       <div class="container d-flex justify-content-between align-items-center">
         <div>
           <div style="font-weight: 700" class="d-flex align-items-center">
-            <h3 id="headerTitle" style="font-weight: 700">
+            <h3 id="itemCategory" style="font-weight: 700">
               Patologías y Síntomas
             </h3>
             <br />
           </div>
           <div class="d-flex align-items-center">
-            <h5 id="headerDescription">Patologías y Síntomas</h5>
+            <h5 id="itemTitle">Patologías y Síntomas</h5>
             <br />
           </div>
         </div>
       </div>
     </header>
 
-    <div class="container mb-4 mt-4" id="contentContainer"></div>
+    <div class="container mb-5" id="contentContainer">hhhhhhhhhhhhh</div>
     <div class="modal fade" id="medicalReportModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="">
           <div class="modal-body">
-            <div class="consultationFormShared"></div>
+            <div id="itemContent"></div>
           </div>
         </div>
       </div>
@@ -172,117 +172,6 @@
     <script src="assets/js/app.js"></script>
     <script src="assets/js/api.js"></script>
     <script src="assets/js/cookies.js"></script>
-
-    <script>
-      $(document).ready(function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const sectionId = urlParams.get("sectionId");
-        const categoryId = urlParams.get("categoryId");
-
-        if (sectionId && categoryId) {
-          loadSubcategoryDetails(sectionId, categoryId);
-        } else {
-          console.error("Missing parameters in URL");
-        }
-
-        let headerTitle =
-          localStorage.getItem("sectionTitle") ||
-          data.title[lang] ||
-          data.title["es"];
-        let headerDescription =
-          localStorage.getItem("sectionDescription") ||
-          data.description[lang] ||
-          data.description["es"];
-
-        document.getElementById("headerTitle").innerHTML = headerTitle;
-        document.getElementById("headerDescription").innerHTML =
-          headerDescription;
-      });
-
-      function loadSubcategoryDetails(sectionId, categoryId) {
-        const lang = localStorage.getItem("selectedLang") || "es";
-
-        $.ajax({
-          url: `${API_BASE_URL}/newsection/section/${sectionId}/category/${categoryId}`,
-          method: "GET",
-
-          success: function (category) {
-            console.log(category);
-
-            const title = category.title?.[lang] || category.title?.es || "";
-
-            const description =
-              category.description?.[lang] || category.description?.es || "";
-
-            $("#headerDescription").text(title);
-
-            $("#contentContainer").empty();
-
-            if (!category.items || category.items.length === 0) {
-              $("#contentContainer").html(`
-          <div class="text-center py-5">
-            <h5>No items found.</h5>
-          </div>
-        `);
-              return;
-            }
-
-            let html = `<div class="row g-4">`;
-
-            category.items.forEach((item) => {
-              const itemTitle = item.title?.[lang] || item.title?.es || "";
-
-              const itemDescription =
-                item.description?.[lang] || item.description?.es || "";
-
-              html += `
-          <div class="col-lg-4 col-md-6">
-
-            <div class="card item-card h-100"
-                 data-item-id="${item.itemId}">
-
-              <img
-                  src="${item.imageUrl || ""}"
-                  class="card-img-top"
-                  alt="${itemTitle}">
-
-              <div class="card-body">
-
-                  <h4>${itemTitle}</h4>
-
-                  <p>${itemDescription}</p>
-
-              </div>
-
-              <div class="card-footer bg-transparent border-0">
-
-                  <a
-                    href="item.html?sectionId=${sectionId}&categoryId=${categoryId}&itemId=${item.itemId}"
-                    class="btn btn-link">
-
-                      More information
-                      <i class="bi bi-arrow-right"></i>
-
-                  </a>
-
-              </div>
-
-            </div>
-
-          </div>
-        `;
-            });
-
-            html += "</div>";
-
-            $("#contentContainer").html(html);
-          },
-
-          error: function (err) {
-            console.error("Error fetching category:", err);
-          },
-        });
-      }
-    </script>
+    <script src="assets/js/item.js"></script>
   </body>
 </html>

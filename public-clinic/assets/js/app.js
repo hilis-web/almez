@@ -3,7 +3,7 @@ $(document).ready(function () {
   const sectionId = urlParams.get("sectionId");
   const categoryId = urlParams.get("categoryId");
   if (sectionId && categoryId) {
-    loadSubcategoryDetails(sectionId, categoryId);
+    //loadSubcategoryDetails(sectionId, categoryId);
   } else if (sectionId) {
     if (typeof loadCategories === "function") {
       loadCategories(sectionId);
@@ -90,39 +90,60 @@ $(document).ready(function () {
 
     </div>
 
-    <div class="mega-right">
+    <div class="mega-right mega-grid">
 
-        ${categories
-          .map(
-            (cat) => `
+       ${categories
+         .map(
+           (cat) => `
+      <div class="mega-category-column">
 
-            <a
-                href="#"
-                class="category-link mega-item"
+          <div class="mega-category-header">
 
-                data-page-title="${section.title}"
-                data-page-description="${section.description}"
-                data-page-name="${section.page}"
-                data-section-id="${section.sectionId}"
-                data-category-id="${cat.categoryId}">
+              ${
+                cat.imageUrl
+                  ? `<img src="${cat.imageUrl}" class="mega-category-icon">`
+                  : ""
+              }
 
-                <div class="mega-icon">
+              <span class="mega-category-title">
+                  ${cat.title.es}
+              </span>
 
-                    <img src="${cat.imageUrl}">
+          </div>
 
-                </div>
+          <div class="mega-items">
 
-                <span>
+              ${
+                cat.items && cat.items.length
+                  ? cat.items
+                      .map(
+                        (item) => `
+                          <a
+                              href="#"
+                              class="item-link"
 
-                    ${cat.title.es}
+                              data-page-title="${section.title}"
+                              data-page-description="${section.description}"
+                              data-page-name="${section.page}"
+                              data-section-id="${section.sectionId}"
+                              data-category-id="${cat.categoryId}"
+                              data-item-id="${item.itemId}">
 
-                </span>
+                              ${item.title.es}
 
-            </a>
+                          </a>
+                        `,
+                      )
+                      .join("")
+                  : `<span class="mega-empty">Coming soon</span>`
+              }
 
-        `,
-          )
-          .join("")}
+          </div>
+
+      </div>
+`,
+         )
+         .join("")}
 
     </div>
 
@@ -135,11 +156,13 @@ $(document).ready(function () {
 `;
           navList.append(sectionItem);
         });
+        // $(".category-link").click(function (e) {
 
-        $(".category-link").click(function (e) {
+        $(".item-link").click(function (e) {
           e.preventDefault();
           const sectionId = $(this).data("section-id");
           const categoryId = $(this).data("category-id");
+          const itemId = $(this).data("itemId");
           const pageName = $(this).data("page-name");
           const sectionTitle = $(this).data("page-title");
           const sectionDescription = $(this).data("page-description");
@@ -151,7 +174,7 @@ $(document).ready(function () {
           localStorage.setItem("sectionDescription", sectionDescription);
 
           setTimeout(function () {
-            window.location.href = `subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}`;
+            window.location.href = `item.html?sectionId=${sectionId}&categoryId=${categoryId}&itemId=${itemId}`;
           }, 20);
         });
         $(".section-link").click(function (e) {
@@ -200,70 +223,143 @@ window.loadCategories = function (sectionId) {
     method: "GET",
 
     success: function (categories) {
-      $("#categoriesSection").empty();
+      const $container = $("#categoriesSection");
 
-      console.log("####categories####", categories);
+      $container.empty();
 
-      /* ========================================
-         CREATE CATEGORY CARDS
-      ======================================== */
+      if (!categories || !Array.isArray(categories)) {
+        console.warn("No categories found.");
+        return;
+      }
 
-      categories.forEach((category) => {
-        const title = category.title?.[lang] || category.title?.["es"] || "";
+      console.log("#### categories ####", categories);
 
-        const description =
-          category.description?.[lang] || category.description?.["es"] || "";
+      /* =====================================================
+         CATEGORY NAVIGATION
+      ===================================================== */
+
+      const $categoryNavigation = $(`
+        <div class="category-navigation">
+          <div class="category-navigation-list"></div>
+        </div>
+      `);
+
+      const $categoryList = $categoryNavigation.find(
+        ".category-navigation-list",
+      );
+
+      /* =====================================================
+         CREATE CATEGORY BUTTONS
+      ===================================================== */
+
+      categories.forEach((category, index) => {
+        const categoryTitle =
+          category.title?.[lang] ||
+          category.title?.es ||
+          category.title?.en ||
+          "";
+
+        const categoryDescription =
+          category.description?.[lang] ||
+          category.description?.es ||
+          category.description?.en ||
+          "";
 
         const categoryId = category.categoryId;
 
-        /* TOOLTIP DATA */
+        const imageUrl = category.imageUrl || "";
 
-        const tooltipTitle =
-          category.toolTip?.title?.[lang] || category.toolTip?.title?.es || "";
+        /* ================================================
+           ITEMS
+        ================================================= */
 
-        const tooltipDesc =
-          category.toolTip?.description?.[lang] ||
-          category.toolTip?.description?.es ||
-          "";
+        const items = Array.isArray(category.items) ? category.items : [];
 
-        const tooltipImg = category.toolTip?.imageUrl || "";
+        /* ================================================
+           CATEGORY BUTTON
+        ================================================= */
 
-        /* CREATE CARD */
+        const $categoryItem = $(`
+          <div
+            class="category-nav-item"
+            data-category-id="${categoryId}"
+          >
 
-        $("#categoriesSection").append(`
-          <div class="col-md-3 mb-4">
+            <button
+              type="button"
+              class="category-nav-link"
+              aria-expanded="false"
+            >
 
-            <div class="card category-card"
-                 data-category-id="${categoryId}"
-                 data-section-id="${sectionId}"
-                 data-tooltip-title="${tooltipTitle}"
-                 data-tooltip-desc="${tooltipDesc}"
-                 data-tooltip-img="${tooltipImg}">
+              ${
+                imageUrl
+                  ? `
+                    <span class="category-nav-icon">
+                      <img
+                        src="${imageUrl}"
+                        alt="${categoryTitle}"
+                      >
+                    </span>
+                  `
+                  : `
+                    <span class="category-nav-icon category-nav-icon-placeholder">
+                      <i class="bi bi-grid"></i>
+                    </span>
+                  `
+              }
 
-              <img
-                src="${category.imageUrl}"
-                alt="${title}"
-              >
+              <span class="category-nav-title">
+                ${categoryTitle}
+              </span>
 
-              <div class="card-body p-0">
+              <span class="category-nav-arrow">
+                <i class="bi bi-chevron-down"></i>
+              </span>
 
-              <h3>
-                <strong class="category-title">
-                  ${title}
-                </strong>
-</h3>
-                <small class="category-description">
-                  ${description}
-                </small>
+            </button>
+
+          </div>
+        `);
+
+        /* =================================================
+           MEGA PANEL
+        ================================================= */
+
+        const $megaPanel = $(`
+          <div
+            class="category-mega-panel"
+            data-category-panel="${categoryId}"
+          >
+
+            <div class="category-mega-inner">
+
+              <!-- LEFT -->
+              <div class="category-mega-left">
+
+                <span class="category-mega-label">
+                  ${categoryTitle}
+                </span>
+
+                <h3>
+                  ${categoryTitle}
+                </h3>
+
+                ${categoryDescription ? `<p>${categoryDescription}</p>` : ""}
+
+                <a
+                  href="subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}"
+                  class="category-mega-view-all"
+                >
+                  Ver todos
+                  <i class="bi bi-arrow-right"></i>
+                </a>
 
               </div>
 
-              <div class="mt-2 category-footer">
+              <!-- RIGHT -->
+              <div class="category-mega-right">
 
-                <a data-i18n="more_info" href="subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}" style="color: #1b3b36 !important; font-weight: 700" >
-                  More info
-                  <i class="bi bi-arrow-right"></i>
-                </a>
+                <div class="category-items-grid"></div>
 
               </div>
 
@@ -271,262 +367,285 @@ window.loadCategories = function (sectionId) {
 
           </div>
         `);
+
+        const $itemsGrid = $megaPanel.find(".category-items-grid");
+
+        /* =================================================
+           CREATE ITEMS AS LIST
+        ================================================= */
+
+        if (items.length > 0) {
+          items.forEach((item) => {
+            const itemTitle =
+              item.title?.[lang] || item.title?.es || item.title?.en || "";
+
+            const itemDescription =
+              item.description?.[lang] ||
+              item.description?.es ||
+              item.description?.en ||
+              "";
+
+            const itemId = item.itemId;
+
+            const itemImage = item.imageUrl || "";
+
+            const itemLink =
+              `item.html?sectionId=${sectionId}` +
+              `&categoryId=${categoryId}` +
+              `&itemId=${itemId}`;
+
+            const $item = $(`
+              <a
+                href="${itemLink}"
+                class="category-mega-item"
+                data-item-id="${itemId}"
+              >
+
+                <span class="category-mega-item-icon">
+
+                  ${
+                    itemImage
+                      ? `
+                        <img
+                          src="${itemImage}"
+                          alt="${itemTitle}"
+                        >
+                      `
+                      : `
+                        <i class="bi bi-arrow-up-right"></i>
+                      `
+                  }
+
+                </span>
+
+                <span class="category-mega-item-content">
+
+                  <strong>
+                    ${itemTitle}
+                  </strong>
+
+                  ${
+                    itemDescription
+                      ? `
+                        <small>
+                          ${itemDescription}
+                        </small>
+                      `
+                      : ""
+                  }
+
+                </span>
+
+                <span class="category-mega-item-arrow">
+                  <i class="bi bi-arrow-right"></i>
+                </span>
+
+              </a>
+            `);
+
+            /* =============================================
+               ITEM TOOLTIP DATA
+            ============================================= */
+
+            $item.attr(
+              "data-tooltip-title",
+              item.toolTip?.title?.[lang] || item.toolTip?.title?.es || "",
+            );
+
+            $item.attr(
+              "data-tooltip-desc",
+              item.toolTip?.description?.[lang] ||
+                item.toolTip?.description?.es ||
+                "",
+            );
+
+            $item.attr("data-tooltip-img", item.toolTip?.imageUrl || "");
+
+            $itemsGrid.append($item);
+          });
+        } else {
+          $itemsGrid.html(`
+            <div class="category-mega-empty">
+              No hay elementos disponibles.
+            </div>
+          `);
+        }
+
+        /*
+         * Put the mega panel INSIDE the category item.
+         * This allows the panel to stay open while moving
+         * from the category button into the mega menu.
+         */
+
+        $categoryItem.append($megaPanel);
+
+        $categoryList.append($categoryItem);
       });
 
-      /* ========================================
-         TOOLTIP SETTINGS
-      ======================================== */
+      /* =====================================================
+         ADD TO PAGE
+      ===================================================== */
 
-      let tooltipTimeout = null;
-      let hideTooltipTimeout = null;
-      let isHoveringTooltip = false;
+      $container.append($categoryNavigation);
 
-      const tooltip = $("#customTooltip");
+      /* =====================================================
+         HOVER HANDLING
+      ===================================================== */
 
-      /* ========================================
-         REMOVE OLD EVENTS
-      ======================================== */
+      let closeTimer = null;
 
-      $(document).off("mouseenter.categoryTooltip", ".category-card");
+      function closeAllMegaMenus() {
+        $(".category-nav-item").removeClass("active");
 
-      $(document).off("mouseleave.categoryTooltip", ".category-card");
+        $(".category-nav-link").attr("aria-expanded", "false");
 
-      tooltip.off(".categoryTooltip");
+        $(".category-mega-panel").removeClass("visible");
+      }
 
-      /* ========================================
-         CARD MOUSE ENTER
-      ======================================== */
+      function openMegaMenu($categoryItem) {
+        clearTimeout(closeTimer);
 
-      $(document).on(
-        "mouseenter.categoryTooltip",
-        ".category-card",
+        $(".category-nav-item").not($categoryItem).removeClass("active");
 
-        function () {
-          clearTimeout(tooltipTimeout);
-          clearTimeout(hideTooltipTimeout);
+        $(".category-nav-link")
+          .not($categoryItem.find(".category-nav-link"))
+          .attr("aria-expanded", "false");
 
-          const $card = $(this);
+        $(".category-mega-panel")
+          .not($categoryItem.find(".category-mega-panel"))
+          .removeClass("visible");
 
-          const title = $card.data("tooltip-title");
+        $categoryItem.addClass("active");
 
-          const desc = $card.data("tooltip-desc");
+        $categoryItem.find(".category-nav-link").attr("aria-expanded", "true");
 
-          const img = $card.data("tooltip-img");
+        $categoryItem.find(".category-mega-panel").addClass("visible");
+      }
 
-          const cardSectionId = $card.data("section-id");
+      /* =====================================================
+         CATEGORY HOVER
+      ===================================================== */
 
-          const categoryId = $card.data("category-id");
+      $(document)
+        .off("mouseenter.categoryMega", ".category-nav-item")
+        .on("mouseenter.categoryMega", ".category-nav-item", function () {
+          clearTimeout(closeTimer);
 
-          /* UPDATE TOOLTIP CONTENT */
+          openMegaMenu($(this));
+        });
 
-          $("#tooltipImage").attr("src", img || "");
+      /* =====================================================
+         CATEGORY LEAVE
+      ===================================================== */
 
-          $("#tooltipTitle").text(title || "");
+      $(document)
+        .off("mouseleave.categoryMega", ".category-nav-item")
+        .on("mouseleave.categoryMega", ".category-nav-item", function () {
+          const $item = $(this);
 
-          $("#tooltipDesc").text(desc || "");
+          closeTimer = setTimeout(() => {
+            $item.removeClass("active");
 
-          /* UPDATE TOOLTIP LINK */
+            $item.find(".category-nav-link").attr("aria-expanded", "false");
 
-          tooltip
-            .data(
-              "link",
-              `subcategory.html?sectionId=${cardSectionId}&categoryId=${categoryId}`,
-            )
-            .removeClass("visible arrow-top arrow-bottom")
-            .show();
+            $item.find(".category-mega-panel").removeClass("visible");
+          }, 150);
+        });
 
-          /* ========================================
-             GET CARD POSITION
-          ======================================== */
+      /* =====================================================
+         CATEGORY CLICK
+         ===================================================== */
 
-          const cardRect = this.getBoundingClientRect();
+      $(document)
+        .off("click.categoryNavigation", ".category-nav-link")
+        .on("click.categoryNavigation", ".category-nav-link", function (e) {
+          e.preventDefault();
 
-          /* GET TOOLTIP DIMENSIONS */
+          const $categoryItem = $(this).closest(".category-nav-item");
 
-          const tooltipWidth = tooltip.outerWidth();
+          /*
+           * On click, go to the complete category page.
+           */
 
-          const tooltipHeight = tooltip.outerHeight();
+          const categoryId = $categoryItem.data("category-id");
 
-          const gap = 0;
+          window.location.href =
+            `subcategory.html?sectionId=${sectionId}` +
+            `&categoryId=${categoryId}`;
+        });
 
-          /* ========================================
-             DEFAULT POSITION
-             RIGHT SIDE OF CARD
-          ======================================== */
+      /* =====================================================
+         ITEM CLICK
+      ===================================================== */
 
-          let left = cardRect.right + gap;
+      $(document)
+        .off("click.categoryItem", ".category-mega-item")
+        .on("click.categoryItem", ".category-mega-item", function (e) {
+          /*
+           * Let the normal <a href=""> navigation happen.
+           * We only close the menu.
+           */
 
-          let top = cardRect.top + cardRect.height / 2 - tooltipHeight / 2;
+          const $item = $(this);
 
-          /* ========================================
-             CHECK RIGHT SIDE
-          ======================================== */
+          const itemId = $item.data("item-id");
 
-          if (left + tooltipWidth > window.innerWidth - gap) {
-            left = cardRect.left - tooltipWidth - gap;
+          console.log("Item clicked:", itemId);
+
+          closeAllMegaMenus();
+        });
+
+      /* =====================================================
+         ESCAPE KEY
+      ===================================================== */
+
+      $(document)
+        .off("keydown.categoryMega")
+        .on("keydown.categoryMega", function (e) {
+          if (e.key === "Escape") {
+            closeAllMegaMenus();
           }
+        });
 
-          /* ========================================
-             CHECK LEFT SIDE
-          ======================================== */
+      /* =====================================================
+         ITEM TOOLTIP
+         OPTIONAL
+      ===================================================== */
 
-          if (left < gap) {
-            left = gap;
-          }
-
-          /* ========================================
-             CHECK TOP
-          ======================================== */
-
-          if (top < gap) {
-            top = gap;
-          }
-
-          /* ========================================
-             CHECK BOTTOM
-          ======================================== */
-
-          if (top + tooltipHeight > window.innerHeight - gap) {
-            top = window.innerHeight - tooltipHeight - gap;
-          }
-
-          /* ========================================
-             APPLY POSITION
-          ======================================== */
-
-          tooltip.css({
-            position: "fixed",
-            top: `${top}px`,
-            left: `${left}px`,
-          });
-
-          /* SHOW TOOLTIP */
-
-          setTimeout(() => {
-            tooltip.addClass("visible");
-          }, 10);
-
-          /* ========================================
-             IMAGE FLEX DIRECTION
-          ======================================== */
-
-          const imgElement = document.getElementById("tooltipImage");
-
-          if (imgElement) {
-            imgElement.onload = function () {
-              const tooltipInner = tooltip.find(".tooltip-inner");
-
-              if (imgElement.naturalHeight > imgElement.naturalWidth) {
-                tooltipInner.css("flex-direction", "row");
-
-                $(imgElement).css("order", 1);
-              } else {
-                tooltipInner.css("flex-direction", "column");
-
-                $(imgElement).css("order", 0);
-              }
-            };
-          }
-        },
-      );
-
-      /* ========================================
-         CARD MOUSE LEAVE
-      ======================================== */
-
-      $(document).on(
-        "mouseleave.categoryTooltip",
-        ".category-card",
-
-        function () {
-          tooltipTimeout = setTimeout(() => {
-            if (!isHoveringTooltip) {
-              tooltip.removeClass("visible");
-
-              hideTooltipTimeout = setTimeout(() => {
-                tooltip.hide();
-              }, 200);
-            }
-          }, 200);
-        },
-      );
-
-      /* ========================================
-         TOOLTIP MOUSE ENTER
-      ======================================== */
-
-      tooltip.on(
-        "mouseenter.categoryTooltip",
-
-        function () {
-          isHoveringTooltip = true;
-
-          clearTimeout(tooltipTimeout);
-
-          clearTimeout(hideTooltipTimeout);
-        },
-      );
-
-      /* ========================================
-         TOOLTIP MOUSE LEAVE
-      ======================================== */
-
-      tooltip.on(
-        "mouseleave.categoryTooltip",
-
-        function () {
-          isHoveringTooltip = false;
-
-          $(this).removeClass("visible");
-
-          hideTooltipTimeout = setTimeout(() => {
-            $(this).hide();
-          }, 200);
-        },
-      );
-
-      /* ========================================
-         TOOLTIP CLICK
-      ======================================== */
-
-      tooltip.on(
-        "click.categoryTooltip",
-
-        function () {
-          const link = $(this).data("link");
-
-          if (link) {
-            window.location.href = link;
-          }
-        },
-      );
-
-      /* ========================================
-         CARD CLICK
-      ======================================== */
-
-      $(".category-card")
-        .off("click.categoryTooltip")
-        .on(
-          "click.categoryTooltip",
-
-          function () {
-            const categoryId = $(this).data("category-id");
-
-            window.location.href = `subcategory.html?sectionId=${sectionId}&categoryId=${categoryId}`;
-          },
-        );
+      /*
+       * We are NOT showing the old category tooltip anymore.
+       *
+       * If you want item tooltips later, we can attach them
+       * specifically to .category-mega-item.
+       */
     },
 
-    /* ========================================
+    /* =======================================================
        AJAX ERROR
-    ======================================== */
+    ======================================================= */
 
     error: function (err) {
       console.error("Error fetching categories:", err);
     },
   });
 };
+
+/* =========================================================
+   ESCAPE HTML HELPER
+========================================================= */
+
+function escapeHtml(value) {
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 // تحميل الفئات الفرعية
 window.loadSubcategories = function (sectionId, categoryId) {
@@ -612,20 +731,21 @@ function loadSubcategoryDescription(sectionId, categoryId, subcategoryId) {
   });
 }
 
-function loadSubcategoryDetails(sectionId, categoryId) {
-  const lang = localStorage.getItem("selectedLang") || "es";
+// function loadSubcategoryDetails(sectionId, categoryId) {
+//   const lang = localStorage.getItem("selectedLang") || "es";
 
-  $.ajax({
-    url: `${API_BASE_URL}/newsection/section/${sectionId}/category/${categoryId}`,
-    method: "GET",
-    success: function (data) {
-      let htmlContent = data.content[lang] || data.content["es"];
-    },
-    error: function (err) {
-      console.error("Error fetching category details:", err);
-    },
-  });
-}
+//   $.ajax({
+//     url: `${API_BASE_URL}/newsection/section/${sectionId}/category/${categoryId}`,
+//     method: "GET",
+//     success: function (data) {
+//       console.log("^^pppppppppppp ", data);
+//       let htmlContent = data.content[lang] || data.content["es"];
+//     },
+//     error: function (err) {
+//       console.error("Error fetching category details:", err);
+//     },
+//   });
+// }
 
 function fetchSections() {
   $.ajax({
@@ -646,6 +766,7 @@ function renderSections(sections) {
   console.log("^^^^^^^sections", sections);
   sections.forEach((section) => {
     const title = section.title?.[lang] || section.title?.es || "";
+    console.log("HOME CARD", title);
     const description =
       section.description?.[lang] || section.description?.es || "";
     const imageUrl =
