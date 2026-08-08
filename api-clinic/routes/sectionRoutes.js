@@ -129,8 +129,8 @@ router.get("/navstatic/section", async (req, res) => {
 // Fetch all sections
 router.get("/sections", async (req, res) => {
   try {
-    // const { lang } = req.query;
-    const lang = "en";
+    const { lang } = req.query;
+    // const lang = "en";
 
     const sections = await SectionNew.find();
 
