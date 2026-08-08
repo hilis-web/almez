@@ -765,6 +765,8 @@ function renderSections(sections) {
   const lang = localStorage.getItem("selectedLang") || "es";
   console.log("^^^^^^^sections", sections);
   sections.forEach((section) => {
+    console.log("HOME sectionnnnn", section);
+
     const title = section.title?.[lang] || section.title?.es || "";
     console.log("HOME CARD", title);
     const description =
