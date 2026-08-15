@@ -237,4 +237,4 @@ function normalizeToolTip(toolTip) {
   };
 }
 
-migrate();
+//migrate();

@@ -50,6 +50,10 @@ $(document).ready(function () {
   $("#addNewSectionForm").submit(function (e) {
     e.preventDefault();
 
+    // ==========================================
+    // SECTION
+    // ==========================================
+
     let sectionId = $("#newSectionSelect").val();
 
     let newSectionTitle = $("#newSectionTitleEs").val();
@@ -60,6 +64,12 @@ $(document).ready(function () {
 
     let newSectionImage = $("#newSectionImage").val();
 
+    // ==========================================
+    // CATEGORY
+    // ==========================================
+
+    let categoryId = $("#newCategorySelect").val();
+
     let newCategoryTitle = $("#newCategoryTitleEs").val();
     let newCategoryDescription = $("#newCategoryDescriptionEs").val();
 
@@ -69,72 +79,179 @@ $(document).ready(function () {
     let newCategoryImage = $("#newCategoryImage").val();
 
     let newCategoryToolTipTitle = $("#newCategoryToolTipTitleEs").val();
+
     let newCategoryToolTipDescription = $(
       "#newCategoryToolTipDescriptionEs",
     ).val();
 
     let newCategoryToolTipTitleEn = $("#newCategoryToolTipTitleEn").val();
+
     let newCategoryToolTipDescriptionEn = $(
       "#newCategoryToolTipDescriptionEn",
     ).val();
 
     let newCategoryToolTipImage = $("#newCategoryToolTipImage").val();
 
-    let newCategoryContent = $("#newCategoryContentEs").val();
-    let newCategoryContentEn = $("#newCategoryContentEn").val();
+    // ==========================================
+    // ITEM
+    // ==========================================
 
-    if (!sectionId && newSectionTitle) {
-      // 🟢 Create a new section with a category and subcategory
-      const sectionData = {
-        title: { es: newSectionTitle, en: newSectionTitleEn },
-        description: { es: newSectionDescription, en: newSectionDescriptionEn },
-        imageUrl: newSectionImage,
-      };
+    let newItemTitle = $("#newItemTitleEs").val();
+    let newItemTitleEn = $("#newItemTitleEn").val();
 
-      const categoryData = {
-        title: { es: newCategoryTitle, en: newCategoryTitleEn },
+    let newItemDescription = $("#newItemDescriptionEs").val();
+    let newItemDescriptionEn = $("#newItemDescriptionEn").val();
+
+    let newItemImage = $("#newItemImage").val();
+
+    let newItemToolTipTitle = $("#newItemToolTipTitleEs").val();
+
+    let newItemToolTipTitleEn = $("#newItemToolTipTitleEn").val();
+
+    let newItemToolTipDescription = $("#newItemToolTipDescriptionEs").val();
+
+    let newItemToolTipDescriptionEn = $("#newItemToolTipDescriptionEn").val();
+
+    let newItemToolTipImage = $("#newItemToolTipImage").val();
+
+    let newItemContent = $("#newItemContentEs").val();
+    let newItemContentEn = $("#newItemContentEn").val();
+
+    // ==========================================
+    // ITEM DATA
+    // ==========================================
+
+    const itemData = {
+      title: {
+        es: newItemTitle,
+        en: newItemTitleEn,
+      },
+
+      description: {
+        es: newItemDescription,
+        en: newItemDescriptionEn,
+      },
+
+      content: {
+        es: newItemContent,
+        en: newItemContentEn,
+      },
+
+      imageUrl: newItemImage,
+
+      toolTip: {
+        title: {
+          es: newItemToolTipTitle,
+          en: newItemToolTipTitleEn,
+        },
+
         description: {
-          es: newCategoryDescription,
-          encodedData: newCategoryDescriptionEn,
+          es: newItemToolTipDescription,
+          en: newItemToolTipDescriptionEn,
         },
-        toolTip: {
-          title: { es: newCategoryToolTipTitle, en: newCategoryToolTipTitleEn },
-          description: {
-            es: newCategoryToolTipDescription,
-            en: newCategoryToolTipDescriptionEn,
-          },
-          imageUrl: newCategoryToolTipImage,
+
+        imageUrl: newItemToolTipImage,
+      },
+
+      status: "Published",
+    };
+
+    // ==========================================
+    // CATEGORY DATA
+    // ==========================================
+
+    const categoryData = {
+      title: {
+        es: newCategoryTitle,
+        en: newCategoryTitleEn,
+      },
+
+      description: {
+        es: newCategoryDescription,
+        en: newCategoryDescriptionEn,
+      },
+
+      toolTip: {
+        title: {
+          es: newCategoryToolTipTitle,
+          en: newCategoryToolTipTitleEn,
         },
-        imageUrl: newCategoryImage,
-        content: { es: newCategoryContent, en: newCategoryContentEn },
+
+        description: {
+          es: newCategoryToolTipDescription,
+          en: newCategoryToolTipDescriptionEn,
+        },
+
+        imageUrl: newCategoryToolTipImage,
+      },
+
+      imageUrl: newCategoryImage,
+
+      status: "Published",
+
+      items: [itemData],
+    };
+
+    // ==========================================
+    // CASE 1
+    // NEW SECTION + NEW CATEGORY + NEW ITEM
+    // ==========================================
+
+    if (!sectionId && newSectionTitle && newCategoryTitle) {
+      const sectionData = {
+        title: {
+          es: newSectionTitle,
+          en: newSectionTitleEn,
+        },
+
+        description: {
+          es: newSectionDescription,
+          en: newSectionDescriptionEn,
+        },
+
+        imageUrl: newSectionImage,
+
+        status: "Published",
+
+        categories: [categoryData],
       };
 
       newCreateSectionWithCategoryAndSubcategory(sectionData, categoryData);
-    } else if (sectionId && newCategoryTitle) {
-      // 🟢 Add a new category inside an existing section
 
-      const categoryData = {
-        title: { es: newCategoryTitle, en: newCategoryTitleEn },
-        description: {
-          es: newCategoryDescription,
-          en: newCategoryDescriptionEn,
-        },
-        toolTip: {
-          title: { es: newCategoryToolTipTitle, en: newCategoryToolTipTitleEn },
-          description: {
-            es: newCategoryToolTipDescription,
-            en: newCategoryToolTipDescriptionEn,
-          },
-          imageUrl: newCategoryToolTipImage,
-        },
-        imageUrl: newCategoryImage,
-        content: { es: newCategoryContent, en: newCategoryContentEn },
-      };
-
-      newCreateCategory(sectionId, categoryData);
-    } else {
-      alert("Please fill in the required fields.");
+      return;
     }
+
+    // ==========================================
+    // CASE 2
+    // EXISTING SECTION + NEW CATEGORY + NEW ITEM
+    // ==========================================
+
+    if (sectionId && !categoryId && newCategoryTitle) {
+      console.log("categoryData in addNewSectionForm", categoryData);
+      newCreateCategory(sectionId, categoryData);
+
+      return;
+    }
+
+    // ==========================================
+    // CASE 3
+    // EXISTING SECTION + EXISTING CATEGORY
+    // + NEW ITEM
+    // ==========================================
+
+    if (sectionId && categoryId && newItemTitle) {
+      newCreateItem(sectionId, categoryId, itemData);
+
+      return;
+    }
+
+    // ==========================================
+    // INVALID
+    // ==========================================
+
+    alert(
+      "Please select or create a section, select or create a category, and fill in the item information.",
+    );
   });
 
   //NEW HANDLE FOR SECTION
@@ -189,7 +306,7 @@ function viewNewCategories(sectionId, sectionTitle) {
                 <small class="card-title">${category.toolTip?.description?.es || category.toolTip?.description?.en || "category description"}</small>
                 <img style="max-height: 110px;max-width: 110px;" src="${category.toolTip?.imageUrl || "default-image.jpg"}" class="card-img-top" alt="${category.title?.es || category.title?.en || "category img"}">
                 <br />
-                <button class="btn btn-primary btn-sm" onclick="viewCategoryContent('${encodedData}', '${sectionId}','${sectionTitle}')">Read More</button>
+                <button class="btn btn-primary btn-sm" onclick="viewCategoryItems('${encodedData}', '${sectionId}','${sectionTitle}')">view items</button>
                 
                 <button class="btn btn-warning btn-sm" onclick="newOpenEditPopup('category', '${sectionId}', ${safeCategoryData})">Edit</button>
 
@@ -268,6 +385,101 @@ function viewCategoryContent(
   $("#content").html(contentHTML);
 }
 
+function viewCategoryItems(
+  encodedData,
+  sectionId,
+  sectionTitle,
+  sectionDescription,
+) {
+  let category = JSON.parse(decodeBase64(encodedData));
+
+  console.log("category itemssss", category);
+  let contentHTML = `
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a onclick="loadNewSections()">All Sections</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a onclick="viewNewCategories('${sectionId}', '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}')">
+        ${sectionTitle || "section title"}
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      ${category && category.title ? category.title.es || category.title.en || "category title" : "category title"}
+    </li>
+  </ol>
+</nav>
+    <h3>${category.title?.es || category.title?.en || "subcategory title"}</h3>
+    <h5>${category.description?.es || category.description?.en || "subcategory description"}</h5>
+    <h6${category.toolTip?.description?.es || category.toolTip?.description?.en || "subcategory description"}</h5>
+
+    <label for="languageSelect"><strong>Select Language:</strong></label>
+    <select id="languageSelect" class="form-select" onchange="updateContent('${encodedData}')">
+      <option value="ar" selected>العربية</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+   `;
+  $("#content").html(contentHTML);
+
+  let categoriesHTML = `
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a onclick="loadNewSections()">All Sections</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a onclick="viewNewCategories('${sectionId}', '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}')">
+        ${sectionTitle || "section title"}
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      ${category && category.title ? category.title.es || category.title.en || "category title" : "category title"}
+    </li>
+  </ol>
+</nav>`;
+  category.items.forEach((item) => {
+    console.log(item);
+    const isChecked = item.status === "Published" ? "checked" : "";
+    const safeCategoryData = JSON.stringify(item).replace(/"/g, "&quot;"); // ✅ Fix issue with passing the object inside `onclick`
+    const encodedData = encodeBase64(JSON.stringify(item));
+    categoriesHTML += `
+          <div class="col-lg-3 mb-4">
+            <div class="card">
+              <img style="max-height: 110px;max-width: 110px;" src="${item.imageUrl || "default-image.jpg"}" class="card-img-top" alt="${item.title?.es || item.title?.en || "category img"}">
+              <div class="card-body">
+                <strong class="card-title">${item.title?.es || item.title?.en || "category title"}</strong><br />
+                <small class="card-title">${item.description?.es || item.description?.en || "category description"}</small>
+                <small class="card-title">${item.toolTip?.description?.es || item.toolTip?.description?.en || "category description"}</small>
+                <img style="max-height: 110px;max-width: 110px;" src="${item.toolTip?.imageUrl || "default-image.jpg"}" class="card-img-top" alt="${item.title?.es || item.title?.en || "category img"}">
+                <br />
+                <button class="btn btn-primary btn-sm" onclick="viewItemContent('${encodedData}', '${sectionId}','${sectionTitle}')">view content</button>
+                
+                <button class="btn btn-warning btn-sm" onclick="newOpenEditPopup('category', '${sectionId}', ${safeCategoryData})">Edit</button>
+
+                <button class="btn btn-danger btn-sm" onclick="deleteNewCategory('${sectionId}', '${category.categoryId}', '${sectionTitle}')">Delete</button>
+
+                <div class="form-check form-switch mt-2">
+                  <input class="form-check-input" type="checkbox" role="switch" id="switch-${item.categoryId}"
+                    ${isChecked} onclick="sectionToggleStatus('category', '${item.categoryId}', this.checked)">
+                  <label class="form-check-label" for="switch-${item.categoryId}">
+                    ${item.status}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>`;
+  });
+
+  categoriesHTML += "</div>";
+  $("#content").html(categoriesHTML);
+}
+
+function viewItemContent(encodedData, sectionId, sectionTitle) {
+  alert(1);
+}
+
 ///////////////////////////////////
 
 // **Load sections**
@@ -292,45 +504,66 @@ function loadNewSections1() {
 }
 
 function newCreateSectionWithCategoryAndSubcategory(sectionData, categoryData) {
-  // تحضير الفئة الجديدة مع الفئة الفرعية داخلها
   const newCategory = {
-    title: { es: categoryData.title.es },
-    description: { es: categoryData.description.es },
-    imageUrl: categoryData.imageUrl,
-    toolTip: {
-      description: { es: categoryData.toolTip.description.es },
-      imageUrl: categoryData.toolTip.imageUrl,
+    title: {
+      es: categoryData.title?.es || "",
+      en: categoryData.title?.en || "",
     },
-    content: { es: categoryData.content.es },
+
+    description: {
+      es: categoryData.description?.es || "",
+      en: categoryData.description?.en || "",
+    },
+
+    imageUrl: categoryData.imageUrl || "",
+
+    toolTip: categoryData.toolTip || null,
+
+    status: "Published",
+
+    items: categoryData.items || [],
   };
 
-  // إضافة الفئة إلى بيانات القسم
-  sectionData.categories = [newCategory]; // إضافة الفئة إلى القسم الجديد
+  sectionData.categories = [newCategory];
 
-  // إرسال القسم الجديد مع الفئة والفئة الفرعية
   $.ajax({
     url: `${API_BASE_URL}/newsection/form/sections`,
+
     type: "POST",
-    headers: { Authorization: `Bearer ${token}` },
+
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+
     contentType: "application/json",
-    data: JSON.stringify(sectionData), // إرسال البيانات مع الفئة والفئة الفرعية
-    success: function () {
-      alert("Section with Category added successfully!");
+
+    data: JSON.stringify(sectionData),
+
+    success: function (response) {
+      console.log("Section + Category + Item created:", response);
+
+      alert("Section with Category and Item added successfully!");
+
       document
         .querySelectorAll(
-          "#addNewSectionForm input, #addNewSectionForm textarea",
+          "#addNewSectionForm input, #addNewSectionForm textarea, #addNewSectionForm select",
         )
-        .forEach((input) => (input.value = ""));
+        .forEach((input) => {
+          input.value = "";
+        });
+
       $("#addNewSectionModal").modal("hide");
-      // loadNewSections1(); // إعادة تحميل الأقسام بعد إضافة القسم الجديد
+
       loadNewSections();
     },
-    error: function () {
-      alert("Failed to add section with category.");
+
+    error: function (xhr) {
+      console.error("Error creating section:", xhr.responseText);
+
+      alert("Failed to add section with category and item.");
     },
   });
 }
-
 function newCreateCategory(sectionId, data) {
   console.log("sectionId in createCategory:", sectionId);
   console.log("data in createCategory:", data);

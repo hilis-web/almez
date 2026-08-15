@@ -788,10 +788,15 @@
     >
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
+          <!-- ==========================================
+           MODAL HEADER
+      =========================================== -->
+
           <div class="modal-header">
             <h5 class="modal-title" id="addNewSectionModalLabel">
-              Add New Section
+              Add New Section / Category / Item
             </h5>
+
             <button
               type="button"
               class="btn-close"
@@ -799,44 +804,73 @@
               aria-label="Close"
             ></button>
           </div>
+
+          <!-- ==========================================
+           MODAL BODY
+      =========================================== -->
+
           <div class="modal-body">
             <form id="addNewSectionForm">
-              <!-- Select or Add a Section -->
-              <div class="mb-3">
-                <label for="newSectionSelect" class="form-label"
-                  >Select an Existing Section</label
-                >
-                <select id="newSectionSelect" class="form-select">
-                  <option value="">Choose a section...</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Add a New Section</label>
+              <!-- ==================================================
+               SECTION
+          =================================================== -->
+
+              <div class="border rounded p-3 mb-4">
+                <h5 class="mb-3">Section</h5>
+
+                <!-- Select Existing Section -->
+
+                <div class="mb-3">
+                  <label for="newSectionSelect" class="form-label">
+                    Select an Existing Section
+                  </label>
+
+                  <select id="newSectionSelect" class="form-select">
+                    <option value="">Choose a section...</option>
+                  </select>
+                </div>
+
+                <div class="text-center mb-3">
+                  <span class="text-muted"> OR </span>
+                </div>
+
+                <!-- Add New Section -->
+
+                <h6>Add a New Section</h6>
+
+                <!-- Spanish -->
+
                 <input
                   type="text"
                   id="newSectionTitleEs"
                   class="form-control mt-2"
-                  placeholder="Title in Spanish"
+                  placeholder="Section Title in Spanish"
                 />
+
                 <input
                   type="text"
                   id="newSectionDescriptionEs"
                   class="form-control mt-2"
-                  placeholder="Description in Spanish"
+                  placeholder="Section Description in Spanish"
                 />
+
+                <!-- English -->
 
                 <input
                   type="text"
                   id="newSectionTitleEn"
                   class="form-control mt-2"
-                  placeholder="Title in English"
+                  placeholder="Section Title in English"
                 />
+
                 <input
                   type="text"
                   id="newSectionDescriptionEn"
                   class="form-control mt-2"
-                  placeholder="Description in English"
+                  placeholder="Section Description in English"
                 />
+
+                <!-- Image -->
 
                 <input
                   type="url"
@@ -846,35 +880,70 @@
                 />
               </div>
 
-              <!-- Select or Add a Category -->
-              <div class="mb-3">
-                <label class="form-label">Add a New Category</label>
+              <!-- ==================================================
+               CATEGORY
+          =================================================== -->
+
+              <div class="border rounded p-3 mb-4">
+                <h5 class="mb-3">Category</h5>
+
+                <!-- Select Existing Category -->
+
+                <div class="mb-3">
+                  <label for="newCategorySelect" class="form-label">
+                    Select an Existing Category
+                  </label>
+
+                  <select id="newCategorySelect" class="form-select">
+                    <option value="">Choose a category...</option>
+                  </select>
+                </div>
+
+                <div class="text-center mb-3">
+                  <span class="text-muted"> OR </span>
+                </div>
+
+                <!-- Add New Category -->
+
+                <h6>Add a New Category</h6>
+
+                <!-- ==========================
+                 CATEGORY SPANISH
+            =========================== -->
 
                 <input
                   type="text"
                   id="newCategoryTitleEs"
                   class="form-control mt-2"
-                  placeholder="Title in Spanish"
+                  placeholder="Category Title in Spanish"
                 />
+
                 <input
                   type="text"
                   id="newCategoryDescriptionEs"
                   class="form-control mt-2"
-                  placeholder="Description in Spanish"
+                  placeholder="Category Description in Spanish"
                 />
+
+                <!-- ==========================
+                 CATEGORY ENGLISH
+            =========================== -->
 
                 <input
                   type="text"
                   id="newCategoryTitleEn"
                   class="form-control mt-2"
-                  placeholder="Title in English"
+                  placeholder="Category Title in English"
                 />
+
                 <input
                   type="text"
                   id="newCategoryDescriptionEn"
                   class="form-control mt-2"
-                  placeholder="Description in English"
+                  placeholder="Category Description in English"
                 />
+
+                <!-- Category Image -->
 
                 <input
                   type="url"
@@ -883,51 +952,181 @@
                   placeholder="Category Image URL"
                 />
 
+                <!-- =================================
+                 CATEGORY TOOLTIP
+            ================================== -->
+
+                <h6 class="mt-4">Category Tooltip</h6>
+
+                <!-- Spanish -->
+
                 <input
                   type="text"
                   id="newCategoryToolTipTitleEs"
                   class="form-control mt-2"
-                  placeholder="ToolTip Title in Spanish"
+                  placeholder="Category Tooltip Title in Spanish"
                 />
+
                 <input
                   type="text"
                   id="newCategoryToolTipDescriptionEs"
                   class="form-control mt-2"
-                  placeholder="ToolTip Description in Spanish"
+                  placeholder="Category Tooltip Description in Spanish"
                 />
+
+                <!-- English -->
 
                 <input
                   type="text"
                   id="newCategoryToolTipTitleEn"
                   class="form-control mt-2"
-                  placeholder="ToolTip Title in English"
+                  placeholder="Category Tooltip Title in English"
                 />
+
                 <input
                   type="text"
                   id="newCategoryToolTipDescriptionEn"
                   class="form-control mt-2"
-                  placeholder="ToolTip Description in English"
+                  placeholder="Category Tooltip Description in English"
                 />
+
+                <!-- Tooltip Image -->
 
                 <input
                   type="url"
                   id="newCategoryToolTipImage"
                   class="form-control mt-2"
-                  placeholder="Category ToolTip Image URL"
+                  placeholder="Category Tooltip Image URL"
+                />
+              </div>
+
+              <!-- ==================================================
+               ITEM
+          =================================================== -->
+
+              <div class="border rounded p-3 mb-4">
+                <h5 class="mb-3">Item</h5>
+
+                <p class="text-muted">
+                  Add the item that belongs to the selected category.
+                </p>
+
+                <!-- ==========================
+                 ITEM SPANISH
+            =========================== -->
+
+                <h6>Spanish</h6>
+
+                <input
+                  type="text"
+                  id="newItemTitleEs"
+                  class="form-control mt-2"
+                  placeholder="Item Title in Spanish"
+                />
+
+                <input
+                  type="text"
+                  id="newItemDescriptionEs"
+                  class="form-control mt-2"
+                  placeholder="Item Description in Spanish"
                 />
 
                 <textarea
-                  id="newCategoryContentEs"
+                  id="newItemContentEs"
                   class="form-control mt-2"
-                  placeholder="Content in Spanish"
+                  rows="6"
+                  placeholder="Item Content in Spanish"
                 ></textarea>
 
-                <textarea
-                  id="newCategoryContentEn"
+                <!-- ==========================
+                 ITEM ENGLISH
+            =========================== -->
+
+                <h6 class="mt-4">English</h6>
+
+                <input
+                  type="text"
+                  id="newItemTitleEn"
                   class="form-control mt-2"
-                  placeholder="Content in English"
+                  placeholder="Item Title in English"
+                />
+
+                <input
+                  type="text"
+                  id="newItemDescriptionEn"
+                  class="form-control mt-2"
+                  placeholder="Item Description in English"
+                />
+
+                <textarea
+                  id="newItemContentEn"
+                  class="form-control mt-2"
+                  rows="6"
+                  placeholder="Item Content in English"
                 ></textarea>
+
+                <!-- ==========================
+                 ITEM IMAGE
+            =========================== -->
+
+                <input
+                  type="url"
+                  id="newItemImage"
+                  class="form-control mt-2"
+                  placeholder="Item Image URL"
+                />
+
+                <!-- =================================
+                 ITEM TOOLTIP
+            ================================== -->
+
+                <h6 class="mt-4">Item Tooltip</h6>
+
+                <!-- Spanish -->
+
+                <input
+                  type="text"
+                  id="newItemToolTipTitleEs"
+                  class="form-control mt-2"
+                  placeholder="Item Tooltip Title in Spanish"
+                />
+
+                <input
+                  type="text"
+                  id="newItemToolTipDescriptionEs"
+                  class="form-control mt-2"
+                  placeholder="Item Tooltip Description in Spanish"
+                />
+
+                <!-- English -->
+
+                <input
+                  type="text"
+                  id="newItemToolTipTitleEn"
+                  class="form-control mt-2"
+                  placeholder="Item Tooltip Title in English"
+                />
+
+                <input
+                  type="text"
+                  id="newItemToolTipDescriptionEn"
+                  class="form-control mt-2"
+                  placeholder="Item Tooltip Description in English"
+                />
+
+                <!-- Tooltip Image -->
+
+                <input
+                  type="url"
+                  id="newItemToolTipImage"
+                  class="form-control mt-2"
+                  placeholder="Item Tooltip Image URL"
+                />
               </div>
+
+              <!-- ==================================================
+               MODAL FOOTER
+          =================================================== -->
 
               <div class="modal-footer">
                 <button
@@ -937,6 +1136,7 @@
                 >
                   Close
                 </button>
+
                 <button type="submit" class="btn btn-success">Save</button>
               </div>
             </form>
