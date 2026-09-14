@@ -46,7 +46,7 @@ $(document).ready(function () {
           const categories = section.categories;
 
           const sectionItem = `
-<li class="nav-item mega-dropdown" id="${section.page}" style="align-content:center">
+<li class="nav-item mega-dropdown" id="${section.page}" style="align-content:center; font-weight:700">
 
     <a
         href="#"
@@ -243,6 +243,7 @@ window.loadCategories = function (sectionId) {
         <div class="category-navigation">
           <div class="category-navigation-list"></div>
         </div>
+        <div style="height:500px"></div>
       `);
 
       const $categoryList = $categoryNavigation.find(
@@ -282,7 +283,7 @@ window.loadCategories = function (sectionId) {
 
         const $categoryItem = $(`
           <div
-            class="category-nav-item"
+            class="category-nav-item" 
             data-category-id="${categoryId}"
           >
 

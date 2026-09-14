@@ -1252,4 +1252,88 @@ router.post(
   },
 );
 
+// ======================================================
+// Add a new item inside an existing category
+// ======================================================
+router.post(
+  "/form/sections/:sectionId/categories/:categoryId/items",
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { sectionId, categoryId } = req.params;
+
+      // Validate IDs
+      if (
+        !mongoose.Types.ObjectId.isValid(sectionId) ||
+        !mongoose.Types.ObjectId.isValid(categoryId)
+      ) {
+        return res.status(400).json({
+          message: "Invalid section or category ID format",
+        });
+      }
+
+      // Find the section
+      const section = await SectionNew.findOne({ sectionId });
+
+      if (!section) {
+        return res.status(404).json({
+          message: "Section not found",
+        });
+      }
+
+      // Find the existing category
+      const category = section.categories.find(
+        (cat) => cat.categoryId.toString() === categoryId,
+      );
+
+      if (!category) {
+        return res.status(404).json({
+          message: "Category not found",
+        });
+      }
+
+      // Create the new item
+      const newItem = {
+        itemId: new mongoose.Types.ObjectId(),
+
+        title: req.body.title,
+
+        description: req.body.description,
+
+        content: req.body.content || {},
+
+        imageUrl: req.body.imageUrl || "",
+
+        toolTip: req.body.toolTip
+          ? {
+              title: req.body.toolTip.title || {},
+              description: req.body.toolTip.description || {},
+              imageUrl: req.body.toolTip.imageUrl || "",
+            }
+          : null,
+
+        status: req.body.status || "Published",
+      };
+
+      // Add item to the existing category
+      category.items.push(newItem);
+
+      // Save section
+      await section.save();
+
+      res.status(201).json({
+        message: "Item added successfully",
+        item: newItem,
+        section,
+      });
+    } catch (err) {
+      console.error("Error adding item:", err);
+
+      res.status(500).json({
+        message: "Error adding item",
+        error: err.message,
+      });
+    }
+  },
+);
 module.exports = router;

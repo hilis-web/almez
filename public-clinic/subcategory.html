@@ -232,11 +232,18 @@
             category.items.forEach((item) => {
               const itemTitle = item.title?.[lang] || item.title?.es || "";
 
-              const itemDescription =
+              // const itemDescription =
+              //   item.description?.[lang] || item.description?.es || "";
+              const description =
                 item.description?.[lang] || item.description?.es || "";
 
+              const itemDescription =
+                description.length > 100
+                  ? description.slice(0, 100) + "..."
+                  : description;
+
               html += `
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-3 col-md-6">
 
             <div class="card item-card h-100"
                  data-item-id="${item.itemId}">
@@ -244,11 +251,12 @@
               <img
                   src="${item.imageUrl || ""}"
                   class="card-img-top"
+                  style="margin-bottom:0px"
                   alt="${itemTitle}">
 
               <div class="card-body">
 
-                  <h4>${itemTitle}</h4>
+                  <h4 style="font-weight:700">${itemTitle}</h4>
 
                   <p>${itemDescription}</p>
 

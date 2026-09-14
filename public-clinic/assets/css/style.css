@@ -1435,7 +1435,7 @@ img.card-img-top {
 .item-card {
   height: 100%;
 
-  background: #fff;
+  background: #cdcdcd4d;
 
   border-radius: 18px;
 
@@ -2522,7 +2522,7 @@ img.card-img-top {
 .category-nav-item {
   position: static;
   flex: 1 1 180px;
-  max-width: 260px;
+  /* max-width: 260px; */
 }
 
 /* =========================================================
@@ -2641,7 +2641,7 @@ img.card-img-top {
 ========================================================= */
 
 .category-mega-panel {
-  position: absolute;
+  /* position: absolute; */
 
   top: calc(100% + 15px);
 
@@ -2794,7 +2794,7 @@ img.card-img-top {
 .category-items-grid {
   display: grid;
 
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
 
   gap: 8px 25px;
 }

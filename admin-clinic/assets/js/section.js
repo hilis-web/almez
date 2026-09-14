@@ -37,7 +37,7 @@ $(document).ready(function () {
     let sectionId = $(this).val();
     console.log("sectionSelect sectionId:", sectionId);
     if (sectionId) {
-      hideNewNewSectionInputs(); // Hide fields for adding a new section
+      // hideNewNewSectionInputs(); // Hide fields for adding a new section
     } else {
       $("#categorySelect").html(
         '<option value="">Choose a category...</option>',
@@ -254,6 +254,110 @@ $(document).ready(function () {
     );
   });
 
+  $("#newSectionSelect").on("change", function () {
+    alert(1);
+    const sectionId = $(this).val();
+
+    const categorySelect = $("#newCategorySelect");
+
+    // ==========================================
+    // RESET CATEGORY SELECT
+    // ==========================================
+
+    categorySelect.empty();
+
+    categorySelect.append('<option value="">Choose a category...</option>');
+
+    // ==========================================
+    // NO SECTION SELECTED
+    // ==========================================
+
+    if (!sectionId) {
+      categorySelect.prop("disabled", true);
+
+      return;
+    }
+
+    // ==========================================
+    // LOADING
+    // ==========================================
+
+    categorySelect.prop("disabled", true);
+
+    categorySelect.empty();
+
+    categorySelect.append('<option value="">Loading categories...</option>');
+
+    // ==========================================
+    // GET CATEGORIES
+    // ==========================================
+
+    $.get(
+      // url: `${API_BASE_URL}/newsection/section/${sectionId}/categories`,
+
+      `${API_BASE_URL}/newsection/section/${sectionId}/categories`,
+      function (categories) {
+        // Reset
+        categorySelect.empty();
+
+        categorySelect.append('<option value="">Choose a category...</option>');
+
+        // ==========================================
+        // NO CATEGORIES
+        // ==========================================
+
+        if (!categories || !Array.isArray(categories)) {
+          categorySelect.append(
+            '<option value="">No categories found</option>',
+          );
+
+          return;
+        }
+
+        if (categories.length === 0) {
+          categorySelect.append(
+            '<option value="">No categories found</option>',
+          );
+
+          return;
+        }
+
+        // ==========================================
+        // ADD CATEGORIES
+        // ==========================================
+
+        categories.forEach((category) => {
+          const categoryTitle =
+            category.title?.es || category.title?.en || "Unnamed Category";
+
+          categorySelect.append(
+            $("<option>", {
+              value: category.categoryId,
+              text: categoryTitle,
+            }),
+          );
+        });
+
+        // ==========================================
+        // ENABLE CATEGORY SELECT
+        // ==========================================
+
+        categorySelect.prop("disabled", false);
+      },
+    ).fail(function (xhr) {
+      console.error("Error loading categories");
+      console.log("Status:", xhr.status);
+      console.log("Response:", xhr.responseText);
+      console.log("URL:", `${API_BASE_URL}/section/${sectionId}/categories`);
+
+      categorySelect.empty();
+
+      categorySelect.append(
+        '<option value="">Error loading categories</option>',
+      );
+    });
+  });
+
   //NEW HANDLE FOR SECTION
   function hideNewNewSectionInputs() {
     $("#newSectionTitleEs, newSectionDescriptinEs, #newSectionImage")
@@ -412,7 +516,7 @@ function viewCategoryItems(
 </nav>
     <h3>${category.title?.es || category.title?.en || "subcategory title"}</h3>
     <h5>${category.description?.es || category.description?.en || "subcategory description"}</h5>
-    <h6${category.toolTip?.description?.es || category.toolTip?.description?.en || "subcategory description"}</h5>
+    <h6>${category.toolTip?.description?.es || category.toolTip?.description?.en || "subcategory description"}</h6>
 
     <label for="languageSelect"><strong>Select Language:</strong></label>
     <select id="languageSelect" class="form-select" onchange="updateContent('${encodedData}')">
@@ -477,7 +581,136 @@ function viewCategoryItems(
 }
 
 function viewItemContent(encodedData, sectionId, sectionTitle) {
-  alert(1);
+  // ==========================================
+  // GET ITEM DATA
+  // ==========================================
+
+  const item = JSON.parse(decodeBase64(encodedData));
+
+  console.log("Selected item:", item);
+
+  // ==========================================
+  // DEFAULT LANGUAGE
+  // ==========================================
+
+  const lang = "es";
+
+  const itemTitle =
+    item.title?.[lang] || item.title?.en || item.title?.es || "Item title";
+
+  // ==========================================
+  // BREADCRUMB
+  // ==========================================
+
+  const contentHTML = `
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+
+        <li class="breadcrumb-item">
+          <a onclick="loadNewSections()">
+            All Sections
+          </a>
+        </li>
+
+        <li class="breadcrumb-item">
+          <a onclick="viewNewCategories(
+            '${sectionId}',
+            '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}'
+          )">
+            ${sectionTitle || "section title"}
+          </a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">
+          ${itemTitle}
+        </li>
+
+      </ol>
+    </nav>
+
+    <!-- ==========================================
+         ITEM TITLE
+    =========================================== -->
+
+    <h3 id="itemContentTitle">
+      ${itemTitle}
+    </h3>
+
+    <!-- ==========================================
+         LANGUAGE SELECT
+    =========================================== -->
+
+    <div class="mb-3">
+
+      <label for="itemLanguageSelect">
+        <strong>Select Language:</strong>
+      </label>
+
+      <select
+        id="itemLanguageSelect"
+        class="form-select"
+        onchange="updateItemContent('${encodedData}')"
+      >
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="es" selected>Español</option>
+      </select>
+
+    </div>
+
+    <!-- ==========================================
+         ITEM CONTENT
+    =========================================== -->
+
+    <div id="itemContentDisplay" class="mt-4">
+      ${item.content?.[lang] || "No content available."}
+    </div>
+  `;
+
+  $("#content").html(contentHTML);
+}
+
+function updateItemContent(encodedData) {
+  // ==========================================
+  // GET ITEM DATA
+  // ==========================================
+
+  const item = JSON.parse(decodeBase64(encodedData));
+
+  // ==========================================
+  // GET SELECTED LANGUAGE
+  // ==========================================
+
+  const lang = $("#itemLanguageSelect").val();
+
+  // ==========================================
+  // GET CONTENT
+  // ==========================================
+
+  const content =
+    item.content?.[lang] ||
+    item.content?.en ||
+    item.content?.es ||
+    "No content available.";
+
+  // ==========================================
+  // GET TITLE
+  // ==========================================
+
+  const title =
+    item.title?.[lang] || item.title?.en || item.title?.es || "Item title";
+
+  // ==========================================
+  // UPDATE TITLE
+  // ==========================================
+
+  $("#itemContentTitle").text(title);
+
+  // ==========================================
+  // UPDATE CONTENT
+  // ==========================================
+
+  $("#itemContentDisplay").html(content);
 }
 
 ///////////////////////////////////
@@ -552,7 +785,7 @@ function newCreateSectionWithCategoryAndSubcategory(sectionData, categoryData) {
           input.value = "";
         });
 
-      $("#addNewSectionModal").modal("hide");
+      // $("#addNewSectionModal").modal("hide");
 
       loadNewSections();
     },
@@ -580,12 +813,40 @@ function newCreateCategory(sectionId, data) {
           "#addNewSectionForm input, #addNewSectionForm textarea",
         )
         .forEach((input) => (input.value = ""));
-      $("#addNewSectionModal").modal("hide");
+      // $("#addNewSectionModal").modal("hide");
       // loadNewCategories1(sectionId);
       viewNewCategories(sectionId, data.title.es);
     },
     error: function () {
       alert("Failed to add category.");
+    },
+  });
+}
+
+function newCreateItem(sectionId, categoryId, itemData) {
+  $.ajax({
+    url: `${API_BASE_URL}/newsection/form/sections/${sectionId}/categories/${categoryId}/items`,
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+
+    contentType: "application/json",
+    data: JSON.stringify(itemData),
+
+    success: function (response) {
+      console.log("Item added successfully:", response);
+
+      alert("Item added successfully!");
+
+      // Optional: reload the section/category view
+      viewNewCategories(sectionId);
+    },
+
+    error: function (xhr) {
+      console.error("Error adding item:", xhr);
+      console.error("Status:", xhr.status);
+      console.error("Response:", xhr.responseText);
+
+      alert(xhr.responseJSON?.message || "Error adding item");
     },
   });
 }
