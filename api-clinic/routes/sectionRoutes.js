@@ -1336,4 +1336,158 @@ router.post(
     }
   },
 );
+
+// ======================================================
+// Update an item inside an existing category
+// ======================================================
+
+router.put(
+  "/section/:sectionId/category/:categoryId/item/:itemId",
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { sectionId, categoryId, itemId } = req.params;
+      const updatedData = req.body;
+
+      // Validate IDs
+      if (
+        !mongoose.Types.ObjectId.isValid(sectionId) ||
+        !mongoose.Types.ObjectId.isValid(categoryId) ||
+        !mongoose.Types.ObjectId.isValid(itemId)
+      ) {
+        return res.status(400).json({
+          message: "Invalid section, category, or item ID format",
+        });
+      }
+
+      // Find section
+      const section = await SectionNew.findOne({
+        sectionId,
+      });
+
+      if (!section) {
+        return res.status(404).json({
+          message: "Section not found",
+        });
+      }
+
+      // Find category
+      const category = section.categories.find(
+        (cat) => cat.categoryId.toString() === categoryId,
+      );
+
+      if (!category) {
+        return res.status(404).json({
+          message: "Category not found",
+        });
+      }
+
+      // Find item
+      const item = category.items.find(
+        (item) => item.itemId.toString() === itemId,
+      );
+
+      if (!item) {
+        return res.status(404).json({
+          message: "Item not found",
+        });
+      }
+
+      // Update item fields
+      item.title = updatedData.title;
+      item.description = updatedData.description;
+      item.content = updatedData.content || {};
+      item.imageUrl = updatedData.imageUrl || "";
+
+      // Update tooltip
+      if (updatedData.toolTip) {
+        item.toolTip = {
+          title: updatedData.toolTip.title || {},
+          description: updatedData.toolTip.description || {},
+          imageUrl: updatedData.toolTip.imageUrl || "",
+        };
+      }
+
+      // Save section
+      await section.save();
+
+      res.json({
+        message: "Item updated successfully",
+        item,
+        section,
+      });
+    } catch (error) {
+      console.error("Error updating item:", error);
+
+      res.status(500).json({
+        message: "Error updating item",
+        error: error.message,
+      });
+    }
+  },
+);
+
+router.delete(
+  "/section/:sectionId/category/:categoryId/item/:itemId",
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { sectionId, categoryId, itemId } = req.params;
+
+      if (
+        !mongoose.Types.ObjectId.isValid(sectionId) ||
+        !mongoose.Types.ObjectId.isValid(categoryId) ||
+        !mongoose.Types.ObjectId.isValid(itemId)
+      ) {
+        return res.status(400).json({
+          message: "Invalid section, category, or item ID format",
+        });
+      }
+
+      const section = await SectionNew.findOne({ sectionId });
+
+      if (!section) {
+        return res.status(404).json({
+          message: "Section not found",
+        });
+      }
+
+      const category = section.categories.find(
+        (cat) => cat.categoryId.toString() === categoryId,
+      );
+
+      if (!category) {
+        return res.status(404).json({
+          message: "Category not found",
+        });
+      }
+
+      const itemIndex = category.items.findIndex(
+        (item) => item.itemId.toString() === itemId,
+      );
+
+      if (itemIndex === -1) {
+        return res.status(404).json({
+          message: "Item not found",
+        });
+      }
+
+      category.items.splice(itemIndex, 1);
+
+      await section.save();
+
+      res.json({
+        message: "Item deleted successfully",
+        itemId,
+      });
+    } catch (error) {
+      console.error("Error deleting item:", error);
+
+      res.status(500).json({
+        message: "Error deleting item",
+        error: error.message,
+      });
+    }
+  },
+);
 module.exports = router;

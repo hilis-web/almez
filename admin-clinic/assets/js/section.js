@@ -498,85 +498,226 @@ function viewCategoryItems(
   let category = JSON.parse(decodeBase64(encodedData));
 
   console.log("category itemssss", category);
-  let contentHTML = `
-  <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a onclick="loadNewSections()">All Sections</a>
-    </li>
-    <li class="breadcrumb-item">
-      <a onclick="viewNewCategories('${sectionId}', '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}')">
-        ${sectionTitle || "section title"}
-      </a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page">
-      ${category && category.title ? category.title.es || category.title.en || "category title" : "category title"}
-    </li>
-  </ol>
-</nav>
-    <h3>${category.title?.es || category.title?.en || "subcategory title"}</h3>
-    <h5>${category.description?.es || category.description?.en || "subcategory description"}</h5>
-    <h6>${category.toolTip?.description?.es || category.toolTip?.description?.en || "subcategory description"}</h6>
 
-    <label for="languageSelect"><strong>Select Language:</strong></label>
-    <select id="languageSelect" class="form-select" onchange="updateContent('${encodedData}')">
+  let contentHTML = `
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a onclick="loadNewSections()">All Sections</a>
+        </li>
+
+        <li class="breadcrumb-item">
+          <a onclick="viewNewCategories(
+            '${sectionId}',
+            '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}'
+          )">
+            ${sectionTitle || "section title"}
+          </a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">
+          ${
+            category && category.title
+              ? category.title.es || category.title.en || "category title"
+              : "category title"
+          }
+        </li>
+      </ol>
+    </nav>
+
+    <h3>
+      ${category.title?.es || category.title?.en || "subcategory title"}
+    </h3>
+
+    <h5>
+      ${
+        category.description?.es ||
+        category.description?.en ||
+        "subcategory description"
+      }
+    </h5>
+
+    <h6>
+      ${
+        category.toolTip?.description?.es ||
+        category.toolTip?.description?.en ||
+        "subcategory description"
+      }
+    </h6>
+
+    <label for="languageSelect">
+      <strong>Select Language:</strong>
+    </label>
+
+    <select
+      id="languageSelect"
+      class="form-select"
+      onchange="updateContent('${encodedData}')"
+    >
       <option value="ar" selected>العربية</option>
       <option value="en">English</option>
       <option value="es">Español</option>
     </select>
-   `;
+  `;
+
   $("#content").html(contentHTML);
 
   let categoriesHTML = `
-  <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a onclick="loadNewSections()">All Sections</a>
-    </li>
-    <li class="breadcrumb-item">
-      <a onclick="viewNewCategories('${sectionId}', '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}')">
-        ${sectionTitle || "section title"}
-      </a>
-    </li>
-    <li class="breadcrumb-item active" aria-current="page">
-      ${category && category.title ? category.title.es || category.title.en || "category title" : "category title"}
-    </li>
-  </ol>
-</nav>`;
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+
+        <li class="breadcrumb-item">
+          <a onclick="loadNewSections()">All Sections</a>
+        </li>
+
+        <li class="breadcrumb-item">
+          <a onclick="viewNewCategories(
+            '${sectionId}',
+            '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}'
+          )">
+            ${sectionTitle || "section title"}
+          </a>
+        </li>
+
+        <li class="breadcrumb-item active" aria-current="page">
+          ${
+            category && category.title
+              ? category.title.es || category.title.en || "category title"
+              : "category title"
+          }
+        </li>
+
+      </ol>
+    </nav>
+
+    <div class="row">
+  `;
+
   category.items.forEach((item) => {
-    console.log(item);
+    console.log("Current item:", item);
+
     const isChecked = item.status === "Published" ? "checked" : "";
-    const safeCategoryData = JSON.stringify(item).replace(/"/g, "&quot;"); // ✅ Fix issue with passing the object inside `onclick`
-    const encodedData = encodeBase64(JSON.stringify(item));
+
+    const safeItemData = JSON.stringify(item).replace(/"/g, "&quot;");
+
+    const encodedItemData = encodeBase64(JSON.stringify(item));
+
     categoriesHTML += `
-          <div class="col-lg-3 mb-4">
-            <div class="card">
-              <img style="max-height: 110px;max-width: 110px;" src="${item.imageUrl || "default-image.jpg"}" class="card-img-top" alt="${item.title?.es || item.title?.en || "category img"}">
-              <div class="card-body">
-                <strong class="card-title">${item.title?.es || item.title?.en || "category title"}</strong><br />
-                <small class="card-title">${item.description?.es || item.description?.en || "category description"}</small>
-                <small class="card-title">${item.toolTip?.description?.es || item.toolTip?.description?.en || "category description"}</small>
-                <img style="max-height: 110px;max-width: 110px;" src="${item.toolTip?.imageUrl || "default-image.jpg"}" class="card-img-top" alt="${item.title?.es || item.title?.en || "category img"}">
-                <br />
-                <button class="btn btn-primary btn-sm" onclick="viewItemContent('${encodedData}', '${sectionId}','${sectionTitle}')">view content</button>
-                
-                <button class="btn btn-warning btn-sm" onclick="newOpenEditPopup('category', '${sectionId}', ${safeCategoryData})">Edit</button>
+      <div class="col-lg-3 mb-4">
 
-                <button class="btn btn-danger btn-sm" onclick="deleteNewCategory('${sectionId}', '${category.categoryId}', '${sectionTitle}')">Delete</button>
+        <div class="card">
 
-                <div class="form-check form-switch mt-2">
-                  <input class="form-check-input" type="checkbox" role="switch" id="switch-${item.categoryId}"
-                    ${isChecked} onclick="sectionToggleStatus('category', '${item.categoryId}', this.checked)">
-                  <label class="form-check-label" for="switch-${item.categoryId}">
-                    ${item.status}
-                  </label>
-                </div>
-              </div>
+          <img
+            style="max-height: 110px;max-width: 110px;"
+            src="${item.imageUrl || "default-image.jpg"}"
+            class="card-img-top"
+            alt="${item.title?.es || item.title?.en || "item img"}"
+          >
+
+          <div class="card-body">
+
+            <strong class="card-title">
+              ${item.title?.es || item.title?.en || "item title"}
+            </strong>
+
+            <br />
+
+            <small class="card-title">
+              ${
+                item.description?.es ||
+                item.description?.en ||
+                "item description"
+              }
+            </small>
+
+            <small class="card-title">
+              ${
+                item.toolTip?.description?.es ||
+                item.toolTip?.description?.en ||
+                "item description"
+              }
+            </small>
+
+            <img
+              style="max-height: 110px;max-width: 110px;"
+              src="${item.toolTip?.imageUrl || "default-image.jpg"}"
+              class="card-img-top"
+              alt="${item.title?.es || item.title?.en || "item img"}"
+            >
+
+            <br />
+
+            <button
+              class="btn btn-primary btn-sm"
+              onclick="viewItemContent(
+                '${encodedItemData}',
+                '${sectionId}',
+                '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}'
+              )"
+            >
+              view content
+            </button>
+
+            <button
+              class="btn btn-warning btn-sm"
+              onclick="newOpenEditPopup(
+                'item',
+                '${category.categoryId}',
+                ${safeItemData},
+                '${sectionId}',
+                '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}'
+              )"
+            >
+              Edit
+            </button>
+
+            <button
+              class="btn btn-danger btn-sm"
+              onclick="deleteNewItem(
+                '${sectionId}',
+                '${category.categoryId}',
+                '${item.itemId}',
+                '${sectionTitle ? sectionTitle.replace(/'/g, "\\'") : "section title"}'
+              )"
+            >
+              Delete
+            </button>
+
+            <div class="form-check form-switch mt-2">
+
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="switch-${item.itemId}"
+                ${isChecked}
+                onclick="sectionToggleStatus(
+                  'item',
+                  '${item.itemId}',
+                  this.checked
+                )"
+              >
+
+              <label
+                class="form-check-label"
+                for="switch-${item.itemId}"
+              >
+                ${item.status}
+              </label>
+
             </div>
-          </div>`;
+
+          </div>
+        </div>
+
+      </div>
+    `;
   });
 
-  categoriesHTML += "</div>";
+  categoriesHTML += `
+    </div>
+  `;
+
   $("#content").html(categoriesHTML);
 }
 
@@ -928,8 +1069,14 @@ function newSectionToggleStatus(type, id, isChecked) {
   });
 }
 
-function newOpenEditPopup(type, parentId, item) {
+function newOpenEditPopup(type, parentId, item, sectionId, sectionTitle) {
   console.log("########### item", item);
+  console.log("Edit type:", type);
+  console.log("Parent ID:", parentId);
+  console.log("Section ID:", sectionId);
+
+  // Hide optional fields first
+
   $("#newLblEditContentEs").hide();
   $("#newCategoryEditContentEs").hide();
 
@@ -952,29 +1099,101 @@ function newOpenEditPopup(type, parentId, item) {
 
   $("#newEditToolTipImageUrl").hide();
 
-  console.log("section popup", type, parentId, item);
-  $("#newEditId").val(
-    item._id || item.sectionId || item.categoryId || item.subcategoryId,
-  );
+  // Determine the correct ID
+
+  let editId = "";
+
+  if (type === "item") {
+    editId = item.itemId;
+  } else if (type === "category") {
+    editId = item.categoryId;
+  } else if (type === "section") {
+    editId = item.sectionId;
+  } else {
+    editId =
+      item._id ||
+      item.sectionId ||
+      item.categoryId ||
+      item.itemId ||
+      item.subcategoryId;
+  }
+
+  console.log("Edit ID:", editId);
+
+  $("#newEditId").val(editId || "");
   $("#newEditType").val(type);
 
+  // Common fields
+
   $("#newEditTitleEs").val(item.title?.es || "");
+
   $("#newEditDescriptionEs").val(item.description?.es || "");
 
   $("#newEditTitleEn").val(item.title?.en || "");
+
   $("#newEditDescriptionEn").val(item.description?.en || "");
 
-  $("#newEditImageUrl").val(item.imageUrl);
+  $("#newEditImageUrl").val(item.imageUrl || "");
 
-  if (type == "category") {
-    console.log("wwwwww", item);
+  /*
+   * CATEGORY
+   */
+
+  if (type === "category") {
+    console.log("Editing category:", item);
+
+    // $("#newLblEditContentEs").show();
+    // $("#newCategoryEditContentEs").show();
+
+    // $("#newCategoryEditContentEs").val(item.content?.es || "");
+
+    // $("#newLblEditContentEn").show();
+    // $("#newCategoryEditContentEn").show();
+
+    // $("#newCategoryEditContentEn").val(item.content?.en || "");
+
+    $("#newLblEditToolTipTitleEs").show();
+    $("#newLblEditToolTipDescriptionEs").show();
+
+    $("#newLblEditToolTipTitleEn").show();
+    $("#newLblEditToolTipDescriptionEn").show();
+
+    $("#newLblEditToolTipImageUrl").show();
+
+    $("#newEditToolTipTitleEs").show();
+    $("#newEditToolTipDescriptionEs").show();
+
+    $("#newEditToolTipTitleEn").show();
+    $("#newEditToolTipDescriptionEn").show();
+
+    $("#newEditToolTipImageUrl").show();
+
+    $("#newEditToolTipTitleEs").val(item.toolTip?.title?.es || "");
+
+    $("#newEditToolTipDescriptionEs").val(item.toolTip?.description?.es || "");
+
+    $("#newEditToolTipTitleEn").val(item.toolTip?.title?.en || "");
+
+    $("#newEditToolTipDescriptionEn").val(item.toolTip?.description?.en || "");
+
+    $("#newEditToolTipImageUrl").val(item.toolTip?.imageUrl || "");
+  }
+
+  /*
+   * ITEM
+   */
+
+  if (type === "item") {
+    console.log("Editing item:", item);
 
     $("#newLblEditContentEs").show();
     $("#newCategoryEditContentEs").show();
+
     $("#newCategoryEditContentEs").val(item.content?.es || "");
 
     $("#newLblEditContentEn").show();
     $("#newCategoryEditContentEn").show();
+
     $("#newCategoryEditContentEn").val(item.content?.en || "");
 
     $("#newLblEditToolTipTitleEs").show();
@@ -987,88 +1206,207 @@ function newOpenEditPopup(type, parentId, item) {
 
     $("#newEditToolTipTitleEs").show();
     $("#newEditToolTipDescriptionEs").show();
+
     $("#newEditToolTipTitleEn").show();
     $("#newEditToolTipDescriptionEn").show();
 
     $("#newEditToolTipImageUrl").show();
 
     $("#newEditToolTipTitleEs").val(item.toolTip?.title?.es || "");
+
     $("#newEditToolTipDescriptionEs").val(item.toolTip?.description?.es || "");
 
     $("#newEditToolTipTitleEn").val(item.toolTip?.title?.en || "");
+
     $("#newEditToolTipDescriptionEn").val(item.toolTip?.description?.en || "");
 
     $("#newEditToolTipImageUrl").val(item.toolTip?.imageUrl || "");
   }
+
+  // Show popup
+
   $("#newEditPopup").modal("show");
-  // Store parentId to use it in the update if the edit is on a category or subcategory
+
+  // Store IDs for newSaveChanges()
+
   $("#newEditPopup").data("parentId", parentId || null);
+
+  $("#newEditPopup").data("sectionId", sectionId || null);
+
+  $("#newEditPopup").data("sectionTitle", sectionTitle || null);
 }
 
 function newSaveChanges() {
   const type = $("#newEditType").val();
   const id = $("#newEditId").val();
 
-  console.log("type", type);
-  console.log("id", id);
-
   const parentId = $("#newEditPopup").data("parentId");
+  const sectionId = $("#newEditPopup").data("sectionId");
+  const sectionTitle = $("#newEditPopup").data("sectionTitle");
+
+  console.log("========== SAVE CHANGES ==========");
+  console.log("type:", type);
+  console.log("id:", id);
+  console.log("parentId:", parentId);
+  console.log("sectionId:", sectionId);
+
+  // Common data
 
   const updatedData = {
-    title: { es: $("#newEditTitleEs").val(), en: $("#newEditTitleEn").val() },
+    title: {
+      es: $("#newEditTitleEs").val(),
+      en: $("#newEditTitleEn").val(),
+    },
+
     description: {
       es: $("#newEditDescriptionEs").val(),
       en: $("#newEditDescriptionEn").val(),
     },
+
+    imageUrl: $("#newEditImageUrl").val(),
+
     toolTip: {
       title: {
         es: $("#newEditToolTipTitleEs").val(),
         en: $("#newEditToolTipTitleEn").val(),
       },
+
       description: {
         es: $("#newEditToolTipDescriptionEs").val(),
         en: $("#newEditToolTipDescriptionEn").val(),
       },
+
       imageUrl: $("#newEditToolTipImageUrl").val(),
     },
-    imageUrl: $("#newEditImageUrl").val(),
   };
-  if (type == "category") {
+
+  let url = "";
+
+  /*
+   * SECTION
+   */
+
+  if (type === "section") {
+    url = `${API_BASE_URL}/newsection/section/${id}`;
+  } else if (type === "category") {
+    /*
+     * CATEGORY
+     *
+     * parentId = sectionId
+     * id = categoryId
+     */
+    url = `${API_BASE_URL}/newsection/section/${parentId}/category/${id}`;
+  } else if (type === "item") {
+    /*
+     * ITEM
+     *
+     * sectionId = section ID
+     * parentId = category ID
+     * id = item ID
+     */
     updatedData.content = {
       es: $("#newCategoryEditContentEs").val(),
       en: $("#newCategoryEditContentEn").val(),
     };
+
+    url = `${API_BASE_URL}/newsection/section/${sectionId}/category/${parentId}/item/${id}`;
+  } else {
+    console.error("Unknown edit type:", type);
+    alert("Invalid edit type.");
+    return;
   }
 
-  let url = `${API_BASE_URL}/newsection/${type}/${parentId}`;
-
-  if (type === "category") {
-    url = `${API_BASE_URL}/newsection/section/${parentId}/category/${id}`;
-  }
-
-  console.log("updatedData", updatedData);
+  console.log("PUT URL:", url);
+  console.log("Updated data:", updatedData);
 
   $.ajax({
     url: url,
+
     method: "PUT",
+
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
+
     data: JSON.stringify(updatedData),
-    success: function () {
+
+    success: function (response) {
+      console.log("Update successful:", response);
+
       $("#newEditPopup").modal("hide");
+
       alert("Updated successfully!");
 
-      // Reload the data based on what was edited
+      /*
+       * Reload after update
+       */
+
       if (type === "section") {
         loadNewSections();
       } else if (type === "category") {
-        viewNewCategories(parentId, item.title.es);
+        viewNewCategories(parentId, sectionTitle || "section title");
+      } else if (type === "item") {
+        viewNewCategories(sectionId, sectionTitle || "section title");
       }
     },
-    error: function () {
-      alert("Failed to update.");
+
+    error: function (xhr) {
+      console.error("Failed to update.");
+      console.error("Status:", xhr.status);
+      console.error("Response:", xhr.responseText);
+
+      alert(
+        xhr.responseJSON?.message ||
+          xhr.responseJSON?.error ||
+          "Failed to update.",
+      );
+    },
+  });
+}
+
+function deleteNewItem(sectionId, categoryId, itemId, sectionTitle) {
+  const confirmed = confirm("Are you sure you want to delete this item?");
+
+  if (!confirmed) {
+    return;
+  }
+
+  const url =
+    `${API_BASE_URL}/newsection/section/` +
+    `${sectionId}/category/${categoryId}/item/${itemId}`;
+
+  console.log("Deleting item:", itemId);
+  console.log("DELETE URL:", url);
+
+  $.ajax({
+    url: url,
+
+    method: "DELETE",
+
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+
+    success: function (response) {
+      console.log("Item deleted successfully:", response);
+
+      alert("Item deleted successfully!");
+
+      // Reload categories after deletion
+      viewNewCategories(sectionId, sectionTitle || "section title");
+    },
+
+    error: function (xhr) {
+      console.error("Error deleting item:", xhr);
+      console.error("Status:", xhr.status);
+      console.error("Response:", xhr.responseText);
+
+      alert(
+        xhr.responseJSON?.message ||
+          xhr.responseJSON?.error ||
+          "Failed to delete item.",
+      );
     },
   });
 }
