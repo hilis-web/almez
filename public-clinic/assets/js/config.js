@@ -292,10 +292,28 @@ function setupEventListeners() {
 
 function changeLanguage(selectedLang) {
   i18next.changeLanguage(selectedLang, function (err) {
-    if (err) return console.error("Error changing language:", err);
-    updateContent();
-    // autoTranslation(selectedLang);
-    updateLanguageButton(selectedLang);
+    if (err) {
+      console.error("Error changing language:", err);
+
+      return;
+    }
+
+    /* Save language FIRST */
+
     localStorage.setItem("selectedLang", selectedLang);
+
+    /* Update i18next translations */
+
+    updateContent();
+
+    /* Update language button */
+
+    updateLanguageButton(selectedLang);
+
+    /* Refresh all dynamic content */
+
+    if (typeof window.refreshAppLanguage === "function") {
+      window.refreshAppLanguage();
+    }
   });
 }

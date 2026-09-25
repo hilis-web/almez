@@ -286,5 +286,12 @@
   "essential_cookies_desc": "For the operation of this website, we use essential cookies. In addition, we use optional cookies to optimize and personalize the user experience. You can accept all cookies or only the necessary ones. More information available in our",
   "cookies_policy_link": "Cookies Policy",
   "more_info": "More info",
-  "see_all": "See all"
+  "see_all": "See all",
+
+  "team_description": "Team",
+  "pathologies_description": "The most common symptoms and pathologies of the spine",
+  "treatments_description": "Treatments",
+  "medical_legal_expertise_description": "Medical-Legal Expertise",
+  "information_and_advice_description": "Information and Advice",
+  "contact_description": "Contact"
 }

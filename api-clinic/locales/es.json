@@ -286,5 +286,12 @@
   "essential_cookies_desc": "Para el funcionamiento de este sitio web utilizamos cookies esenciales. Además, empleamos cookies opcionales para optimizar y personalizar la experiencia del usuario. Puede aceptar todas las cookies o solo las necesarias. Más información disponible en nuestra",
   "cookies_policy_link": "Política de Cookies",
   "more_info": "Más información",
-  "see_all": "Ver todo"
+  "see_all": "Ver todo",
+
+  "team_description": "Equipo",
+  "pathologies_description": "Los síntomas y patologías más comunes de la columna vertebral",
+  "treatments_description": "Tratamientos",
+  "medical_legal_expertise_description": "Peritaje Médico-Legal",
+  "information_and_advice_description": "Información y Consejos",
+  "contact_description": "Contacto"
 }

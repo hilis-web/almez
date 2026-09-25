@@ -41,6 +41,7 @@ router.get("/navstatic/section", async (req, res) => {
         title: "Inicio",
         page: "index",
         description: "",
+        descriptioni18next: "",
         i18next: "home",
         categories: [],
         sectionClass: "sectionHome",
@@ -49,6 +50,7 @@ router.get("/navstatic/section", async (req, res) => {
         title: "Equipo",
         page: "team",
         description: "Equipo",
+        descriptioni18next: "team",
         i18next: "team",
         categories: [],
         sectionClass: "sectionTeam",
@@ -58,6 +60,8 @@ router.get("/navstatic/section", async (req, res) => {
         page: "pathologies",
         description:
           "Los síntomas y patologías más comues de la columna vertebral",
+        descriptioni18next:
+          "The most common symptoms and pathologies of the spine",
         i18next: "pathologies",
         categories: [],
         sectionClass: "sectionPathologies",
@@ -66,6 +70,7 @@ router.get("/navstatic/section", async (req, res) => {
         title: "Tratamientos",
         page: "treatments",
         description: "Tratamientos",
+        descriptioni18next: "Treatments",
         i18next: "treatments",
         categories: [],
         sectionClass: "sectionTreatments",
@@ -74,6 +79,8 @@ router.get("/navstatic/section", async (req, res) => {
         title: "Peritaje Médico-Legal",
         page: "medical-legal-expertise",
         description: "Peritaje Médico-Legal",
+        descriptioni18next: "medical-legal-expertise",
+
         i18next: "medical_legal_expertise",
         categories: [],
         sectionClass: "sectionMedicalLegalExpertise",
@@ -82,6 +89,7 @@ router.get("/navstatic/section", async (req, res) => {
         title: "Información y Consejos",
         page: "information-advice",
         description: "Información y Consejos",
+        descriptioni18next: "information_and_advice",
         i18next: "information_and_advice",
         categories: [],
         sectionClass: "sectionInformationAdvice",
@@ -90,6 +98,8 @@ router.get("/navstatic/section", async (req, res) => {
         title: "Contacto",
         page: "contact",
         description: "Contacto",
+        descriptioni18next: "contact",
+
         i18next: "contact",
         categories: [],
         sectionClass: "sectionContact",

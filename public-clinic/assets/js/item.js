@@ -1,10 +1,10 @@
+let currentItem = null;
+
 $(document).ready(function () {
   loadItem();
 });
 
 function loadItem() {
-  const lang = localStorage.getItem("selectedLang") || "es";
-
   // ============================================
   // GET PARAMETERS FROM URL
   // ============================================
@@ -12,9 +12,7 @@ function loadItem() {
   const params = new URLSearchParams(window.location.search);
 
   const sectionId = params.get("sectionId");
-
   const categoryId = params.get("categoryId");
-
   const itemId = params.get("itemId");
 
   console.log("Section ID:", sectionId);
@@ -27,7 +25,6 @@ function loadItem() {
 
   if (!sectionId || !categoryId || !itemId) {
     console.error("Missing sectionId, categoryId or itemId");
-
     return;
   }
 
@@ -43,90 +40,105 @@ function loadItem() {
     success: function (data) {
       console.log("ITEM DATA:", data);
 
-      const item = data;
+      // Save the complete item data
+      currentItem = data;
 
-      console.log("item mmmmm", item);
-
-      // ========================================
-      // CATEGORY
-      // ========================================
-
-      const categoryTitle =
-        data.categoryTitle?.[lang] ||
-        data.categoryTitle?.es ||
-        data.categoryTitle?.en ||
-        "";
-
-      // ========================================
-      // ITEM TITLE
-      // ========================================
-
-      //const title = "item.title";
-      const title =
-        item.item.title?.[lang] ||
-        item.item.title?.es ||
-        item.item.title?.en ||
-        "";
-
-      // ========================================
-      // ITEM DESCRIPTION
-      // ========================================
-
-      const description =
-        item.item.description?.[lang] ||
-        item.item.description?.es ||
-        item.item.description?.en ||
-        "";
-
-      // ========================================
-      // ITEM CONTENT
-      // ========================================
-
-      const content =
-        item.item.content?.[lang] || item.content?.es || item.content?.en || "";
-
-      // ========================================
-      // IMAGE
-      // ========================================
-
-      const image = item.item.imageUrl || "";
-
-      // ========================================
-      // DISPLAY
-      // ========================================
-
-      $("#itemCategory").text(categoryTitle);
-
-      $("#itemTitle").text(title);
-
-      $("#itemDescription").text(description);
-
-      $("#contentContainer").html(content);
-
-      // ========================================
-      // IMAGE
-      // ========================================
-
-      if (image) {
-        $("#itemImage").attr("src", image).attr("alt", title).show();
-      } else {
-        $("#itemImage").hide();
-      }
-
-      // ========================================
-      // PAGE TITLE
-      // ========================================
-
-      document.title = `${title} | ALMEZ`;
+      // Render according to current language
+      renderItem(currentItem);
     },
+
     error: function (xhr) {
       console.error("Error loading item:", xhr);
 
-      $("#itemContent").html(`
+      $("#contentContainer").html(`
         <div class="alert alert-danger">
           No se ha podido cargar la información.
         </div>
       `);
     },
   });
+}
+
+// ==================================================
+// RENDER ITEM ACCORDING TO SELECTED LANGUAGE
+// ==================================================
+
+function renderItem(data) {
+  const lang = localStorage.getItem("selectedLang") || "es";
+
+  console.log("Rendering item in language:", lang);
+
+  // ========================================
+  // CATEGORY
+  // ========================================
+
+  const categoryTitle =
+    data.categoryTitle?.[lang] ||
+    data.categoryTitle?.es ||
+    data.categoryTitle?.en ||
+    "";
+
+  // ========================================
+  // ITEM TITLE
+  // ========================================
+
+  const title =
+    data.item?.title?.[lang] ||
+    data.item?.title?.es ||
+    data.item?.title?.en ||
+    "";
+
+  // ========================================
+  // ITEM DESCRIPTION
+  // ========================================
+
+  const description =
+    data.item?.description?.[lang] ||
+    data.item?.description?.es ||
+    data.item?.description?.en ||
+    "";
+
+  // ========================================
+  // ITEM CONTENT
+  // ========================================
+
+  const content =
+    data.item?.content?.[lang] ||
+    data.item?.content?.es ||
+    data.item?.content?.en ||
+    "";
+
+  // ========================================
+  // IMAGE
+  // ========================================
+
+  const image = data.item?.imageUrl || "";
+
+  // ========================================
+  // DISPLAY
+  // ========================================
+
+  $("#itemCategory").text(categoryTitle);
+
+  $("#itemTitle").text(title);
+
+  $("#itemDescription").text(description);
+
+  $("#contentContainer").html(content);
+
+  // ========================================
+  // IMAGE
+  // ========================================
+
+  if (image) {
+    $("#itemImage").attr("src", image).attr("alt", title).show();
+  } else {
+    $("#itemImage").hide();
+  }
+
+  // ========================================
+  // PAGE TITLE
+  // ========================================
+
+  document.title = `${title} | ALMEZ`;
 }

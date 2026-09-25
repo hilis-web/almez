@@ -1827,7 +1827,7 @@ img.card-img-top {
 ========================================================= */
 
 .category-mega-right {
-  padding: 34px 40px;
+  /* padding: 34px 40px; */
 
   display: grid;
 
@@ -2148,7 +2148,7 @@ img.card-img-top {
   .category-mega-right {
     grid-template-columns: repeat(2, minmax(170px, 1fr));
 
-    padding: 28px;
+    /* padding: 28px; */
   }
 
   .category-mega-left {
@@ -2202,7 +2202,7 @@ img.card-img-top {
   .category-mega-right {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    padding: 25px 22px;
+    /* padding: 25px 22px; */
 
     gap: 8px;
   }
@@ -2245,7 +2245,7 @@ img.card-img-top {
   .category-mega-right {
     grid-template-columns: 1fr;
 
-    padding: 20px 15px;
+    /* padding: 20px 15px; */
   }
 
   .mega-item {
@@ -2367,7 +2367,7 @@ img.card-img-top {
   .category-mega-right {
     grid-template-columns: repeat(2, minmax(170px, 1fr));
 
-    padding: 28px;
+    /* padding: 28px; */
   }
 
   .category-mega-left {
@@ -2421,7 +2421,7 @@ img.card-img-top {
   .category-mega-right {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    padding: 25px 22px;
+    /* padding: 25px 22px; */
 
     gap: 8px;
   }
@@ -2464,7 +2464,7 @@ img.card-img-top {
   .category-mega-right {
     grid-template-columns: 1fr;
 
-    padding: 20px 15px;
+    /* padding: 20px 15px; */
   }
 
   .mega-item {
