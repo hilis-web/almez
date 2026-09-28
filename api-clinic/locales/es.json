@@ -293,5 +293,29 @@
   "treatments_description": "Tratamientos",
   "medical_legal_expertise_description": "Peritaje Médico-Legal",
   "information_and_advice_description": "Información y Consejos",
-  "contact_description": "Contacto"
+  "contact_description": "Contacto",
+
+  "integral_approach": {
+    "subtitle": "NUESTRO ENFOQUE INTEGRAL",
+    "title": "Cuidado experto para",
+    "title_highlight": "cada necesidad",
+    "description": "Combinamos experiencia, tecnología avanzada y un equipo multidisciplinar para ofrecerte el mejor tratamiento y acompañamiento."
+  },
+
+  "specialized_consultation": {
+    "subtitle": "CONSULTA ESPECIALIZADA",
+    "title": "Solicita tu",
+    "title_highlight": "consulta",
+    "description": "Completa el siguiente formulario y nuestro equipo revisará tu solicitud para ponerse en contacto contigo lo antes posible."
+  },
+
+  "specialty": {
+    "orthopedic_spine_surgery": "CLÍNICA DE CIRUGÍA ORTOPÉDICA Y COLUMNA"
+  },
+
+  "footer": {
+    "spine_surgery": "Cirugía de Columna",
+    "orthopedics": "Ortopedia",
+    "traumatology": "Traumatología"
+  }
 }

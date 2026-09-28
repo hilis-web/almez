@@ -179,6 +179,7 @@ function renderNavSections() {
        SECTION HTML
     ===================================================== */
 
+    const seeAll = i18next.t("see_all");
     const sectionItem = `
 
 <li
@@ -240,7 +241,7 @@ function renderNavSections() {
             data-section-id="${section.sectionId}"
         >
 
-            Ver todo
+            ${seeAll}
 
         </a>
 
@@ -520,7 +521,7 @@ function renderCategories() {
     /* =====================================================
        ITEMS
     ===================================================== */
-
+    const seeAll = i18next.t("see_all");
     const items = Array.isArray(category.items) ? category.items : [];
 
     /* =====================================================
@@ -621,7 +622,7 @@ function renderCategories() {
               class="category-mega-view-all"
             >
 
-              Ver todo
+              ${seeAll}
 
               <i class="bi bi-arrow-right"></i>
 
@@ -1148,6 +1149,7 @@ function renderSections() {
       section.description?.es ||
       section.description?.en ||
       "";
+    const seeAll = i18next.t("see_all");
 
     const imageUrl =
       section.imageUrl || "../assets/images/almez-decoration.svg";
@@ -1197,7 +1199,7 @@ function renderSections() {
               class="read-more"
             >
 
-              Ver todo
+               ${seeAll}
 
               <i class="bi bi-arrow-right"></i>
 

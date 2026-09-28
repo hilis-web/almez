@@ -293,5 +293,28 @@
   "treatments_description": "Treatments",
   "medical_legal_expertise_description": "Medical-Legal Expertise",
   "information_and_advice_description": "Information and Advice",
-  "contact_description": "Contact"
+  "contact_description": "Contact",
+
+  "integral_approach": {
+    "subtitle": "OUR COMPREHENSIVE APPROACH",
+    "title": "Expert care for",
+    "title_highlight": "every need",
+    "description": "We combine experience, advanced technology, and a multidisciplinary team to provide you with the best treatment and support."
+  },
+
+  "specialized_consultation": {
+    "subtitle": "SPECIALIST CONSULTATION",
+    "title": "Request your",
+    "title_highlight": "consultation",
+    "description": "Complete the following form and our team will review your request and contact you as soon as possible."
+  },
+  "specialty": {
+    "orthopedic_spine_surgery": "ORTHOPEDIC AND SPINE SURGERY CLINIC"
+  },
+
+  "footer": {
+    "spine_surgery": "Spine Surgery",
+    "orthopedics": "Orthopedics",
+    "traumatology": "Traumatology"
+  }
 }

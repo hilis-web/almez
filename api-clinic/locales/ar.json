@@ -86,5 +86,28 @@
   "treatments_description": "العلاجات",
   "medical_legal_expertise_description": "الخبرة الطبية القانونية",
   "information_and_advice_description": "المعلومات والنصائح",
-  "contact_description": "اتصل بنا"
+  "contact_description": "اتصل بنا",
+
+  "integral_approach": {
+    "subtitle": "نهجنا المتكامل",
+    "title": "رعاية متخصصة",
+    "title_highlight": "لكل احتياج",
+    "description": "نجمع بين الخبرة والتقنيات المتقدمة وفريق متعدد التخصصات لنقدم لك أفضل علاج ورعاية متكاملة."
+  },
+
+  "specialized_consultation": {
+    "subtitle": "استشارة متخصصة",
+    "title": "اطلب",
+    "title_highlight": "استشارتك",
+    "description": "أكمل النموذج التالي وسيقوم فريقنا بمراجعة طلبك والتواصل معك في أقرب وقت ممكن."
+  },
+
+  "specialty": {
+    "orthopedic_spine_surgery": "عيادة جراحة العظام والعمود الفقري"
+  },
+  "footer": {
+    "spine_surgery": "جراحة العمود الفقري",
+    "orthopedics": "جراحة العظام",
+    "traumatology": "طب الإصابات"
+  }
 }

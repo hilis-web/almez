@@ -11,5 +11,24 @@
   "dr_name": "Dr. Aaron Hilis MB ChB BSc, MA, FRCS, PhD",
   "profession_title": "CIRUGÍA DE COLUMNA · ORTOPEDIA · TRAUMATOLOGÍA",
   "more_info": "More info",
-  "see_all": "Ver todo"
+  "see_all": "Ver todo",
+  "integral_approach": {
+    "subtitle": "NUESTRO ENFOQUE INTEGRAL",
+    "title": "Cuidado experto para",
+    "title_highlight": "cada necesidad",
+    "description": "Combinamos experiencia, tecnología avanzada y un equipo multidisciplinar para ofrecerte el mejor tratamiento y acompañamiento."
+  },
+
+  "specialized_consultation": {
+    "subtitle": "CONSULTA ESPECIALIZADA",
+    "title": "Solicita tu",
+    "title_highlight": "consulta",
+    "description": "Completa el siguiente formulario y nuestro equipo revisará tu solicitud para ponerse en contacto contigo lo antes posible."
+  },
+  "specialty": {
+    "orthopedic_spine_surgery": "CLÍNICA DE CIRUGÍA ORTOPÉDICA Y COLUMNA"
+  },
+  "footer": {
+    "tagline": "Cirugía de Columna<br />Ortopedia<br />Traumatología"
+  }
 }
